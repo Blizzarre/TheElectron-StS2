@@ -1,3 +1,16 @@
 {
-  
+  "THEELECTRON-THE_ELECTRON.aromaPrinciple": "Lore",
+  "THEELECTRON-THE_ELECTRON.banter.alive.endTurnPing": "Hurry",
+  "THEELECTRON-THE_ELECTRON.banter.dead.endTurnPing": "...",
+  "THEELECTRON-THE_ELECTRON.cardsModifierDescription": "Electron cards will now appear in rewards and shops.",
+  "THEELECTRON-THE_ELECTRON.cardsModifierTitle": "Electron Cards",
+  "THEELECTRON-THE_ELECTRON.description": "Character Selection\nScreen Description",
+  "THEELECTRON-THE_ELECTRON.eventDeathPrevention": "Co-op survival line",
+  "THEELECTRON-THE_ELECTRON.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "THEELECTRON-THE_ELECTRON.possessiveAdjective": "his/her/its",
+  "THEELECTRON-THE_ELECTRON.pronounObject": "him/her/it",
+  "THEELECTRON-THE_ELECTRON.pronounPossessive": "his/hers/its",
+  "THEELECTRON-THE_ELECTRON.pronounSubject": "he/she/it",
+  "THEELECTRON-THE_ELECTRON.title": "The Electron",
+  "THEELECTRON-THE_ELECTRON.titleObject": "The Electron"
 }

@@ -1,3 +1,8 @@
 {
-  
+  "THEELECTRON-STRIKE_ELECTRON.description": "Deal {Damage:diff()} damage.",
+  "THEELECTRON-STRIKE_ELECTRON.title": "Drain Strike",
+  "THEELECTRON-EMPTY_STRIKE.description": "{IsNotEmpty:|[color=dim_gray]}Deal {Damage:diff()} damage.{IsNotEmpty:|[/color]}\n[gold]Empty[/gold]: {IsEmpty:|[color=dim_gray]}[lb]Deal {EmptyDamage:diff()} damage.[rb]{IsEmpty:|[/color]}",
+  "THEELECTRON-EMPTY_STRIKE.title": "Empty Strike",
+  "THEELECTRON-DEPLETE_STRIKE.description": "[gold]Deplete[/gold]: {WouldDeplete:|[color=dim_gray]}[lb]Gain {Block:diff()} {WouldDeplete:[gold]|}Block{WouldDeplete:[/gold]|}.[rb]{WouldDeplete:|[/color]}\nDeal {Damage:diff()} damage.",
+  "THEELECTRON-DEPLETE_STRIKE.title": "Deplete Strike"
 }

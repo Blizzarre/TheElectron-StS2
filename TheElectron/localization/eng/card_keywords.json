@@ -1,3 +1,4 @@
 {
-  
+  "THEELECTRON-DRAIN.description": "Can be played without having enough {energyPrefix:energyIcons(1)} at the cost of [blue]2[/blue] [gold]Farad[/gold] or HP per extra {energyPrefix:energyIcons(1)} needed.",
+  "THEELECTRON-DRAIN.title": "Drain"
 }

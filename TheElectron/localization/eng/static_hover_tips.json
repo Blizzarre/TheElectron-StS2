@@ -1,3 +1,6 @@
 {
-  
+  "THEELECTRON-EMPTY.description": "This card costs [blue]{energyPrefix:energyIcons(0)}[/blue] if you have [blue]{energyPrefix:energyIcons(0)}[/blue]. Only effects after Empty are used when played this way.",
+  "THEELECTRON-EMPTY.title": "Empty",
+  "THEELECTRON-DEPLETE.description": "If your {energyPrefix:energyIcons(1)} would be [blue]0[/blue] after playing this card, use the Deplete effects.",
+  "THEELECTRON-DEPLETE.title": "Deplete"
 }
