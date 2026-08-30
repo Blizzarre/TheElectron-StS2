@@ -6,6 +6,7 @@ using TheElectron.TheElectronCode.Extensions;
 namespace TheElectron.TheElectronCode.Patches;
 
 // Patches to make Drain card glow different color when it's going to activate Drain effect (not enough Energy)
+// Also glow grey-ish when Empty
 [HarmonyPatch(typeof(NHandCardHolder), nameof(NHandCardHolder.UpdateCard))]
 public static class NHandCardHolderUpdateCardPatch
 {

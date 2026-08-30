@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
     <Import Project=".\Sts2PathDiscovery.props"/>
     <PropertyGroup>
+        <ModVersion>0.0.1</ModVersion>
+        <Version>$(ModVersion)</Version>
+        <FileVersion>$(ModVersion).0</FileVersion>
+        <InformationalVersion>$(ModVersion)</InformationalVersion>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>enable</Nullable> <!--Makes code analysis regarding null values stricter.-->
@@ -66,6 +70,10 @@
         <Folder Include="TheElectron\images\card_portraits\big\"/>
         <Folder Include="TheElectron\images\powers\big\"/>
         <Folder Include="TheElectron\images\relics\big\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="LICENSE" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

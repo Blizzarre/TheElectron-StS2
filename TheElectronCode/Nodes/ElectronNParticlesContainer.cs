@@ -11,7 +11,7 @@ public partial class ElectronNParticlesContainer : Node2D
 
     public override void _Ready()
     {
-        var children = GetChildren();
+        var children = FindChildren("*", recursive:true);
         _particles.AddRange(children.OfType<GpuParticles2D>());
         _cpuParticles.AddRange(children.OfType<CpuParticles2D>());
     }
@@ -30,7 +30,7 @@ public partial class ElectronNParticlesContainer : Node2D
             {
                 var newEmitter = (GpuParticles2D)particle.Duplicate();
                 newEmitter.Emitting = true;
-                AddChild(newEmitter);
+                particle.AddSibling(newEmitter);
                 newEmitter.Restart();
                 newEmitter.Connect("finished", Callable.From(newEmitter.QueueFree));
             }
@@ -44,7 +44,7 @@ public partial class ElectronNParticlesContainer : Node2D
             {
                 var newEmitter = (CpuParticles2D)particle.Duplicate();
                 newEmitter.Emitting = true;
-                AddChild(newEmitter);
+                particle.AddSibling(newEmitter);
                 newEmitter.Restart();
                 newEmitter.Connect("finished", Callable.From(newEmitter.QueueFree));
             }

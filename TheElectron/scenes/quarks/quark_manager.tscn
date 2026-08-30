@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ohsnw6qdi63j"]
+[gd_scene load_steps=19 format=3 uid="uid://ohsnw6qdi63j"]
 
 [ext_resource type="Script" uid="uid://e34uy7ov1ow5" path="res://TheElectronCode/Nodes/Quarks/NQuarkManager.cs" id="1_b2axr"]
 [ext_resource type="Texture2D" uid="uid://vxhwoiy56m24" path="res://TheElectron/images/quarks/quark_bg.png" id="1_ys36x"]
@@ -6,6 +6,8 @@
 [ext_resource type="Shader" uid="uid://56am412ia40x" path="res://TheElectron/shaders/vfx_radial_fade_particle_shader.gdshader" id="4_ys36x"]
 [ext_resource type="PackedScene" uid="uid://o4pfgs503law" path="res://TheElectron/scenes/quarks/fuse_stat.tscn" id="5_gnbik"]
 [ext_resource type="Texture2D" uid="uid://d1ar7yvpvlpwn" path="res://TheElectron/images/vfx/solid_square.png" id="5_o3nyp"]
+[ext_resource type="Shader" uid="uid://fhlsjvpnckjs" path="res://TheElectron/shaders/vfx_radial_aberration.gdshader" id="7_mtyxu"]
+[ext_resource type="Texture2D" uid="uid://c8pmyyv7bp5ht" path="res://TheElectron/images/vfx/common_glow.png" id="8_gnbik"]
 
 [sub_resource type="Curve" id="Curve_i4mce"]
 _limits = [-0.5, 1.0, 0.0, 1.0]
@@ -41,6 +43,14 @@ shader_parameter/smoothness = 0.045
 [sub_resource type="Gradient" id="Gradient_5f3k3"]
 offsets = PackedFloat32Array(0, 0.34056398, 1)
 colors = PackedColorArray(1.6908039, 1.3348317, 1.7866424, 1, 1.6417067, 1.2883348, 1.7405701, 1, 0.8525157, 0.5409416, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvkw1"]
+shader = ExtResource("7_mtyxu")
+shader_parameter/intensity = 0.05999999865888
+
+[sub_resource type="Gradient" id="Gradient_kr4vw"]
+offsets = PackedFloat32Array(0, 0.19038461, 0.28076923, 0.5942308, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0.9259001, 0.9259001, 0.9259001, 1, 0.29268295, 0.29268295, 0.29268295, 1, 0, 0, 0, 1)
 
 [node name="QuarkManager" type="Control"]
 layout_mode = 3
@@ -137,3 +147,18 @@ local_coords = true
 draw_order = 1
 gravity = Vector2(0, 0)
 color_ramp = SubResource("Gradient_5f3k3")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="ParticlesContainer"]
+copy_mode = 2
+
+[node name="AberrationVfx" type="CPUParticles2D" parent="ParticlesContainer/BackBufferCopy"]
+material = SubResource("ShaderMaterial_tvkw1")
+scale = Vector2(3, 3)
+emitting = false
+amount = 1
+texture = ExtResource("8_gnbik")
+lifetime = 0.35000000000000003
+one_shot = true
+local_coords = true
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_kr4vw")
