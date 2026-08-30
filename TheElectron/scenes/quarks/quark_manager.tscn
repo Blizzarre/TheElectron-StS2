@@ -1,0 +1,139 @@
+[gd_scene load_steps=15 format=3 uid="uid://ohsnw6qdi63j"]
+
+[ext_resource type="Script" uid="uid://e34uy7ov1ow5" path="res://TheElectronCode/Nodes/Quarks/NQuarkManager.cs" id="1_b2axr"]
+[ext_resource type="Texture2D" uid="uid://vxhwoiy56m24" path="res://TheElectron/images/quarks/quark_bg.png" id="1_ys36x"]
+[ext_resource type="Script" uid="uid://cgx5jucs6uxjh" path="res://TheElectronCode/Nodes/ElectronNParticlesContainer.cs" id="4_o3nyp"]
+[ext_resource type="Shader" uid="uid://56am412ia40x" path="res://TheElectron/shaders/vfx_radial_fade_particle_shader.gdshader" id="4_ys36x"]
+[ext_resource type="PackedScene" uid="uid://o4pfgs503law" path="res://TheElectron/scenes/quarks/fuse_stat.tscn" id="5_gnbik"]
+[ext_resource type="Texture2D" uid="uid://d1ar7yvpvlpwn" path="res://TheElectron/images/vfx/solid_square.png" id="5_o3nyp"]
+
+[sub_resource type="Curve" id="Curve_i4mce"]
+_limits = [-0.5, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -0.5), 0.0, 0.34295103, 0, 0, Vector2(0.6150871, -0.0432837), 1.2276115, 1.2276115, 0, 0, Vector2(1, 0.38762307), 1.1078625, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mtyxu"]
+curve = SubResource("Curve_i4mce")
+
+[sub_resource type="Gradient" id="Gradient_gnbik"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tvkw1"]
+gradient = SubResource("Gradient_gnbik")
+width = 64
+
+[sub_resource type="Curve" id="Curve_kr4vw"]
+_limits = [-0.5, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -0.114925504), 0.0, 0.37126172, 0, 0, Vector2(1, 0.37761182), 0.8391834, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_35nqb"]
+curve = SubResource("Curve_kr4vw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnc3q"]
+shader = ExtResource("4_ys36x")
+shader_parameter/lut = SubResource("GradientTexture1D_tvkw1")
+shader_parameter/pivot_offset = Vector2(0, 0)
+shader_parameter/inner_edge_curve = SubResource("CurveTexture_mtyxu")
+shader_parameter/outer_edge_curve = SubResource("CurveTexture_35nqb")
+shader_parameter/smoothness = 0.045
+
+[sub_resource type="Gradient" id="Gradient_5f3k3"]
+offsets = PackedFloat32Array(0, 0.34056398, 1)
+colors = PackedColorArray(1.6908039, 1.3348317, 1.7866424, 1, 1.6417067, 1.2883348, 1.7405701, 1, 0.8525157, 0.5409416, 1, 1)
+
+[node name="QuarkManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_b2axr")
+
+[node name="AllContainer" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+mouse_filter = 1
+
+[node name="AtomContainer" type="Control" parent="AllContainer"]
+unique_name_in_owner = true
+anchors_preset = 0
+mouse_filter = 1
+
+[node name="QuarkBg" type="TextureRect" parent="AllContainer/AtomContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+mouse_filter = 2
+texture = ExtResource("1_ys36x")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Quarks" type="Control" parent="AllContainer/AtomContainer"]
+unique_name_in_owner = true
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="CenterMarker" type="Marker2D" parent="AllContainer/AtomContainer"]
+unique_name_in_owner = true
+
+[node name="FuseStats" type="Control" parent="AllContainer"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 83.0
+offset_right = 83.0
+mouse_filter = 2
+
+[node name="FuseStat1" parent="AllContainer/FuseStats" instance=ExtResource("5_gnbik")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = -18.0
+offset_bottom = 18.0
+
+[node name="FuseStat2" parent="AllContainer/FuseStats" instance=ExtResource("5_gnbik")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = -18.0
+offset_bottom = 18.0
+
+[node name="FuseStat3" parent="AllContainer/FuseStats" instance=ExtResource("5_gnbik")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = -18.0
+offset_bottom = 18.0
+
+[node name="FuseStat4" parent="AllContainer/FuseStats" instance=ExtResource("5_gnbik")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = -18.0
+offset_bottom = 18.0
+
+[node name="RemoteParticles" type="RemoteTransform2D" parent="AllContainer"]
+remote_path = NodePath("../../ParticlesContainer")
+
+[node name="Bounds" type="Control" parent="AllContainer"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 81.0
+offset_top = -75.0
+offset_right = 189.0
+offset_bottom = 75.0
+mouse_filter = 1
+
+[node name="ParticlesContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_o3nyp")
+
+[node name="FlashVfx" type="CPUParticles2D" parent="ParticlesContainer"]
+material = SubResource("ShaderMaterial_bnc3q")
+scale = Vector2(1.5, 1.5)
+emitting = false
+amount = 1
+texture = ExtResource("5_o3nyp")
+lifetime = 0.4
+one_shot = true
+fixed_fps = 60
+local_coords = true
+draw_order = 1
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_5f3k3")

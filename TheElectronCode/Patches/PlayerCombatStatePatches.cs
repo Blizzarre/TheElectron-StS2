@@ -1,15 +1,50 @@
 ﻿using System.Reflection.Emit;
 using BaseLib.Utils.Patching;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Relics;
 using TheElectron.TheElectronCode.Cards;
-using TheElectron.TheElectronCode.Hooks;
+using TheElectron.TheElectronCode.Entities;
+using TheElectron.TheElectronCode.Extensions;
+using TheElectron.TheElectronCode.Field;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Patches;
+
+[HarmonyPatch(typeof(PlayerCombatState), MethodType.Constructor)]
+[HarmonyPatch([typeof(Player)])]
+internal class PlayerCombatStateConstructorPatch
+{
+    [HarmonyPostfix]
+    private static void Postfix(Player player, PlayerCombatState __instance)
+    {
+        var quarkQueue = new QuarkQueue(player);
+        quarkQueue.Clear();
+        if (player.Character is Character.TheElectron)
+        {
+            quarkQueue.AddCapacity(QuarkQueue.DefaultCapacity);
+        }
+
+        var electronCombatState = new PlayerCombatStateExtension.ElectronCombatState(__instance, quarkQueue);
+
+        ElectronField.ElectronCombatState[__instance] = electronCombatState;
+
+        CombatManager.Instance.StateTracker.SubscribeFarad(electronCombatState);
+    }
+}
+
+[HarmonyPatch(typeof(PlayerCombatState), nameof(PlayerCombatState.AfterCombatEnd))]
+internal class PlayerCombatStateAfterCombatEndPatch
+{
+    [HarmonyPostfix]
+    public static void Postfix(PlayerCombatState __instance)
+    {
+        var electronCombatState = __instance.Electron();
+        if (electronCombatState != null) CombatManager.Instance.StateTracker.UnsubscribeFarad(electronCombatState);
+    }
+}
 
 [HarmonyPatch(typeof(PlayerCombatState), nameof(PlayerCombatState.HasEnoughResourcesFor))]
 internal class PlayerCombatStateHasEnoughResourcesForPatch
@@ -40,27 +75,5 @@ internal class PlayerCombatStateHasEnoughResourcesForPatch
         {
             reason ^= UnplayableReason.EnergyCostTooHigh;
         }
-    }
-}
-
-[HarmonyPatch(typeof(PlayerCombatState), nameof(PlayerCombatState.GainEnergy))]
-internal class PlayerCombatStateGainEnergyPatch
-{
-    [HarmonyPostfix]
-    private static void Postfix(PlayerCombatState __instance)
-    {
-        var player = __instance._player;
-        ElectronHook.AfterEnergyChanged(player.Creature.CombatState!, player, __instance.Energy);
-    }
-}
-
-[HarmonyPatch(typeof(PlayerCombatState), nameof(PlayerCombatState.LoseEnergy))]
-internal class PlayerCombatStateLoseEnergyPatch
-{
-    [HarmonyPostfix]
-    private static void Postfix(PlayerCombatState __instance)
-    {
-        var player = __instance._player;
-        ElectronHook.AfterEnergyChanged(player.Creature.CombatState!, player, __instance.Energy);
     }
 }

@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbdv8c2ugqnri"]
+
+[ext_resource type="Script" uid="uid://dwr884k4lao00" path="res://TheElectronCode/Nodes/NFaradCounter.cs" id="1_cfem3"]
+[ext_resource type="Texture2D" uid="uid://xd66i5waokn0" path="res://TheElectron/images/combatui/energy_counters/farad_counter_base.png" id="1_gtsj5"]
+[ext_resource type="Texture2D" uid="uid://5nrv0tibruiq" path="res://TheElectron/images/combatui/energy_counters/farad_counter_center.png" id="2_3kx7g"]
+[ext_resource type="Shader" uid="uid://ba1w6cw5fv5rm" path="res://TheElectron/shaders/hsv.gdshader" id="2_cfem3"]
+[ext_resource type="Texture2D" uid="uid://e3mwi18kq8yt" path="res://TheElectron/images/combatui/energy_counters/farad_counter_frame.png" id="3_cfem3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5susx"]
+shader = ExtResource("2_cfem3")
+shader_parameter/h = 1.0
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+
+[node name="FaradCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 128.0
+script = ExtResource("1_cfem3")
+
+[node name="Base" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("1_gtsj5")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_5susx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("2_3kx7g")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("3_cfem3")
+expand_mode = 2
+stretch_mode = 4

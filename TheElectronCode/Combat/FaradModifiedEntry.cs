@@ -13,8 +13,9 @@ public class FaradModifiedEntry(
     IEnumerable<Player> players) : CombatHistoryEntry(player.Creature, roundNumber, currentSide, history, players)
 {
     public int Amount { get; } = amount;
-    
+
     public Player Player { get; } = player;
-    
-    public override string Description => $"{Actor.Player?.Character.Id.Entry} {(Amount < 0 ? "lost" : "gained")} {Amount} farad";
+
+    public override string Description =>
+        $"{Actor.Player?.Character.Id.Entry} {(Amount < 0 ? "lost" : "gained")} {Amount} farad";
 }

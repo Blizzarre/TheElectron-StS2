@@ -1,6 +1,22 @@
 {
-  "THEELECTRON-EMPTY.description": "This card costs [blue]{energyPrefix:energyIcons(0)}[/blue] if you have [blue]{energyPrefix:energyIcons(0)}[/blue]. Only effects after Empty are used when played this way.",
+  "THEELECTRON-EMPTY.description": "This card costs [blue]{energyPrefix:energyIcons(0)}[/blue] if you have [blue]{energyPrefix:energyIcons(0)}[/blue]. Only Empty effects are used when played this way.",
   "THEELECTRON-EMPTY.title": "Empty",
   "THEELECTRON-DEPLETE.description": "If your {energyPrefix:energyIcons(1)} would be [blue]0[/blue] after playing this card, use the Deplete effects.",
-  "THEELECTRON-DEPLETE.title": "Deplete"
+  "THEELECTRON-DEPLETE.title": "Deplete",
+  "THEELECTRON-FARAD_COUNT.description": "Your current Farad count. [gold]Drain[/gold] cards will take from your Farad before your HP.",
+  "THEELECTRON-FARAD_COUNT.title": "Farad",
+  "THEELECTRON-FARAD.description": "[gold]Drain[/gold] cards will take from your Farad before your HP.",
+  "THEELECTRON-FARAD.title": "Farad",
+  "THEELECTRON-PRODUCE.description": "Producing a Quark puts it into your empty slot. When the slots are full, ALL Quarks are automatically [gold]Fused[/gold] to activate their combined effects.",
+  "THEELECTRON-PRODUCE.title": "Produce",
+  "THEELECTRON-FUSION_STATS.title": "Fusion Result",
+  "THEELECTRON-FUSION_STATS.description": "On [gold]Fusion[/gold], perform the following effects:\n{EffectsString}",
+  "THEELECTRON-FUSION_STATS.damage": "Deal [blue]{Damage}[/blue] damage to the enemy with the highest [gold]Quantum Link[/gold] stack.",
+  "THEELECTRON-FUSION_STATS.block": "Gain [blue]{Block}[/blue] [gold]Block[/gold].",
+  "THEELECTRON-FUSION_STATS.draw": "Draw [blue]{Draw}[/blue] card{Draw:plural:|s}.",
+  "THEELECTRON-FUSION_STATS.energy": "Gain [blue]{Energy:energyIcons()}[/blue].",
+  "THEELECTRON-STABLE.description": "Stable Quarks create their own Slot when [gold]Produced[/gold]. Slots created this way are removed after [gold]Fusion[/gold].",
+  "THEELECTRON-STABLE.title": "Stable",
+  "THEELECTRON-STABLE_QUARK.description": "This Quark is Stable {HasStableSlot:and has|but doesn't have} its own Slot.{HasStableSlot: After [gold]Fusion[/gold], [blue]1[/blue] Slot will be removed.|}",
+  "THEELECTRON-STABLE_QUARK.title": "Stable"
 }

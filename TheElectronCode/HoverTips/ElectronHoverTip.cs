@@ -4,5 +4,9 @@ public enum ElectronHoverTip
 {
     None,
     Empty,
-    Deplete
+    Deplete,
+    Produce,
+    Farad,
+    Stable,
+    StableQuark
 }

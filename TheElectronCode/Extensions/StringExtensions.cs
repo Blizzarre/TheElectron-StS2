@@ -86,4 +86,14 @@ public static class StringExtensions
     {
         return Path.Join(TheElectronMod.ResPath, "images", "charui", path);
     }
+    
+    public static string QuarkImagePath(this string path)
+    {
+        return Path.Join(TheElectronMod.ModId, "images", "quarks", "icons", path + ".png");
+    }
+
+    public static string QuarkScenePath(this string path)
+    {
+        return Path.Join(TheElectronMod.ModId, "scenes", "quarks", "quark_visuals", path + ".tscn");
+    }
 }

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwy6cyttamqf3"]
+
+[ext_resource type="Texture2D" uid="uid://chfxbrkwh7tt6" path="res://TheElectron/images/quarks/charm_quark.png" id="1_5vn5t"]
+[ext_resource type="Script" uid="uid://i4s3hr6m0po4" path="res://TheElectronCode/Nodes/Quarks/NQuarkVisuals.cs" id="1_58msr"]
+
+[node name="CharmQuark" type="Node2D"]
+script = ExtResource("1_58msr")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_5vn5t")

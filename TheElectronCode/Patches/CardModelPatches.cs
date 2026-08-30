@@ -9,7 +9,10 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using TheElectron.TheElectronCode.Cards;
+using TheElectron.TheElectronCode.Commands;
+using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Field;
+using TheElectron.TheElectronCode.Hooks;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Patches;
@@ -90,16 +93,31 @@ internal class CardModelOnPlayWrapperPatch
     private static async Task DrainHp(CardModel __instance, PlayerChoiceContext choiceContext)
     {
         var excessEnergy = ElectronField.DrainExcessEnergy[__instance];
-        if (excessEnergy > 0)
+        if (excessEnergy > 0 && __instance.CombatState != null)
         {
+            var player = __instance.Owner;
             // TODO: Maybe hook this to determine hp conversion ratio?
-            
-            // TODO: Take 'HP' away from Farad first
-            await CreatureCmd.Damage(choiceContext, __instance.Owner.Creature,
-                new DamageVar(2m * excessEnergy, ValueProp.Unpowered | ValueProp.Unblockable), __instance, null);
+            var totalAmount = excessEnergy * 2m;
+            var drainAmount = totalAmount;
+            var electronCombatState = __instance.Owner.PlayerCombatState?.Electron();
+            if (electronCombatState != null)
+            {
+                var faradDrain = Math.Min(electronCombatState.Farad, drainAmount);
+
+                await ElectronPlayerCmd.LoseFarad(choiceContext, player, faradDrain, __instance);
+
+                drainAmount -= faradDrain;
+            }
+
+            if (drainAmount > 0)
+            {
+                await CreatureCmd.Damage(choiceContext, __instance.Owner.Creature,
+                    new DamageVar(drainAmount, ValueProp.Unpowered | ValueProp.Unblockable), __instance, null);
+            }
             ElectronField.DrainExcessEnergy[__instance] = 0;
             
-            // TODO: Hook for Quantum Link trigger (must trigger after damage)
+            await ElectronHook.AfterFaradOrHpDrained(__instance.CombatState, choiceContext, player, totalAmount,
+                __instance);
         }
     }
 }

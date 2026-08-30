@@ -14,3 +14,9 @@ public class ElectronEnums
     [CustomEnum] public static CardCostColor CostColorDrain;
     [CustomEnum] public static CardCostColor CostColorEmpty;
 }
+
+public class ElectronTags
+{
+    [CustomEnum] public static CardTag Empty;
+    [CustomEnum] public static CardTag Deplete;
+}

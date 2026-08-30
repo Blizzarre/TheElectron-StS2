@@ -1,34 +1,65 @@
 ﻿using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using TheElectron.TheElectronCode.Entities;
+using TheElectron.TheElectronCode.Field;
 
 namespace TheElectron.TheElectronCode.Extensions;
 
-public class PlayerCombatStateExtension
+public static class PlayerCombatStateExtension
 {
     public class ElectronCombatState(PlayerCombatState combatState, QuarkQueue quarkQueue)
     {
-        private int _farad;
-
         public int Farad
         {
-            get => _farad;
-            private set
+            get;
+            set
             {
-                if (_farad == value) return;
-                var farad = _farad;
-                _farad = value;
+                if (field == value) return;
+                var farad = field;
+                field = Math.Max(value, 0);
                 var state = combatState._player.Creature.CombatState;
                 if (state != null)
                 {
-                    CombatManager.Instance.History.FaradModified(state, _farad - farad, combatState._player);
+                    CombatManager.Instance.History.FaradModified(state, field - farad, combatState._player);
                 }
-                FaradChanged?.Invoke(farad, _farad);
+
+                FaradChanged?.Invoke(farad, field);
             }
         }
 
         public QuarkQueue QuarkQueue => quarkQueue;
 
         public event Action<int, int>? FaradChanged;
+        
+
+        public void GainFarad(int amount)
+        {
+            Farad += amount;
+        }
+
+        public void LoseFarad(int amount)
+        {
+            Farad -= amount;
+        }
+    }
+    
+    extension(PlayerCombatState playerCombatState)
+    {
+        public QuarkQueue? GetQuarkQueue()
+        {
+            var electronCombatState = playerCombatState.Electron();
+            return electronCombatState?.QuarkQueue;
+        }
+
+        public int GetFarad()
+        {
+            var electronCombatState = playerCombatState.Electron();
+            return electronCombatState?.Farad ?? 0;
+        }
+        
+        public ElectronCombatState? Electron()
+        {
+            return ElectronField.ElectronCombatState[playerCombatState];
+        }
     }
 }

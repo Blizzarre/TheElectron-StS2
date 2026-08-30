@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b84y80tglnumr"]
+
+[ext_resource type="Script" uid="uid://bmav0cvnvscj7" path="res://TheElectronCode/Nodes/Quarks/NQuark.cs" id="1_53xmf"]
+[ext_resource type="Texture2D" uid="uid://bvphoj63ya8m1" path="res://TheElectron/images/quarks/empty_quark.png" id="2_eqpkn"]
+[ext_resource type="Texture2D" uid="uid://b7t4rxjd24mdo" path="res://TheElectron/images/quarks/stable_quark.png" id="3_eqpkn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eqpkn"]
+blend_mode = 1
+
+[node name="Quark" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_53xmf")
+
+[node name="Outline" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_eqpkn")
+
+[node name="VisualContainer" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+
+[node name="StableOutline" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.94117653, 0.2313726, 1)
+material = SubResource("CanvasItemMaterial_eqpkn")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_eqpkn")
+
+[node name="LabelContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 11.0
+offset_top = -7.0
+offset_right = 33.0
+offset_bottom = 31.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 34.0
+offset_bottom = 34.0
+mouse_filter = 1

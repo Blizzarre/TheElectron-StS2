@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization;
 using TheElectron.TheElectronCode.HoverTips;
+using TheElectron.TheElectronCode.Models;
 
 namespace TheElectron.TheElectronCode.Cards;
 
@@ -60,5 +61,10 @@ public abstract class ElectronCard(int cost, CardType type, CardRarity rarity, T
                 WithTip(new TooltipSource(_ => ElectronHoverTipFactory.Static(electronTip)));
                 break;
         }
+    }
+    
+    protected void WithQuarkTip<T>() where T : QuarkModel
+    {
+        WithTip(new TooltipSource(_ => ElectronHoverTipFactory.FromQuark<T>()));
     }
 }

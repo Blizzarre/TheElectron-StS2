@@ -2,6 +2,7 @@ using System.Reflection;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode;
 
@@ -21,6 +22,8 @@ public partial class TheElectronMod : Node
 
         //If you want to use scripts defined in your mod for Godot scenes, uncomment the following line.
         Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);
+        
+        ElectronSubscriber.Subscribe();
 
         Harmony harmony = new(ModId);
 

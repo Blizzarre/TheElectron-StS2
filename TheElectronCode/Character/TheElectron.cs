@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
 using TheElectron.TheElectronCode.Cards.Basic;
+using TheElectron.TheElectronCode.Relics;
 
 namespace TheElectron.TheElectronCode.Character;
 
@@ -18,7 +19,7 @@ public class TheElectron : PlaceholderCharacterModel
 
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Neutral;
-    public override int StartingHp => 76;
+    public override int StartingHp => 72;
 
     public override IEnumerable<CardModel> StartingDeck =>
     [
@@ -35,7 +36,7 @@ public class TheElectron : PlaceholderCharacterModel
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
     [
-        ModelDb.Relic<BurningBlood>()
+        ModelDb.Relic<LeakingCapacitor>()
     ];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<TheElectronCardPool>();

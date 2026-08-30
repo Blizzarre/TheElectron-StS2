@@ -1,3 +1,6 @@
 {
-  
+  "SEA_GLASS.THEELECTRON-THE_ELECTRON.title": "Atomic Glass",
+  "THEELECTRON-LEAKING_CAPACITOR.description": "At the start of each combat, [gold]Produce[/gold] [blue]{UpQuark}[/blue] [gold]Up Quark{UpQuark:plural:|s}[/gold] and gain [blue]{Farad}[/blue] [gold]Farad[/gold].",
+  "THEELECTRON-LEAKING_CAPACITOR.flavor": "An originally robust component. It has worn down after a millennia of usage.",
+  "THEELECTRON-LEAKING_CAPACITOR.title": "Leaking Capacitor"
 }

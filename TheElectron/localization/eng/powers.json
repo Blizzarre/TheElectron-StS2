@@ -1,3 +1,8 @@
 {
-  
+  "THEELECTRON-QUANTUM_LINK_POWER.description": "Whenever you lose [gold]Farad[/gold] or HP on your turn, this creature loses that much HP for each stack of Quantum Link.",
+  "THEELECTRON-QUANTUM_LINK_POWER.smartDescription": "Whenever {IsMultiplayer:[gold]{ApplierName}[/gold]|you} lose [gold]Farad[/gold] or HP on {IsMultiplayer:their|your} turn, [gold]{OwnerName}[/gold] loses that much HP times [blue]{Amount}[/blue].",
+  "THEELECTRON-QUANTUM_LINK_POWER.title": "Quantum Link",
+  "THEELECTRON-STABILITY_POWER.description": "The next Quark you [gold]Produce[/gold] is [gold]Stable[/gold].",
+  "THEELECTRON-STABILITY_POWER.smartDescription": "The next [blue]{Amount}[/blue] Quark{Amount:plural:|s} you [gold]Produce[/gold] {Amount:plural:is|are} [gold]Stable[/gold].",
+  "THEELECTRON-STABILITY_POWER.title": "Stability"
 }

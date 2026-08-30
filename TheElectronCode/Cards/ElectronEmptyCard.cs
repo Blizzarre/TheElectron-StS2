@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using TheElectron.TheElectronCode.HoverTips;
+using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Cards;
 
@@ -10,6 +11,7 @@ public abstract class ElectronEmptyCard : ElectronCard
     protected ElectronEmptyCard(int cost, CardType type, CardRarity rarity, TargetType target) : base(cost, type, rarity, target)
     {
         WithTip(ElectronHoverTip.Empty);
+        WithTags(ElectronTags.Empty);
     }
 
     // Set during SpendResource

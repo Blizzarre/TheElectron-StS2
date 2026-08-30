@@ -1,0 +1,22 @@
+{
+  "THEELECTRON-EMPTY_SLOT.description": "Quark can be [gold]Produced[/gold] into this slot.",
+  "THEELECTRON-EMPTY_SLOT.title": "Quark Slot",
+  "THEELECTRON-UP_QUARK.description": "Quark: Deals damage to the enemy with the highest [gold]Quantum Link[/gold] stack.",
+  "THEELECTRON-UP_QUARK.smartDescription": "When [gold]Fused[/gold], deal {Value} damage to the enemy with the highest [gold]Quantum Link[/gold] stack.",
+  "THEELECTRON-UP_QUARK.title": "Up Quark",
+  "THEELECTRON-DOWN_QUARK.smartDescription": "When [gold]Fused[/gold], gain {Value} [gold]Block[/gold].",
+  "THEELECTRON-DOWN_QUARK.description": "Quark: Gains [gold]Block[/gold].",
+  "THEELECTRON-DOWN_QUARK.title": "Down Quark",
+  "THEELECTRON-TOP_QUARK.smartDescription": "When [gold]Fused[/gold], gain {Energy:energyIcons()}.",
+  "THEELECTRON-TOP_QUARK.description": "Quark: Gains [gold]Energy[/gold].",
+  "THEELECTRON-TOP_QUARK.title": "Top Quark",
+  "THEELECTRON-BOTTOM_QUARK.smartDescription": "When [gold]Fused[/gold], draw {Value} card{Value:plural:|s}.",
+  "THEELECTRON-BOTTOM_QUARK.description": "Quark: Draws card.",
+  "THEELECTRON-BOTTOM_QUARK.title": "Bottom Quark",
+  "THEELECTRON-CHARM_QUARK.smartDescription": "Increase non-Charm [gold]Quarks'[/gold] effects by [blue]100%[/blue].",
+  "THEELECTRON-CHARM_QUARK.description": "Quark: Improve non-Charm Quarks' effects.",
+  "THEELECTRON-CHARM_QUARK.title": "Charm Quark",
+  "THEELECTRON-STRANGE_QUARK.smartDescription": "Nullify ALL Quarks' effects.",
+  "THEELECTRON-STRANGE_QUARK.description": "Quark: Nullify ALL Quarks' effects.",
+  "THEELECTRON-STRANGE_QUARK.title": "Strange Quark"
+}
