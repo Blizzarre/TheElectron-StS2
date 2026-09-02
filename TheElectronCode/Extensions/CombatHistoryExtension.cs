@@ -18,6 +18,8 @@ public static class CombatHistoryExtension
 
     public static void QuarkProduced(this CombatHistory combatHistory, ICombatState combatState, QuarkModel quark)
     {
-        combatHistory.Add(combatState, new QuarkProducedEntry(quark, combatState.RoundNumber, combatState.CurrentSide, combatHistory, combatState.Players));
+        combatHistory.Add(combatState,
+            new QuarkProducedEntry(quark, combatState.RoundNumber, combatState.CurrentSide, combatHistory,
+                combatState.Players));
     }
 }

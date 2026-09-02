@@ -20,13 +20,14 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
     public override PowerInstanceType InstanceType => PowerInstanceType.InstancedPerApplier;
 
 
-    public async Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost, CardModel? cardSource = null,
+    public async Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost,
+        CardModel? cardSource = null,
         CardPlay? cardPlay = null)
     {
         // Only damages the owner of this power on the player's turn
         if (player.Creature != Applier || CombatState.CurrentSide != player.Creature.Side) return;
         if (amountLost <= 0) return;
-        
+
         Flash();
         await CreatureCmd.Damage(choiceContext, Owner, amountLost * Amount,
             ValueProp.Unblockable | ValueProp.Unpowered, null, null);

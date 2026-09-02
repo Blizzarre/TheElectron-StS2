@@ -12,37 +12,37 @@ namespace TheElectron.TheElectronCode.Nodes;
 
 public partial class NFaradCounter : Control
 {
-    private static readonly StringName _v = new("v");
+    private static readonly StringName V = new("v");
+    private static readonly StringName S = new("s");
+    private static readonly StringName YScrollSpeed = new("y_scroll_speed");
 
-    private static readonly StringName _s = new("s");
-    
     private Player? _player;
 
     private TextureRect _icon = null!;
 
     private ShaderMaterial _hsv = null!;
-    
+
     private int _displayedFaradCount;
-    
+
     private float _lerpingCount;
 
     private float _velocity;
-    
+
     private MegaLabel _label = null!;
 
     private Tween? _hsvTween;
 
     private bool _isListeningToCombatState;
-    
+
     private HoverTip _hoverTip;
-    
+
     public void Initialize(Player player)
     {
         _player = player;
         ConnectFaradChangedSignal();
         RefreshVisibility();
     }
-    
+
     public override void _Ready()
     {
         _icon = GetNode<TextureRect>("%Icon");
@@ -50,7 +50,7 @@ public partial class NFaradCounter : Control
         _label = CreateLabel(FontColors.LightBlueFontColor);
         _label.SetAnchorsPreset(LayoutPreset.FullRect);
         AddChild(_label);
-        
+
         _hoverTip = new HoverTip(new LocString("static_hover_tips", "THEELECTRON-FARAD_COUNT.title"),
             new LocString("static_hover_tips", "THEELECTRON-FARAD_COUNT.description"));
         Connect(Control.SignalName.MouseEntered, Callable.From(OnHovered));
@@ -58,7 +58,7 @@ public partial class NFaradCounter : Control
         SetFaradCountText(0, true);
         Visible = false;
     }
-    
+
     // TODO move this to utils class
     private static MegaLabel CreateLabel((Color, Color, Color) fontColor)
     {
@@ -80,7 +80,7 @@ public partial class NFaradCounter : Control
 
         return label;
     }
-    
+
     public override void _EnterTree()
     {
         base._EnterTree();
@@ -105,7 +105,7 @@ public partial class NFaradCounter : Control
             _isListeningToCombatState = true;
         }
     }
-    
+
     private void OnHovered()
     {
         var nHoverTipSet = NHoverTipSet.CreateAndShow(this, _hoverTip);
@@ -122,13 +122,13 @@ public partial class NFaradCounter : Control
         UpdateFaradCount(oldFarad, newFarad);
         RefreshVisibility();
     }
-    
+
     private void UpdateFaradCount(int oldCount, int newCount)
     {
         if (newCount < oldCount)
         {
             _hsvTween?.Kill();
-            _hsv.SetShaderParameter(_v, 1f);
+            _hsv.SetShaderParameter(V, 1f);
             _lerpingCount = newCount;
             SetFaradCountText(newCount);
         }
@@ -141,35 +141,35 @@ public partial class NFaradCounter : Control
             //TODO vfx gain Farad
         }
     }
-    
+
     private void SetFaradCountText(int count, bool initSetup = false)
     {
         if (!initSetup && _displayedFaradCount == count) return;
-        
+
         _displayedFaradCount = count;
-            
-        _label.AddThemeColorOverride(ThemeConstants.Label.FontColor, count == 0 ? StsColors.red : FontColors.LightBlueFontColor.Item1);
+
+        _label.AddThemeColorOverride(ThemeConstants.Label.FontColor,
+            count == 0 ? StsColors.red : FontColors.LightBlueFontColor.Item1);
         _label.SetTextAutoSize(count.ToString());
 
         if (count == 0)
         {
-            _hsv.SetShaderParameter(_s, 0.5f);
-            _hsv.SetShaderParameter(_v, 0.85f);
+            _hsv.SetShaderParameter(S, 0.5f);
+            _hsv.SetShaderParameter(V, 0.85f);
+            _hsv.SetShaderParameter(YScrollSpeed, -0.08f);
         }
         else
         {
-            _hsv.SetShaderParameter(_s, 1f);
-            _hsv.SetShaderParameter(_v, 1f);
+            _hsv.SetShaderParameter(S, 1f);
+            _hsv.SetShaderParameter(V, 1f);
+            _hsv.SetShaderParameter(YScrollSpeed, Mathf.Lerp(-0.16, -0.32, Mathf.Min((count - 1)/20.0, 1.0)));
         }
     }
-    
+
     public override void _Process(double delta)
     {
         if (_player == null) return;
         var farad = GetPlayerFarad(_player);
-        var rotSpeed = farad == 0 ? 10f : 40f;
-        // for (var i = 0; i < _rotationLayers.GetChildCount(); i++)
-        //     _rotationLayers.GetChild<Control>(i).RotationDegrees += (float)delta * rotSpeed * (i + 1);
 
         _lerpingCount =
             MathHelper.SmoothDamp(_lerpingCount, farad, ref _velocity, 0.1f, (float)delta);
@@ -182,10 +182,10 @@ public partial class NFaradCounter : Control
         return farad;
     }
 
-    
+
     private void UpdateShaderV(float value)
     {
-        _hsv.SetShaderParameter(_v, value);
+        _hsv.SetShaderParameter(V, value);
     }
 
     private void RefreshVisibility()

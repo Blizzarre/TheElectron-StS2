@@ -22,10 +22,10 @@ namespace TheElectron.TheElectronCode.Patches;
 internal class CardModelSpendResourcesPatch
 {
     [HarmonyTranspiler]
-    static List<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    private static List<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         FieldInfo? energyToSpendField = null;
-        
+
         return new InstructionPatcher(instructions).Match(new InstructionMatcher()
             .ldloc_1()
             .ldarg_0()
@@ -34,7 +34,7 @@ internal class CardModelSpendResourcesPatch
                 if (o is not FieldInfo field || !field.Name.Contains("energyToSpend")) return false;
                 energyToSpendField = field;
                 return true;
-            } )
+            })
             .call(typeof(CardModel), nameof(CardModel.SpendEnergy))
         ).Step(-3).Insert([
             CodeInstruction.LoadArgument(0),
@@ -42,34 +42,41 @@ internal class CardModelSpendResourcesPatch
             CodeInstruction.LoadArgument(0),
             new CodeInstruction(OpCodes.Ldfld, energyToSpendField),
             CodeInstruction.Call(typeof(CardModelSpendResourcesPatch), nameof(BeforeEnergySpent)),
-            new CodeInstruction(OpCodes.Stfld, energyToSpendField),
+            new CodeInstruction(OpCodes.Stfld, energyToSpendField)
         ]);
     }
 
     private static int BeforeEnergySpent(CardModel cardModel, int energyToSpend)
     {
-        var energy = cardModel.Owner.PlayerCombatState!.Energy;
-        
-        if (cardModel is ElectronEmptyCard emptyCard && energy == 0)
-        {
-            emptyCard.IsPlayedAsEmpty = true;
-            return 0;
-        }
+        var energy = cardModel.Owner.PlayerCombatState?.Energy ?? 0;
 
         if (cardModel is ElectronDepleteCard depleteCard && energyToSpend >= energy)
-        {
             depleteCard.IsEnergyDepleted = true;
-        }
 
         if (cardModel.Keywords.Contains(ElectronKeywords.Drain))
         {
             var excess = energyToSpend - energy;
-            if (excess <= 0) return energyToSpend;
+            if (excess > 0)
+            {
+                ElectronField.DrainExcessEnergy[cardModel] = excess;
 
-            ElectronField.DrainExcessEnergy[cardModel] = excess;
-
-            // only pay exact energy amount
-            return energy;
+                // only pay exact energy amount
+                energyToSpend = energy;
+            }
+        }
+        
+        if (cardModel is ElectronEmptyCard emptyCard)
+        {
+            if (energy >= energyToSpend)
+            {
+                emptyCard.HasPaidEnergyCost = true;
+            }
+            
+            if (energy == 0)
+            {
+                emptyCard.IsPlayedAsEmpty = true;
+                energyToSpend = 0;
+            }
         }
 
         return energyToSpend;
@@ -81,7 +88,7 @@ internal class CardModelSpendResourcesPatch
 internal class CardModelOnPlayWrapperPatch
 {
     [HarmonyTranspiler]
-    static List<CodeInstruction> Transpiler(ILGenerator generator, IEnumerable<CodeInstruction> instructions,
+    private static List<CodeInstruction> Transpiler(ILGenerator generator, IEnumerable<CodeInstruction> instructions,
         MethodBase original)
     {
         // Place method call after CombatManager.Instance.WaitForUnpause()
@@ -110,12 +117,10 @@ internal class CardModelOnPlayWrapperPatch
             }
 
             if (drainAmount > 0)
-            {
                 await CreatureCmd.Damage(choiceContext, __instance.Owner.Creature,
                     new DamageVar(drainAmount, ValueProp.Unpowered | ValueProp.Unblockable), __instance, null);
-            }
             ElectronField.DrainExcessEnergy[__instance] = 0;
-            
+
             await ElectronHook.AfterFaradOrHpDrained(__instance.CombatState, choiceContext, player, totalAmount,
                 __instance);
         }

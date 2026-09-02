@@ -5,7 +5,7 @@ namespace TheElectron.TheElectronCode.Utils;
 
 public class ElectronKeywords
 {
-    [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)]
+    [CustomEnum] [KeywordProperties(AutoKeywordPosition.Before)]
     public static CardKeyword Drain;
 }
 

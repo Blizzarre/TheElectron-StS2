@@ -22,7 +22,8 @@ public class ElectronHoverTipFactory
         return Static(entry, null, locAdd, vars);
     }
 
-    public static IHoverTip Static(string entry, Texture2D? icon, Action<LocString>? locAdd = null, params DynamicVar[] vars)
+    public static IHoverTip Static(string entry, Texture2D? icon, Action<LocString>? locAdd = null,
+        params DynamicVar[] vars)
     {
         var locString = L10NStatic(entry + ".title");
         var locString2 = L10NStatic(entry + ".description");
@@ -31,24 +32,25 @@ public class ElectronHoverTipFactory
             locString.Add(dynamicVar);
             locString2.Add(dynamicVar);
         }
+
         locAdd?.Invoke(locString);
         locAdd?.Invoke(locString2);
 
         return new HoverTip(locString, locString2, icon);
     }
-    
+
     private static LocString L10NStatic(string entry)
     {
         return new LocString("static_hover_tips", entry);
     }
-    
+
     public static IHoverTip FromQuark<T>() where T : QuarkModel
     {
         QuarkModel model = ModelDb.Get<T>();
         return model.DumbHoverTip;
     }
 
-    
+
     public static HoverTip CreateQuarkHoverTip(QuarkModel quark, LocString description)
     {
         var hoverTip = new HoverTip

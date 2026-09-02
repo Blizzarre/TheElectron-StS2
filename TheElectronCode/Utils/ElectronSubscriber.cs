@@ -10,10 +10,10 @@ public class ElectronSubscriber
 {
     public static void Subscribe()
     {
-        ModHelper.SubscribeForCombatStateHooks(TheElectronMod.ModId, CollectRuneModels);
+        ModHelper.SubscribeForCombatStateHooks(TheElectronMod.ModId, CollectQuarkModels);
     }
 
-    private static IEnumerable<QuarkModel> CollectRuneModels(CombatState combatState)
+    private static IEnumerable<QuarkModel> CollectQuarkModels(CombatState combatState)
     {
         return combatState.Players
             .Select(p => p.PlayerCombatState?.GetQuarkQueue())

@@ -1,11 +1,14 @@
 {
   "THEELECTRON-QUANTUM_LINK_POWER.description": "Whenever you lose [gold]Farad[/gold] or HP on your turn, this creature loses that much HP for each stack of Quantum Link.",
-  "THEELECTRON-QUANTUM_LINK_POWER.smartDescription": "Whenever {IsMultiplayer:[gold]{ApplierName}[/gold]|you} lose [gold]Farad[/gold] or HP on {IsMultiplayer:their|your} turn, [gold]{OwnerName}[/gold] loses that much HP times [blue]{Amount}[/blue].",
+  "THEELECTRON-QUANTUM_LINK_POWER.smartDescription": "Whenever {IsMultiplayer:[gold]{ApplierName}[/gold] loses|you lose} [gold]Farad[/gold] or HP on {IsMultiplayer:their|your} turn, [gold]{OwnerName}[/gold] loses that much HP times [blue]{Amount}[/blue].",
   "THEELECTRON-QUANTUM_LINK_POWER.title": "Quantum Link",
   "THEELECTRON-STABILITY_POWER.description": "The next Quark you [gold]Produce[/gold] is [gold]Stable[/gold].",
   "THEELECTRON-STABILITY_POWER.smartDescription": "The next [blue]{Amount}[/blue] Quark{Amount:plural:|s} you [gold]Produce[/gold] {Amount:plural:is|are} [gold]Stable[/gold].",
   "THEELECTRON-STABILITY_POWER.title": "Stability",
-  "THEELECTRON-ALL_DRAIN_POWER.description": "test: cards that cost 1 or more have [gold]Drain[/gold].",
-  "THEELECTRON-ALL_DRAIN_POWER.smartDescription": "test: cards that cost 1 or more have [gold]Drain[/gold].",
-  "THEELECTRON-ALL_DRAIN_POWER.title": "All Drain"
+  "THEELECTRON-EMERGENCY_PROTOCOL_POWER.description": "ALL your cards have [gold]Drain[/gold].",
+  "THEELECTRON-EMERGENCY_PROTOCOL_POWER.smartDescription": "ALL your cards have [gold]Drain[/gold].",
+  "THEELECTRON-EMERGENCY_PROTOCOL_POWER.title": "Emergency Protocol",
+  "THEELECTRON-SPIN_POWER.description": "Increase the effectiveness of [gold]Up[/gold] and [gold]Down[/gold] Quarks. Spin is removed after [gold]Fusion[/gold].",
+  "THEELECTRON-SPIN_POWER.smartDescription": "Increase the effectiveness of [gold]Up[/gold] and [gold]Down[/gold] Quarks by [blue]{Amount:abs()}[/blue]. Spin is removed after [gold]Fusion[/gold].",
+  "THEELECTRON-SPIN_POWER.title": "Spin"
 }

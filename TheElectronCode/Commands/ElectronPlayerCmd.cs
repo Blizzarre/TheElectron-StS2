@@ -22,10 +22,8 @@ public static class ElectronPlayerCmd
             cardPlay?.Card, out var modifiers);
         await ElectronHook.AfterModifyingFaradGain(modifiers);
         if (finalAmount > 0)
-        {
             // TODO sfx
             electronCombatState?.GainFarad((int)finalAmount);
-        }
 
         await ElectronHook.AfterFaradGained(combatState, choiceContext, player, finalAmount, cardSource, cardPlay);
     }
@@ -43,11 +41,11 @@ public static class ElectronPlayerCmd
         CardModel? cardSource = null, CardPlay? cardPlay = null)
     {
         if (amount <= 0 || CombatManager.Instance.IsEnding || player.Creature.CombatState == null) return;
-        
+
         var combatState = player.Creature.CombatState;
         var electronCombatState = player.PlayerCombatState?.Electron();
         electronCombatState?.LoseFarad((int)amount);
-        
+
         await ElectronHook.AfterFaradLost(combatState, choiceContext, player, amount, cardSource, cardPlay);
     }
 }

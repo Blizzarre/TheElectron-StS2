@@ -44,7 +44,8 @@ internal class NCreatureSetOrbManagerPositionPatch
         quarkManager.Scale = __instance.Visuals.Scale.X > 1f
             ? Vector2.One
             : __instance.Visuals.Scale.Lerp(Vector2.One, 0.5f);
-        quarkManager.Position = (__instance.Visuals.OrbPosition.Position + NQuarkManager.CenterOffset) * Mathf.Min(__instance.Visuals.Scale.X, 1.25f);
+        quarkManager.Position = (__instance.Visuals.OrbPosition.Position + NQuarkManager.CenterOffset) *
+                                Mathf.Min(__instance.Visuals.Scale.X, 1.25f);
     }
 }
 

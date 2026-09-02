@@ -16,25 +16,25 @@ namespace TheElectron.TheElectronCode.Nodes.Quarks;
 public partial class NQuark : NClickableControl
 {
     private static string ScenePath => ElectronResource.NQuarkPath;
-    
+
     private Control _labelContainer = null!;
-    
+
     private Control _bounds = null!;
-    
+
     private NSelectionReticle _selectionReticle = null!;
 
     private MegaLabel _label = null!;
 
     private Sprite2D _outline = null!;
-    
+
     private Sprite2D _stableOutline = null!;
-    
+
     private Control _visualContainer = null!;
-    
+
     private NQuarkVisuals? _sprite;
-    
+
     private Tween? _curTween;
-    
+
     private bool _isLocal;
 
     public bool IsFocused
@@ -48,7 +48,7 @@ public partial class NQuark : NClickableControl
     }
 
     public Action? OnFocusChanged;
-    
+
     public QuarkModel? Model { get; private set; }
 
     public static NQuark Create(bool isLocal)
@@ -57,7 +57,7 @@ public partial class NQuark : NClickableControl
         nQuark._isLocal = isLocal;
         return nQuark;
     }
-    
+
     public static NQuark Create(bool isLocal, QuarkModel? model)
     {
         var nQuark = Create(isLocal);
@@ -69,27 +69,27 @@ public partial class NQuark : NClickableControl
     public override void _Ready()
     {
         ConnectSignals();
-        
+
         _bounds = GetNode<Control>("%Bounds");
         _labelContainer = GetNode<Control>("%LabelContainer");
         _outline = GetNode<Sprite2D>("%Outline");
         _stableOutline = GetNode<Sprite2D>("%StableOutline");
         _visualContainer = GetNode<Control>("%VisualContainer");
-        
+
         _label = CreateLabel(FontColors.DefaultFontColor);
         _labelContainer.AddChildSafely(_label);
-        
+
         _selectionReticle = BaseSceneIndex.SelectionReticleScene.Instantiate<NSelectionReticle>();
         this.AddChildSafely(_selectionReticle);
         _selectionReticle.Size = new Vector2(80, 80);
         _selectionReticle.Position = new Vector2(-40, -40);
         _selectionReticle.PivotOffset = new Vector2(40, 40);
-        
+
         CreateTween().TweenProperty(_outline, "scale", _outline.Scale, 0.25).From(Vector2.Zero);
-        
+
         UpdateVisuals();
     }
-    
+
     private static MegaLabel CreateLabel((Color, Color, Color) fontColor)
     {
         var label = new MegaLabel();
@@ -143,7 +143,7 @@ public partial class NQuark : NClickableControl
         _stableOutline.Visible = Model.IsStable;
         _stableOutline.Modulate = Model.HasStableSlot ? new Color("fff03b") : new Color("7d7620");
         _labelContainer.Visible = _isLocal;
-        if (!_isLocal) Modulate = Model.DarkenedColor;
+        Modulate = _isLocal ? Colors.White : Model.DarkenedColor;
 
         var text = Model.Value.ToString("0");
         _label.SetTextAutoSize(text);
@@ -154,7 +154,7 @@ public partial class NQuark : NClickableControl
         _bounds.MouseFilter = MouseFilterEnum.Ignore;
         OnUnfocus();
     }
-    
+
     protected override void OnFocus()
     {
         if (Model == null && !_isLocal) return;

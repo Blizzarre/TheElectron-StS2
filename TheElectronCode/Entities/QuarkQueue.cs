@@ -21,7 +21,7 @@ public class QuarkQueue
     private Player Owner { get; }
 
     private readonly List<QuarkModel> _quarks = [];
-    
+
     private int _capacity = 0;
 
     public IReadOnlyList<QuarkModel> Quarks => _quarks;
@@ -45,23 +45,20 @@ public class QuarkQueue
         Capacity = 0;
         TempCapacity = 0;
     }
-    
+
     public void RemoveCapacity(int capacity)
     {
         _capacity = Math.Max(0, _capacity - capacity);
         while (Quarks.Count > Capacity)
         {
             var lastQuark = _quarks.Last();
-            if (lastQuark.IsStable)
-            {
-                TempCapacity--;
-            }
+            if (lastQuark.IsStable) TempCapacity--;
             Remove(lastQuark);
         }
 
         RestoreTempSlotOwnerships();
     }
-    
+
     // Set Stable Quarks' HasStableSlot bool to reflect the state of current temp slots available.
     private void RestoreTempSlotOwnerships()
     {
@@ -79,7 +76,7 @@ public class QuarkQueue
             missingSlots--;
         }
     }
-    
+
     /// <summary>
     /// Add capacity (Slots) to the queue.
     /// </summary>
@@ -90,13 +87,9 @@ public class QuarkQueue
     {
         var before = Capacity;
         if (isTemp)
-        {
             TempCapacity += capacity;
-        }
         else
-        {
             _capacity = Math.Min(MaxCapacity, _capacity + capacity);
-        }
         RevokeTempSlotOwnerships();
         return Capacity - before;
     }
@@ -144,21 +137,18 @@ public class QuarkQueue
         var stats = GetStats();
         var nCreature = NCombatRoom.Instance?.GetCreatureNode(Owner.Creature);
         NQuarkManager? quarkManager = null;
-        if (nCreature != null)
-        {
-            quarkManager = ElectronNode.NQuarkManager[nCreature];
-        }
-        
+        if (nCreature != null) quarkManager = ElectronNode.NQuarkManager[nCreature];
+
         // Begin Fusing animation
         if (quarkManager != null)
             await quarkManager.BeginFuseQuarksAnim(stats.Keys.ToHashSet());
-        
+
         if (stats.TryGetValue(QuarkModel.FuseStat.Damage, out var damage))
         {
             // Consume display anim
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Damage);
-            
+
             if (damage > 0)
             {
                 var targets = Owner.Creature.CombatState?.GetOpponentsOf(Owner.Creature)
@@ -177,6 +167,7 @@ public class QuarkQueue
                     await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Unpowered, Owner.Creature);
                 }
             }
+
             await MediumWait();
         }
 
@@ -184,21 +175,15 @@ public class QuarkQueue
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Block);
-            if (block > 0)
-            {
-                await CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Unpowered, null);
-            }
+            if (block > 0) await CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Unpowered, null);
             await MediumWait();
         }
-        
+
         if (stats.TryGetValue(QuarkModel.FuseStat.Draw, out var draw))
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Draw);
-            if(draw > 0)
-            {
-                await CardPileCmd.Draw(choiceContext, draw, Owner);
-            }
+            if (draw > 0) await CardPileCmd.Draw(choiceContext, draw, Owner);
             await MediumWait();
         }
 
@@ -206,13 +191,10 @@ public class QuarkQueue
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Energy);
-            if(energy > 0)
-            {
-                await PlayerCmd.GainEnergy(energy, Owner);
-            }
+            if (energy > 0) await PlayerCmd.GainEnergy(energy, Owner);
             await MediumWait();
         }
-        
+
         _quarks.Clear();
         TempCapacity = 0;
 
@@ -240,18 +222,16 @@ public class QuarkQueue
     {
         return Capacity >= MaxCapacity;
     }
-    
+
     private Dictionary<QuarkModel.FuseStat, decimal> GetStats()
     {
         var ret = new Dictionary<QuarkModel.FuseStat, decimal>();
         foreach (var quark in _quarks.Where(quark => quark.Stat != QuarkModel.FuseStat.None))
-        {
             ret[quark.Stat] = ret.GetValueOrDefault(quark.Stat, 0) + quark.Value;
-        }
 
         return ret;
     }
-    
+
     private async Task SmallWait()
     {
         if (LocalContext.IsMe(Owner))
@@ -259,7 +239,7 @@ public class QuarkQueue
         else
             await Cmd.Wait(0.05f);
     }
-    
+
     private async Task MediumWait()
     {
         if (LocalContext.IsMe(Owner))
@@ -267,5 +247,4 @@ public class QuarkQueue
         else
             await Cmd.Wait(0.05f);
     }
-
 }

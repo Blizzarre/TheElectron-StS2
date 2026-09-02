@@ -11,7 +11,7 @@ public partial class ElectronNParticlesContainer : Node2D
 
     public override void _Ready()
     {
-        var children = FindChildren("*", recursive:true);
+        var children = FindChildren("*", recursive: true);
         _particles.AddRange(children.OfType<GpuParticles2D>());
         _cpuParticles.AddRange(children.OfType<CpuParticles2D>());
     }

@@ -25,10 +25,7 @@ public static class QuarkCmd
     /// <returns></returns>
     public static Task AddSlots(Player player, int amount, bool isTempSlot = false)
     {
-        if (CombatManager.Instance.IsOverOrEnding)
-        {
-            return Task.CompletedTask;
-        }
+        if (CombatManager.Instance.IsOverOrEnding) return Task.CompletedTask;
 
         var queue = player.PlayerCombatState?.GetQuarkQueue();
         var visualAmountAdded = queue?.AddCapacity(amount, isTempSlot) ?? 0;
@@ -38,6 +35,7 @@ public static class QuarkCmd
             var quarkManager = ElectronNode.NQuarkManager[nCreature];
             quarkManager?.AddSlotAnim(visualAmountAdded);
         }
+
         return Task.CompletedTask;
     }
 
@@ -78,21 +76,24 @@ public static class QuarkCmd
             quark.AssertMutable();
 
             quark.Owner = player;
-            
+            // Add Slots if player have no slots
+            if (player.Character is not Character.TheElectron && quarkQueue.Capacity == 0)
+                await AddSlots(player, QuarkQueue.DefaultCapacity);
+
             // Hook to modify quark stability.
             if (!quark.IsStable && ElectronHook.ShouldQuarkBeStable(combatState, quark, out var model))
             {
                 quark.IsStable = true;
                 if (model != null) await ElectronHook.AfterMakingQuarkStable(model);
             }
-            
+
             // Add temp slot
             if (quark.IsStable)
             {
                 quark.HasStableSlot = true;
                 await AddSlots(player, 1, true);
             }
-            
+
             if (await quarkQueue.TryEnqueue(quark))
             {
                 // TODO Play sfx
@@ -102,6 +103,7 @@ public static class QuarkCmd
                     var quarkManager = ElectronNode.NQuarkManager[nCreature];
                     quarkManager?.AddQuarkAnim();
                 }
+
                 if (quarkQueue.IsFull())
                 {
                     await Cmd.CustomScaledWait(0.25f, 0.4f);
@@ -120,10 +122,11 @@ public static class QuarkCmd
             var combatState = player.Creature.CombatState;
             var quarkQueue = player.PlayerCombatState?.GetQuarkQueue();
             if (quarkQueue == null || !quarkQueue.HasAny()) return;
-            
+
             await quarkQueue.FuseQuarks(choiceContext);
-            
+
             // TODO after fused hook
+            
         }
     }
 }

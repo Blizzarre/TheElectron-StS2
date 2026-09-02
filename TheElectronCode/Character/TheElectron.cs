@@ -23,15 +23,16 @@ public class TheElectron : PlaceholderCharacterModel
 
     public override IEnumerable<CardModel> StartingDeck =>
     [
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<StrikeIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<DefendIronclad>(),
-        ModelDb.Card<StrikeElectron>()
+        ModelDb.Card<StrikeElectron>(),
+        ModelDb.Card<StrikeElectron>(),
+        ModelDb.Card<StrikeElectron>(),
+        ModelDb.Card<StrikeElectron>(),
+        ModelDb.Card<DefendElectron>(),
+        ModelDb.Card<DefendElectron>(),
+        ModelDb.Card<DefendElectron>(),
+        ModelDb.Card<DefendElectron>(),
+        ModelDb.Card<Entangle>(),
+        ModelDb.Card<Upsurge>()
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>

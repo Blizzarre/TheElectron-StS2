@@ -29,7 +29,8 @@ public class FaradVar : DynamicVar
         var modifiedValue = BaseValue;
 
         if (runGlobalHooks && card.CombatState != null)
-            modifiedValue = ElectronHook.ModifyFaradGain(card.CombatState, card.Owner, BaseValue, ValueProp.Move, card, out _);
+            modifiedValue =
+                ElectronHook.ModifyFaradGain(card.CombatState, card.Owner, BaseValue, ValueProp.Move, card, out _);
 
         PreviewValue = modifiedValue;
     }

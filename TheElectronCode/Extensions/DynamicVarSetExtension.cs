@@ -9,4 +9,9 @@ public static class DynamicVarSetExtension
     {
         return set[FaradVar.defaultName];
     }
+    
+    public static DynamicVar QuarkCount(this DynamicVarSet set)
+    {
+        return set[QuarkCountVar.defaultName];
+    }
 }

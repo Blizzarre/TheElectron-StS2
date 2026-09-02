@@ -12,12 +12,11 @@ public class ElectronSingletonModel() : CustomSingletonModel(HookType.Combat)
         if (cardPlay is { Card: ElectronEmptyCard emptyCard, IsLastInSeries: true })
         {
             emptyCard.IsPlayedAsEmpty = false;
+            emptyCard.HasPaidEnergyCost = false;
         }
-        
+
         if (cardPlay is { Card: ElectronDepleteCard depleteCard, IsLastInSeries: true })
-        {
             depleteCard.IsEnergyDepleted = false;
-        }
 
         return Task.CompletedTask;
     }

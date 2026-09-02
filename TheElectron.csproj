@@ -67,6 +67,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="TheElectronCode\Cards\Ancient\" />
+        <Folder Include="TheElectronCode\Cards\Rare\" />
+        <Folder Include="TheElectronCode\Cards\Uncommon\" />
         <Folder Include="TheElectron\images\card_portraits\big\"/>
         <Folder Include="TheElectron\images\powers\big\"/>
         <Folder Include="TheElectron\images\relics\big\"/>

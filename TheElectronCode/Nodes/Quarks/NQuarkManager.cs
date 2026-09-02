@@ -124,10 +124,7 @@ public partial class NQuarkManager : NClickableControl
         _particlesContainer = GetNode<ElectronNParticlesContainer>("%ParticlesContainer");
 
         for (var i = 1; i <= 4; i++) _fuseStatList.Add(GetNode<NFuseStat>($"%FuseStat{i}"));
-        for (var i = 0; i < 4; i++)
-        {
-            _fuseStatList[i].SetStatVisual(StatOrder[i]);
-        }
+        for (var i = 0; i < 4; i++) _fuseStatList[i].SetStatVisual(StatOrder[i]);
 
         _selectionReticle = BaseSceneIndex.SelectionReticleScene.Instantiate<NSelectionReticle>();
         this.AddChildSafely(_selectionReticle);
@@ -146,15 +143,12 @@ public partial class NQuarkManager : NClickableControl
 
         // TODO change rotation speed based on Spin
         var targetSpeed = BaseRotationSpeed + (_isFusing ? _curFuseRotationSpeed : 0);
-        if (IsQuarkFocused && !_isFusing)
-        {
-            targetSpeed = 0;
-        }
+        if (IsQuarkFocused && !_isFusing) targetSpeed = 0;
 
         var weight = 1 - (float)Mathf.Exp(-LerpRate * delta);
         _curRotationSpeed = Mathf.Lerp(_curRotationSpeed, targetSpeed, weight);
         _centerMarker.Rotation += (float)delta * _curRotationSpeed;
-        
+
         if (_isFusing)
         {
             _curNoiseOffset += (float)delta;
@@ -169,10 +163,7 @@ public partial class NQuarkManager : NClickableControl
     private void SetQuarkPositions()
     {
         var capacity = Player.PlayerCombatState?.GetQuarkQueue()?.Capacity ?? 0;
-        for (var i = 0; i < capacity; i++)
-        {
-            _quarks[i].GlobalPosition = _quarkTargets[i].GlobalPosition;
-        }
+        for (var i = 0; i < capacity; i++) _quarks[i].GlobalPosition = _quarkTargets[i].GlobalPosition;
     }
 
     public override void _EnterTree()
@@ -259,10 +250,7 @@ public partial class NQuarkManager : NClickableControl
 
     public void RemoveSlotAnim(int amount)
     {
-        if (amount > _quarks.Count)
-        {
-            throw new InvalidOperationException("There are not enough slots to remove.");
-        }
+        if (amount > _quarks.Count) throw new InvalidOperationException("There are not enough slots to remove.");
 
         for (var i = 0; i < amount; i++)
         {
@@ -319,10 +307,7 @@ public partial class NQuarkManager : NClickableControl
         _quarks.Add(emptyQuark);
         emptyQuark.Position = removeQuark.Position;
 
-        if (removeQuark.HasFocus())
-        {
-            _creatureNode?.Hitbox.TryGrabFocus();
-        }
+        if (removeQuark.HasFocus()) _creatureNode?.Hitbox.TryGrabFocus();
 
         TweenLayout();
         // TODO Controller navigation
@@ -337,10 +322,7 @@ public partial class NQuarkManager : NClickableControl
         _noise.Seed = Rng.Chaotic.NextInt();
         _curNoiseOffset = 0;
 
-        foreach (var quark in _quarks)
-        {
-            quark.DisableHover();
-        }
+        foreach (var quark in _quarks) quark.DisableHover();
 
         OnUnfocus();
 
@@ -354,14 +336,11 @@ public partial class NQuarkManager : NClickableControl
         // Spin up animation
         _curFusionTween.TweenProperty(_atomContainer, "modulate", new Color(3f, 3f, 3f), duration);
         _curFusionTween.TweenProperty(_atomContainer, "scale", new Vector2(0.5f, 0.5f), duration)
-            .SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Quad);
+            .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Bounce);
         _curFusionTween.TweenProperty(this, "_curFuseRotationSpeed", FusingRotationSpeed, duration);
         _curFusionTween.TweenProperty(this, "_curNoiseAmplitude", 10, duration);
-        
-        while (!await WaitAndInterruptIfNecessary(duration))
-        {
-            return;
-        }
+
+        while (!await WaitAndInterruptIfNecessary(duration)) return;
     }
 
     public async Task StepFuseQuarksAnim(QuarkModel.FuseStat stat)
@@ -374,7 +353,7 @@ public partial class NQuarkManager : NClickableControl
         if (_fusingStats.Remove(stat))
         {
             var items = _fusingStats.Count;
-            var height = (StatHeight * items) + (items - 1) * 6;
+            var height = StatHeight * items + (items - 1) * 6;
             var initialPosition = new Vector2(0, -height / 2f);
 
             for (var i = 0; i < 4; i++)
@@ -393,7 +372,8 @@ public partial class NQuarkManager : NClickableControl
                     _curFusionTween.TweenProperty(fuseStat, "position:x", fuseStat.Position.X + 60f, duration)
                         .SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
                     _curFusionTween.TweenProperty(fuseStat, "modulate:a", 0, duration);
-                    _curFusionTween.Chain().TweenProperty(fuseStat, "position:x", fuseStat.Position.X, 0); // return to starting position
+                    _curFusionTween.Chain()
+                        .TweenProperty(fuseStat, "position:x", fuseStat.Position.X, 0); // return to starting position
                 }
             }
         }
@@ -405,16 +385,10 @@ public partial class NQuarkManager : NClickableControl
         {
             var tween = CreateTween().SetParallel();
 
-            foreach (var quark in _quarks)
-            {
-                tween.TweenProperty(quark, "modulate:a", 0, duration);
-            }
+            foreach (var quark in _quarks) tween.TweenProperty(quark, "modulate:a", 0, duration);
         }
 
-        while (!await WaitAndInterruptIfNecessary(duration))
-        {
-            return;
-        }
+        while (!await WaitAndInterruptIfNecessary(duration)) return;
     }
 
     public void EndFuseQuarksAnim()
@@ -425,10 +399,7 @@ public partial class NQuarkManager : NClickableControl
 
         var capacity = Player.PlayerCombatState?.GetQuarkQueue()?.Capacity ?? 0;
 
-        foreach (var quark in _quarks)
-        {
-            quark.QueueFreeSafely();
-        }
+        foreach (var quark in _quarks) quark.QueueFreeSafely();
         _quarks.Clear();
 
         for (var i = 0; i < capacity; i++)
@@ -444,18 +415,32 @@ public partial class NQuarkManager : NClickableControl
         _curFusionTween.TweenProperty(_atomContainer, "scale", Vector2.One, duration)
             .SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Sine);
         _curFusionTween.TweenProperty(this, "_curFuseRotationSpeed", FusingRotationSpeed, duration)
-            .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);;
+            .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+        ;
         _curFusionTween.TweenProperty(this, "_curNoiseAmplitude", 0, duration);
         _curFusionTween.TweenCallback(Callable.From(() => { _isFusing = false; }));
 
         _fusingStats.Clear();
-        
+
         TweenLayout();
     }
+
+    private Tween? _focusTween;
 
     private void OnQuarkFocusChanged()
     {
         IsQuarkFocused = _quarks.Any(q => q.IsFocused);
+        
+        _focusTween?.Kill();
+        _focusTween = CreateTween();
+        if (IsQuarkFocused)
+        {
+            _focusTween.TweenProperty(this, "modulate", Colors.White, 0.2f);
+        }
+        else if (!IsLocal)
+        {
+            _focusTween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0.4f), 0.2f);
+        }
     }
 
     private void TweenLayout()
@@ -515,7 +500,7 @@ public partial class NQuarkManager : NClickableControl
 
         var stats = GetStats();
         var items = stats.Count;
-        var height = (StatHeight * items) + (items - 1) * 6;
+        var height = StatHeight * items + (items - 1) * 6;
         var initialPosition = new Vector2(0, -height / 2f);
 
         for (var i = 0; i < 4; i++)
@@ -548,9 +533,7 @@ public partial class NQuarkManager : NClickableControl
         var ret = new Dictionary<QuarkModel.FuseStat, decimal>();
         foreach (var quark in _quarks.Select(nQuark => nQuark.Model).OfType<QuarkModel>()
                      .Where(quark => quark.Stat != QuarkModel.FuseStat.None))
-        {
             ret[quark.Stat] = ret.GetValueOrDefault(quark.Stat, 0) + quark.Value;
-        }
 
         return ret;
     }
@@ -565,10 +548,20 @@ public partial class NQuarkManager : NClickableControl
     {
         if (!IsNodeReady() || !CombatManager.Instance.IsInProgress) return;
         if (_isFusing) return; // Keep the numbers locked during Fuse animation.
-        
-        foreach (var quark in _quarks)
+
+        foreach (var quark in _quarks) quark.UpdateVisuals();
+
+        if (IsLocal)
         {
-            quark.UpdateVisuals();
+            Modulate = Colors.White;
+            _fuseStats?.Visible = true;
+            _bounds.MouseFilter = MouseFilterEnum.Pass;
+        }
+        else
+        {
+            Modulate = new Color(1f, 1f, 1f, 0.4f);
+            _fuseStats?.Visible = false;
+            _bounds.MouseFilter = MouseFilterEnum.Ignore;
         }
 
         UpdateAndTweenStats();
@@ -576,14 +569,12 @@ public partial class NQuarkManager : NClickableControl
 
     protected override void OnFocus()
     {
-        if(_isFusing) return;
-        
+        if (_isFusing) return;
+
         var nHoverTipSet =
             NHoverTipSet.CreateAndShow(_bounds, GetStatsHoverTip(), HoverTip.GetHoverTipAlignment(_bounds));
         nHoverTipSet?.SetExtraFollowOffset(new Vector2(0, -12));
         nHoverTipSet?.SetFollowOwner();
-
-        SelfModulate = Colors.White;
 
         if (!NControllerManager.Instance?.IsUsingDirectionalNavigation ?? false)
             return;
@@ -604,25 +595,29 @@ public partial class NQuarkManager : NClickableControl
             locString.Add("Damage", stats.GetValueOrDefault(QuarkModel.FuseStat.Damage));
             appendDesc.Add(locString.GetFormattedText());
         }
+
         if (stats.ContainsKey(QuarkModel.FuseStat.Block))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.block");
             locString.Add("Block", stats.GetValueOrDefault(QuarkModel.FuseStat.Block));
             appendDesc.Add(locString.GetFormattedText());
         }
+
         if (stats.ContainsKey(QuarkModel.FuseStat.Draw))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.draw");
             locString.Add("Draw", stats.GetValueOrDefault(QuarkModel.FuseStat.Draw));
             appendDesc.Add(locString.GetFormattedText());
         }
+
         if (stats.ContainsKey(QuarkModel.FuseStat.Energy))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.energy");
-            locString.Add(new EnergyVar((int)stats.GetValueOrDefault(QuarkModel.FuseStat.Energy)){ColorPrefix = prefix});
+            locString.Add(new EnergyVar((int)stats.GetValueOrDefault(QuarkModel.FuseStat.Energy))
+                { ColorPrefix = prefix });
             appendDesc.Add(locString.GetFormattedText());
         }
-        
+
         locStringDesc.Add("EffectsString", string.Join("\n", appendDesc));
 
         var hoverTip = new HoverTip(locStringTitle, locStringDesc);
@@ -633,7 +628,7 @@ public partial class NQuarkManager : NClickableControl
     {
         SelfModulate = IsLocal ? Colors.White : DarkenedColor;
         NHoverTipSet.Remove(_bounds);
-        
+
         _selectionReticle.OnDeselect();
     }
 
@@ -653,7 +648,7 @@ public partial class NQuarkManager : NClickableControl
             _curTween.Chain().SetParallel().TweenCallback(Callable.From(quark.QueueFreeSafely));
 
         _quarks.Clear();
-        
+
         SetProcess(false);
     }
 
@@ -668,7 +663,7 @@ public partial class NQuarkManager : NClickableControl
 
         return true;
     }
-    
+
     private IPoolModel GetQuarkOwnerPool()
     {
         return Player.Character.CardPool;

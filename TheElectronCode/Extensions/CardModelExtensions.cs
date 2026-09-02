@@ -14,8 +14,9 @@ public static class CardModelExtensions
             card.EnergyCost.GetWithModifiers(CostModifiers.All);
     }
 
+    // Should glow the Empty color
     public static bool ShouldGlowBlack(this CardModel card)
     {
-        return card is ElectronEmptyCard && (card.Owner.PlayerCombatState?.Energy ?? 0) == 0;
+        return card is ElectronEmptyCard { WouldBeEmpty: true, HasEnoughEnergy: false};
     }
 }

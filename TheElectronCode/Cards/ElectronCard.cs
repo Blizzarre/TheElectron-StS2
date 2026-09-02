@@ -40,6 +40,7 @@ public abstract class ElectronCard(int cost, CardType type, CardRarity rarity, T
             return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
         }
     }
+
     public override string BetaPortraitPath
     {
         get
@@ -62,7 +63,7 @@ public abstract class ElectronCard(int cost, CardType type, CardRarity rarity, T
                 break;
         }
     }
-    
+
     protected void WithQuarkTip<T>() where T : QuarkModel
     {
         WithTip(new TooltipSource(_ => ElectronHoverTipFactory.FromQuark<T>()));

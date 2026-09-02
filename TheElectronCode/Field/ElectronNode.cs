@@ -16,7 +16,7 @@ public class ElectronNode
         ui.AddChild(faradCounter);
         return faradCounter;
     });
-    
-    
+
+
     public static readonly SpireField<NCreature, NQuarkManager> NQuarkManager = new(() => null);
 }

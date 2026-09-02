@@ -14,9 +14,9 @@ public partial class NFuseStat : HBoxContainer
     public override void _Ready()
     {
         Modulate = Colors.Transparent;
-        
+
         _statIcon = GetNode<TextureRect>("%StatIcon");
-        
+
         _label = CreateLabel(FontColors.DefaultFontColor);
         AddChild(_label);
     }
@@ -48,7 +48,7 @@ public partial class NFuseStat : HBoxContainer
     {
         _label?.SetTextAutoSize(value.ToString("0"));
     }
-    
+
     private static MegaLabel CreateLabel((Color, Color, Color) fontColor)
     {
         var label = new MegaLabel();

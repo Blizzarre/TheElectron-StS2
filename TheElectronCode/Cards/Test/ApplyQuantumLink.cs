@@ -1,19 +1,18 @@
 ﻿using BaseLib.Extensions;
-using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.Powers;
 
-namespace TheElectron.TheElectronCode.Cards.Basic;
+namespace TheElectron.TheElectronCode.Cards.Test;
 
 public class ApplyQuantumLink : ElectronCard
 {
-    public ApplyQuantumLink() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
+    public ApplyQuantumLink() : base(0, CardType.Skill, CardRarity.Token, TargetType.AnyEnemy)
     {
         WithPower<QuantumLinkPower>(2, 1);
     }
-    
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)

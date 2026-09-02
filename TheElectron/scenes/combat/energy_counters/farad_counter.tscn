@@ -3,14 +3,17 @@
 [ext_resource type="Script" uid="uid://dwr884k4lao00" path="res://TheElectronCode/Nodes/NFaradCounter.cs" id="1_cfem3"]
 [ext_resource type="Texture2D" uid="uid://xd66i5waokn0" path="res://TheElectron/images/combatui/energy_counters/farad_counter_base.png" id="1_gtsj5"]
 [ext_resource type="Texture2D" uid="uid://5nrv0tibruiq" path="res://TheElectron/images/combatui/energy_counters/farad_counter_center.png" id="2_3kx7g"]
-[ext_resource type="Shader" uid="uid://ba1w6cw5fv5rm" path="res://TheElectron/shaders/hsv.gdshader" id="2_cfem3"]
+[ext_resource type="Shader" uid="uid://bbbmco5dtkdck" path="res://TheElectron/shaders/hsv_scroll.gdshader" id="3_5susx"]
 [ext_resource type="Texture2D" uid="uid://e3mwi18kq8yt" path="res://TheElectron/images/combatui/energy_counters/farad_counter_frame.png" id="3_cfem3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5susx"]
-shader = ExtResource("2_cfem3")
+shader = ExtResource("3_5susx")
 shader_parameter/h = 1.0
 shader_parameter/s = 1.0
 shader_parameter/v = 1.0
+shader_parameter/clip_top = 0.170000008075
+shader_parameter/clip_bottom = 0.830000039425
+shader_parameter/y_scroll_speed = -0.1
 
 [node name="FaradCounter" type="Control"]
 layout_mode = 3
@@ -34,6 +37,7 @@ stretch_mode = 4
 
 [node name="Icon" type="TextureRect" parent="."]
 unique_name_in_owner = true
+texture_repeat = 2
 material = SubResource("ShaderMaterial_5susx")
 layout_mode = 1
 anchors_preset = 15

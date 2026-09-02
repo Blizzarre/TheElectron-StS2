@@ -57,13 +57,13 @@ public class ElectronHook
 
         var mult = Aggregate<IModifyQuarkValueMultAdd, decimal>(combatState, 1m,
             (model, currentMult) => model.ModifyQuarkValueMultAdd(quark, currentMult));
-        
+
         mult *= Aggregate<IModifyQuarkValueMult, decimal>(combatState, 1m,
             (model, currentMult) => model.ModifyQuarkValueMult(quark, currentMult));
 
         return amountBeforeMult * mult;
     }
-    
+
     public static decimal ModifyFaradGain(ICombatState combatState, Player player, decimal originalAmount,
         ValueProp props, CardModel? cardSource,
         out IEnumerable<AbstractModel> modifiers)
@@ -78,13 +78,13 @@ public class ElectronHook
         modifiers = modifyingModels;
         return res;
     }
-    
+
     public static Task AfterModifyingFaradGain(IEnumerable<AbstractModel> modifiers)
     {
         return Dispatch<IAfterModifyingFaradGain>(modifiers,
             model => model.AfterModifyingFaradGain());
     }
-    
+
     public static Task AfterFaradGained(ICombatState combatState, PlayerChoiceContext choiceContext, Player player,
         decimal amountLost, CardModel? cardSource = null, CardPlay? cardPlay = null)
     {
@@ -98,12 +98,12 @@ public class ElectronHook
         return Dispatch<IAfterFaradLost>(combatState,
             model => model.AfterFaradLost(choiceContext, player, amountLost, cardSource, cardPlay));
     }
-    
+
     public static Task AfterFaradOrHpDrained(ICombatState combatState, PlayerChoiceContext choiceContext, Player player,
         decimal amountLost, CardModel? cardSource = null, CardPlay? cardPlay = null)
     {
         return Dispatch<IAfterFaradOrHpDrained>(combatState,
-            model => model.AfterFaradOrHpDrained(choiceContext, player, amountLost, cardSource));
+            model => model.AfterFaradOrHpDrained(choiceContext, player, amountLost, cardSource, cardPlay));
     }
 
     public static bool ShouldQuarkBeStable(ICombatState combatState, QuarkModel quark, out AbstractModel? modifier)
@@ -111,7 +111,7 @@ public class ElectronHook
         foreach (var model in combatState.IterateHookListeners().OfType<IShouldQuarkBeStable>())
         {
             if (!model.ShouldQuarkBeStable(quark)) continue;
-            modifier = (AbstractModel) model;
+            modifier = (AbstractModel)model;
             return true;
         }
 
@@ -122,5 +122,12 @@ public class ElectronHook
     public static Task AfterMakingQuarkStable(AbstractModel modifier)
     {
         return Dispatch<IAfterMakingQuarkStable>([modifier], model => model.AfterMakingQuarkStable());
+    }
+
+    public static Task AfterQuarksFused(ICombatState combatState, PlayerChoiceContext choiceContext, Player player,
+        IEnumerable<QuarkModel> fusedQuarks)
+    {
+        return Dispatch<IAfterQuarksFused>(combatState, choiceContext,
+            model => model.AfterQuarksFused(choiceContext, player, fusedQuarks));
     }
 }

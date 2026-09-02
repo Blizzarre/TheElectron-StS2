@@ -4,11 +4,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Powers;
 
-namespace TheElectron.TheElectronCode.Cards.Basic;
+namespace TheElectron.TheElectronCode.Cards.Test;
 
 public class StableField : ElectronCard
 {
-    public StableField() : base(0, CardType.Skill, CardRarity.Basic, TargetType.Self)
+    public StableField() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
         WithVar("Amount", 2, 1);
         WithTip(ElectronHoverTip.Produce);

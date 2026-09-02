@@ -22,10 +22,7 @@ internal class PlayerCombatStateConstructorPatch
     {
         var quarkQueue = new QuarkQueue(player);
         quarkQueue.Clear();
-        if (player.Character is Character.TheElectron)
-        {
-            quarkQueue.AddCapacity(QuarkQueue.DefaultCapacity);
-        }
+        if (player.Character is Character.TheElectron) quarkQueue.AddCapacity(QuarkQueue.DefaultCapacity);
 
         var electronCombatState = new PlayerCombatStateExtension.ElectronCombatState(__instance, quarkQueue);
 

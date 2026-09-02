@@ -20,7 +20,7 @@ public class NCardGetCostTextColorInHandPatch
 
         if (costColor == ElectronEnums.CostColorEmpty)
         {
-            __result = new Color(0.15f, 0.15f, 0.15f);
+            __result = new Color(0.412f, 0.412f, 0.412f);
             return false;
         }
 
@@ -39,13 +39,13 @@ public class NCardGetCostOutlineColorInHandPatch
             __result = new Color(0.397f, 0.133f, 0.616f);
             return false;
         }
-        
+
         if (costColor == ElectronEnums.CostColorEmpty)
         {
-            __result = new Color(0.05f, 0.05f, 0.05f);
+            __result = new Color(0.149f, 0.149f, 0.149f);
             return false;
         }
-        
+
         return true;
     }
 }

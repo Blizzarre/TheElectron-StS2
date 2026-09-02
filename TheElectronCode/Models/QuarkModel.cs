@@ -27,44 +27,44 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
         Draw,
         Energy
     }
-    
+
     public virtual decimal Value { get; set; }
-    
+
     public virtual bool IsStable { get; set; }
-    
+
     public virtual bool HasStableSlot { get; set; }
 
     public virtual bool ShowLabel => false;
 
-    public virtual FuseStat Stat => FuseStat.None; 
-    
+    public virtual FuseStat Stat => FuseStat.None;
+
     public LocString Title => new(LocTable, Id.Entry + ".title");
 
     public LocString Description => new(LocTable, Id.Entry + ".description");
-    
+
     public static HoverTip EmptySlotHoverTip => new(new LocString(LocTable, "THEELECTRON-EMPTY_SLOT.title"),
         new LocString(LocTable, "THEELECTRON-EMPTY_SLOT.description"));
-    
+
     private string IconPath => Id.Entry.RemovePrefix().ToLowerInvariant().QuarkImagePath();
-    
+
     private string SpritePath => Id.Entry.RemovePrefix().ToLowerInvariant().QuarkScenePath();
-    
+
     public CompressedTexture2D Icon => PreloadManager.Cache.GetCompressedTexture2D(IconPath);
-    
+
     public virtual Color DarkenedColor => new("a0a0a0");
-    
+
     public bool HasBeenRemovedFromState { get; private set; }
-    
+
     private string SmartDescriptionLocKey => Id.Entry + ".smartDescription";
-    
+
     public bool HasSmartDescription => LocString.Exists(LocTable, SmartDescriptionLocKey);
-    
+
     public LocString SmartDescription =>
         !HasSmartDescription ? Description : new LocString(LocTable, Id.Entry + ".smartDescription");
-    
+
     public HoverTip DumbHoverTip => ElectronHoverTipFactory.CreateQuarkHoverTip(this, Description);
-    
-    
+
+
     protected virtual IEnumerable<IHoverTip> ExtraHoverTips => [];
 
     public IEnumerable<IHoverTip> HoverTips
@@ -77,7 +77,7 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
                 var smartDescription = SmartDescription;
                 var prefix = GetQuarkOwnerPool().EnergyColorName;
                 smartDescription.Add("energyPrefix", prefix);
-                smartDescription.Add(new EnergyVar((int)Value){ColorPrefix = prefix});
+                smartDescription.Add(new EnergyVar((int)Value) { ColorPrefix = prefix });
                 smartDescription.Add("Value", Value);
                 list.Add(ElectronHoverTipFactory.CreateQuarkHoverTip(this, smartDescription));
                 if (IsStable)
@@ -88,17 +88,18 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
             {
                 list.Add(DumbHoverTip);
             }
+
             list.AddRange(ExtraHoverTips);
 
             return list;
         }
     }
-    
+
     private IPoolModel GetQuarkOwnerPool()
     {
         return IsMutable ? Owner.Character.CardPool : ModelDb.CardPool<TheElectronCardPool>();
     }
-    
+
     private QuarkModel? CanonicalInstance
     {
         get => !IsMutable ? this : field;
@@ -108,7 +109,7 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
             field = value;
         }
     }
-    
+
     private Player? _owner;
 
     public Player Owner
@@ -127,15 +128,15 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
             _owner = value;
         }
     }
-    
+
     public override bool ShouldReceiveCombatHooks => true;
-    
+
     public NQuarkVisuals CreateSprite()
     {
         var quarkVisuals = PreloadManager.Cache.GetScene(SpritePath).Instantiate<NQuarkVisuals>();
         return quarkVisuals;
     }
-    
+
     public QuarkModel ToMutable()
     {
         AssertCanonical();
@@ -143,21 +144,21 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
         quarkModel.CanonicalInstance = this;
         return quarkModel;
     }
-    
+
     public QuarkModel CreateClone()
     {
         AssertMutable();
         var clonedQuark = (QuarkModel)ClonePreservingMutability();
         return clonedQuark;
     }
-    
+
     // Modify value of quarks (Spin/Strange/Charm)
     protected decimal ModifyQuarkValue(decimal amount)
     {
         if (Owner.Creature.CombatState == null) return amount;
         return ElectronHook.ModifyQuarkValue(Owner.Creature.CombatState, this, amount);
     }
-    
+
     public void RemoveInternal()
     {
         HasBeenRemovedFromState = true;

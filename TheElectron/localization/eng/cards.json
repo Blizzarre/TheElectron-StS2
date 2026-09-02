@@ -1,8 +1,4 @@
 {
-  "THEELECTRON-STRIKE_ELECTRON.description": "Deal {Damage:diff()} damage.",
-  "THEELECTRON-STRIKE_ELECTRON.title": "Drain Strike",
-  "THEELECTRON-EMPTY_STRIKE.description": "{IsNotEmpty:Deal {Damage:diff()} damage.|[color=dim_gray]Deal {Damage:diff()} damage.[/color]}\n[gold]Empty[/gold]: {IsEmpty:[lb]Deal {EmptyDamage:diff()} damage.[rb]|[color=dim_gray][lb]Deal {EmptyDamage:diff()} damage.[rb][/color]}",
-  "THEELECTRON-EMPTY_STRIKE.title": "Empty Strike",
   "THEELECTRON-DEPLETE_STRIKE.description": "[gold]Deplete[/gold]: {WouldDeplete:|[color=dim_gray]}[lb]Gain {Block:diff()} {WouldDeplete:[gold]Block[/gold]|Block}.[rb]{WouldDeplete:|[/color]}\nDeal {Damage:diff()} damage.",
   "THEELECTRON-DEPLETE_STRIKE.title": "Deplete Strike",
   "THEELECTRON-PRODUCE_UP.description": "[gold]Produce[/gold] 1 [gold]Up Quark[/gold].",
@@ -26,5 +22,19 @@
   "THEELECTRON-INFINITE_STRIKE.description": "Deal {Damage:diff()} damage.",
   "THEELECTRON-INFINITE_STRIKE.title": "Infinite Strike",
   "THEELECTRON-STABLE_FIELD.description": "The next {Amount:diff()} Quark{Amount:plural:|s} you [gold]Produce[/gold] {Amount:plural:is|are} [gold]Stable[/gold].",
-  "THEELECTRON-STABLE_FIELD.title": "Stable Field"
+  "THEELECTRON-STABLE_FIELD.title": "Stable Field",
+  "THEELECTRON-STRIKE_ELECTRON.description": "Deal {Damage:diff()} damage.",
+  "THEELECTRON-STRIKE_ELECTRON.title": "Strike",
+  "THEELECTRON-DEFEND_ELECTRON.description": "Gain {Block:diff()} [gold]Block[/gold].",
+  "THEELECTRON-DEFEND_ELECTRON.title": "Defend",
+  "THEELECTRON-UPSURGE.description": "Deal {Damage:diff()} damage.\nProduce {QuarkCount:diff()} [gold]Up Quark{QuarkCount:plural:|s}[/gold].",
+  "THEELECTRON-UPSURGE.title": "Upsurge",
+  "THEELECTRON-ENTANGLE.description": "Apply {QuantumLinkPower:diff()} [gold]Quantum Link[/gold].\n[gold]Deplete[/gold]: {WouldDeplete:[lb]Gain {Farad:diff()} [gold]Farad[/gold].[rb]|[color=dim_gray][lb]Gain {Farad:diff()} Farad.[rb][/color]}",
+  "THEELECTRON-ENTANGLE.title": "Entangle",
+  "THEELECTRON-RED_MATTER.description": "{HasEnoughEnergy:[gold]Produce[/gold] {QuarkCount:diff()} [gold]Up Quark{QuarkCount:plural:|s}[/gold].|[color=dim_gray]Produce {QuarkCount:diff()} Up Quark{QuarkCount:plural:|s}.[/color]}\n[gold]Empty[/gold]: {IsEmpty:[lb][gold]Produce[/gold] {ExtraQuark:diff()} [gold]Up Quark{ExtraQuark:plural:|s}[/gold].[rb]|[color=dim_gray][lb]Produce {ExtraQuark:diff()} Up Quark{ExtraQuark:plural:|s}.[rb][/color]}",
+  "THEELECTRON-RED_MATTER.title": "Red Matter",
+  "THEELECTRON-BLUE_MATTER.description": "{HasEnoughEnergy:[gold]Produce[/gold] {QuarkCount:diff()} [gold]Down Quark{QuarkCount:plural:|s}[/gold].|[color=dim_gray]Produce {QuarkCount:diff()} Down Quark{QuarkCount:plural:|s}.[/color]}\n[gold]Empty[/gold]: {IsEmpty:[lb][gold]Produce[/gold] {ExtraQuark:diff()} [gold]Down Quark{ExtraQuark:plural:|s}[/gold].[rb]|[color=dim_gray][lb]Produce {ExtraQuark:diff()} Down Quark{ExtraQuark:plural:|s}.[rb][/color]}",
+  "THEELECTRON-BLUE_MATTER.title": "Blue Matter",
+  "THEELECTRON-WHIPLASH.description": "[gold]Empty[/gold]: {IsEmpty:[lb]Gain {Block:diff()} [gold]Block[/gold].[rb]|[color=dim_gray][lb]Gain {Block:diff()} Block.[rb][/color]}\n{HasEnoughEnergy:Deal {Damage:diff()} damage to ALL enemies.|[color=dim_gray]Deal {Damage:diff()} damage to ALL enemies.[/color]}",
+  "THEELECTRON-WHIPLASH.title": "Whiplash"
 }

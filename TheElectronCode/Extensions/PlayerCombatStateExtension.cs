@@ -19,9 +19,7 @@ public static class PlayerCombatStateExtension
                 field = Math.Max(value, 0);
                 var state = combatState._player.Creature.CombatState;
                 if (state != null)
-                {
                     CombatManager.Instance.History.FaradModified(state, field - farad, combatState._player);
-                }
 
                 FaradChanged?.Invoke(farad, field);
             }
@@ -30,7 +28,7 @@ public static class PlayerCombatStateExtension
         public QuarkQueue QuarkQueue => quarkQueue;
 
         public event Action<int, int>? FaradChanged;
-        
+
 
         public void GainFarad(int amount)
         {
@@ -42,7 +40,7 @@ public static class PlayerCombatStateExtension
             Farad -= amount;
         }
     }
-    
+
     extension(PlayerCombatState playerCombatState)
     {
         public QuarkQueue? GetQuarkQueue()
@@ -56,7 +54,7 @@ public static class PlayerCombatStateExtension
             var electronCombatState = playerCombatState.Electron();
             return electronCombatState?.Farad ?? 0;
         }
-        
+
         public ElectronCombatState? Electron()
         {
             return ElectronField.ElectronCombatState[playerCombatState];

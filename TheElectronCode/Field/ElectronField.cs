@@ -8,6 +8,6 @@ namespace TheElectron.TheElectronCode.Field;
 public class ElectronField
 {
     public static readonly SpireField<CardModel, int> DrainExcessEnergy = new(_ => 0);
-    
+
     public static readonly SpireField<PlayerCombatState, ElectronCombatState> ElectronCombatState = new(() => null);
 }
