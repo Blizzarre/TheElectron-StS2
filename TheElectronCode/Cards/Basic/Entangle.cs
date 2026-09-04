@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
+using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Basic;
@@ -14,7 +15,7 @@ public class Entangle : ElectronDepleteCard
     public Entangle() : base(1, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
     {
         WithPower<QuantumLinkPower>(3, 4);
-        WithVar(new FaradVar(1));
+        WithVar(new FaradVar(2));
     }
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)

@@ -3,8 +3,11 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
+using TheElectron.TheElectronCode.Commands;
+using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Field;
 using TheElectron.TheElectronCode.Models;
 using TheElectron.TheElectronCode.Nodes.Quarks;
@@ -194,6 +197,24 @@ public class QuarkQueue
             if (energy > 0) await PlayerCmd.GainEnergy(energy, Owner);
             await MediumWait();
         }
+        
+        if (stats.TryGetValue(QuarkModel.FuseStat.SelfDamage, out var selfDamage))
+        {
+            if (quarkManager != null)
+                await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.SelfDamage);
+            var electronCombatState = Owner.PlayerCombatState?.Electron();
+            if (electronCombatState != null)
+            {
+                var faradDrain = Math.Min(electronCombatState.Farad, selfDamage);
+                await ElectronPlayerCmd.LoseFarad(choiceContext, Owner, faradDrain);
+                selfDamage -= faradDrain;
+            }
+
+            if (selfDamage > 0)
+                await CreatureCmd.Damage(choiceContext, Owner.Creature,
+                    new DamageVar(selfDamage, ValueProp.Unpowered | ValueProp.Unblockable), Owner.Creature);
+            await MediumWait();
+        }
 
         _quarks.Clear();
         TempCapacity = 0;
@@ -204,6 +225,11 @@ public class QuarkQueue
     public bool Remove(QuarkModel quark)
     {
         return _quarks.Remove(quark);
+    }
+
+    public void ReplaceQuark(QuarkModel orig, QuarkModel repl)
+    {
+        // TODO Implement this and add a cmd for changing quark with a different model
     }
 
     public void Insert(int idx, QuarkModel quark)

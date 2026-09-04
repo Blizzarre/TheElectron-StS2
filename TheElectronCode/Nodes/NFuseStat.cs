@@ -38,6 +38,9 @@ public partial class NFuseStat : HBoxContainer
             case QuarkModel.FuseStat.Energy:
                 powerName = "energy_next_turn_power";
                 break;
+            case QuarkModel.FuseStat.SelfDamage:
+                powerName = "inferno_power";
+                break;
         }
 
         var path = $"res://images/atlases/power_atlas.sprites/{powerName}.tres";

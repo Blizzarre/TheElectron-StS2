@@ -1,5 +1,5 @@
 {
-  "THEELECTRON-EMPTY.description": "Can be played if you have [blue]{energyPrefix:energyIcons(0)}[/blue] to activate only Empty effects.",
+  "THEELECTRON-EMPTY.description": "Can be played if you have [blue]0[/blue]\u2060{energyPrefix:energyIcons(1)} to activate only Empty effects.",
   "THEELECTRON-EMPTY.title": "Empty",
   "THEELECTRON-DEPLETE.description": "If your {energyPrefix:energyIcons(1)} would be [blue]0[/blue] after playing this card, activate Deplete effects.",
   "THEELECTRON-DEPLETE.title": "Deplete",
@@ -15,6 +15,7 @@
   "THEELECTRON-FUSION_STATS.block": "Gain [blue]{Block}[/blue] [gold]Block[/gold].",
   "THEELECTRON-FUSION_STATS.draw": "Draw [blue]{Draw}[/blue] card{Draw:plural:|s}.",
   "THEELECTRON-FUSION_STATS.energy": "Gain [blue]{Energy:energyIcons()}[/blue].",
+  "THEELECTRON-FUSION_STATS.selfDamage": "Lose [blue]{SelfDamage}[/blue] [gold]Farad[/gold] or HP.",
   "THEELECTRON-STABLE.description": "Stable Quarks create their own Slot when [gold]Produced[/gold]. Slots created this way are removed after [gold]Fusion[/gold].",
   "THEELECTRON-STABLE.title": "Stable",
   "THEELECTRON-STABLE_QUARK.description": "This Quark is Stable {HasStableSlot:and has|but doesn't have} its own Slot.{HasStableSlot: After [gold]Fusion[/gold], this Slot will be removed.|}",

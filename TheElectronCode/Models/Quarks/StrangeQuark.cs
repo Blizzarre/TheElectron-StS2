@@ -3,18 +3,18 @@ using TheElectron.TheElectronCode.Hooks;
 
 namespace TheElectron.TheElectronCode.Models.Quarks;
 
-public class StrangeQuark : QuarkModel, IModifyQuarkValueMult
+public class StrangeQuark : QuarkModel
 {
-    public override FuseStat Stat => FuseStat.None;
+    public override FuseStat Stat => FuseStat.SelfDamage;
 
-    public override bool ShowLabel => false;
+    public override bool ShowLabel => true;
 
-    public override decimal Value => 0;
+    public override decimal Value => 2;
 
-    public decimal ModifyQuarkValueMult(QuarkModel quark, decimal mult)
-    {
-        if (quark != this) return 0;
-
-        return mult;
-    }
+    // public decimal ModifyQuarkValueMult(QuarkModel quark, decimal mult)
+    // {
+    //     if (quark != this) return 0;
+    //
+    //     return mult;
+    // }
 }

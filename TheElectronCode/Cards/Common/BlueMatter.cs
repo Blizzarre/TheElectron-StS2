@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
+using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Models.Quarks;
 
 namespace TheElectron.TheElectronCode.Cards.Common;
@@ -14,14 +15,13 @@ public class BlueMatter : ElectronEmptyCard
 {
     public BlueMatter() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
+        WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<DownQuark>();
         WithVar(new QuarkCountVar(2).WithUpgrade(1));
         WithVar(new DynamicVar("ExtraQuark", 1));
     }
 
-    protected override async Task OnPlayWrapper(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+    protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount().IntValue; i++)
         {

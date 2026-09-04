@@ -4,8 +4,6 @@ using TheElectron.TheElectronCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
-using MegaCrit.Sts2.Core.Models.Relics;
 using TheElectron.TheElectronCode.Cards.Basic;
 using TheElectron.TheElectronCode.Relics;
 
@@ -16,6 +14,8 @@ public class TheElectron : PlaceholderCharacterModel
     public const string CharacterId = "TheElectron";
 
     public static readonly Color Color = new("ffffff");
+
+    public override string PlaceholderID => "defect";
 
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Neutral;

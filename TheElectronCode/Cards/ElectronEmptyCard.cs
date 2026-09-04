@@ -17,8 +17,8 @@ public abstract class ElectronEmptyCard : ElectronCard
 
     // Set during SpendResource
     public bool IsPlayedAsEmpty { get; set; }
-
     public bool HasPaidEnergyCost { get; set; }
+    
 
     public bool WouldBeEmpty
     {
@@ -39,11 +39,10 @@ public abstract class ElectronEmptyCard : ElectronCard
             return true;
         }
     }
-
+    
     protected override void AddExtraArgsToDescription(LocString description)
     {
         base.AddExtraArgsToDescription(description);
-
         if (IsInCombat)
         {
             description.Add("IsEmpty", WouldBeEmpty);

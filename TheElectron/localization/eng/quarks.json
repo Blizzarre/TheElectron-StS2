@@ -16,7 +16,7 @@
   "THEELECTRON-CHARM_QUARK.smartDescription": "Increase non-Charm [gold]Quarks'[/gold] effects by [blue]100%[/blue].",
   "THEELECTRON-CHARM_QUARK.description": "Quark: Improve non-Charm Quarks' effects.",
   "THEELECTRON-CHARM_QUARK.title": "Charm Quark",
-  "THEELECTRON-STRANGE_QUARK.smartDescription": "Nullify ALL Quarks' effects.",
-  "THEELECTRON-STRANGE_QUARK.description": "Quark: Nullify ALL Quarks' effects.",
+  "THEELECTRON-STRANGE_QUARK.smartDescription": "When [gold]Fused[/gold], lose [blue]{Value}[/blue] [gold]Farad[/gold] or HP.",
+  "THEELECTRON-STRANGE_QUARK.description": "Quark: Drains your [gold]Farad[/gold] or HP.",
   "THEELECTRON-STRANGE_QUARK.title": "Strange Quark"
 }

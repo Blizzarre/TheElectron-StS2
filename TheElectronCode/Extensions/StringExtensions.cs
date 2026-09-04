@@ -1,9 +1,10 @@
-﻿using Godot;
+﻿using System.Text.RegularExpressions;
+using Godot;
 
 namespace TheElectron.TheElectronCode.Extensions;
 
 //Mostly utilities to get asset paths.
-public static class StringExtensions
+public static partial class StringExtensions
 {
     public static string ImagePath(this string path)
     {
@@ -96,4 +97,12 @@ public static class StringExtensions
     {
         return Path.Join(TheElectronMod.ModId, "scenes", "quarks", "quark_visuals", path + ".tscn");
     }
+
+    public static string StripColorBbCodes(this string text)
+    {
+        return BbCodeColorTagRegex().Replace(text, "");
+    }
+
+    [GeneratedRegex(@"\[\/?(?:(?:gold)|(?:red)|(?:blue)|(?:green)|(?:color(?:=.*?)?))\]")]
+    private static partial Regex BbCodeColorTagRegex();
 }

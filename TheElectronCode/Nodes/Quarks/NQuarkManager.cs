@@ -101,7 +101,7 @@ public partial class NQuarkManager : NClickableControl
     private static readonly float LerpRate = Mathf.Exp(2);
 
     private static readonly QuarkModel.FuseStat[] StatOrder =
-        [QuarkModel.FuseStat.Damage, QuarkModel.FuseStat.Block, QuarkModel.FuseStat.Draw, QuarkModel.FuseStat.Energy];
+        [QuarkModel.FuseStat.Damage, QuarkModel.FuseStat.Block, QuarkModel.FuseStat.Draw, QuarkModel.FuseStat.Energy, QuarkModel.FuseStat.SelfDamage];
 
 
     public override void _Ready()
@@ -123,8 +123,8 @@ public partial class NQuarkManager : NClickableControl
         _fuseStats = GetNode<Control>("%FuseStats");
         _particlesContainer = GetNode<ElectronNParticlesContainer>("%ParticlesContainer");
 
-        for (var i = 1; i <= 4; i++) _fuseStatList.Add(GetNode<NFuseStat>($"%FuseStat{i}"));
-        for (var i = 0; i < 4; i++) _fuseStatList[i].SetStatVisual(StatOrder[i]);
+        for (var i = 1; i <= StatOrder.Length; i++) _fuseStatList.Add(GetNode<NFuseStat>($"%FuseStat{i}"));
+        for (var i = 0; i < StatOrder.Length; i++) _fuseStatList[i].SetStatVisual(StatOrder[i]);
 
         _selectionReticle = BaseSceneIndex.SelectionReticleScene.Instantiate<NSelectionReticle>();
         this.AddChildSafely(_selectionReticle);
@@ -356,7 +356,7 @@ public partial class NQuarkManager : NClickableControl
             var height = StatHeight * items + (items - 1) * 6;
             var initialPosition = new Vector2(0, -height / 2f);
 
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < StatOrder.Length; i++)
             {
                 var fuseStat = _fuseStatList[i];
 
@@ -503,7 +503,7 @@ public partial class NQuarkManager : NClickableControl
         var height = StatHeight * items + (items - 1) * 6;
         var initialPosition = new Vector2(0, -height / 2f);
 
-        for (var i = 0; i < 4; i++)
+        for (var i = 0; i < StatOrder.Length; i++)
         {
             var fuseStat = _fuseStatList[i];
             if (stats.TryGetValue(StatOrder[i], out var value))
@@ -615,6 +615,13 @@ public partial class NQuarkManager : NClickableControl
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.energy");
             locString.Add(new EnergyVar((int)stats.GetValueOrDefault(QuarkModel.FuseStat.Energy))
                 { ColorPrefix = prefix });
+            appendDesc.Add(locString.GetFormattedText());
+        }
+        
+        if (stats.ContainsKey(QuarkModel.FuseStat.SelfDamage))
+        {
+            var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.selfDamage");
+            locString.Add("SelfDamage", stats.GetValueOrDefault(QuarkModel.FuseStat.SelfDamage));
             appendDesc.Add(locString.GetFormattedText());
         }
 

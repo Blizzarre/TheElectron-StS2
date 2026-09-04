@@ -110,9 +110,7 @@ internal class CardModelOnPlayWrapperPatch
             if (electronCombatState != null)
             {
                 var faradDrain = Math.Min(electronCombatState.Farad, drainAmount);
-
                 await ElectronPlayerCmd.LoseFarad(choiceContext, player, faradDrain, __instance);
-
                 drainAmount -= faradDrain;
             }
 

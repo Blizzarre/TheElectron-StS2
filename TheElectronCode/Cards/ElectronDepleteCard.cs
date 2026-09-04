@@ -21,7 +21,7 @@ public abstract class ElectronDepleteCard : ElectronCard
     protected override bool ShouldGlowGoldInternal => WouldDeplete;
 
     // For description cond
-    protected bool WouldDeplete
+    public bool WouldDeplete
     {
         get
         {

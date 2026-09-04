@@ -1,0 +1,28 @@
+﻿using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.ValueProps;
+
+namespace TheElectron.TheElectronCode.Cards.Common;
+
+public class CathodeRay : ElectronDepleteCard
+{
+    public CathodeRay() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    {
+        WithCalculatedDamage(9, 9,
+            static (card, _) =>
+                card is ElectronDepleteCard electronDepleteCard && (electronDepleteCard.IsEnergyDepleted || electronDepleteCard.WouldDeplete)
+                    ? 1
+                    : 0,
+            ValueProp.Move, 2, 2);
+    }
+
+    protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
+    {
+        ArgumentNullException.ThrowIfNull(play.Target);
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this, play)
+            .Targeting(play.Target)
+            .WithHitFx("vfx/vfx_attack_blunt")
+            .Execute(choiceContext);
+    }
+}

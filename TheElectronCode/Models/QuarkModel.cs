@@ -25,7 +25,8 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
         Damage,
         Block,
         Draw,
-        Energy
+        Energy,
+        SelfDamage
     }
 
     public virtual decimal Value { get; set; }

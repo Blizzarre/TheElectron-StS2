@@ -32,6 +32,9 @@
             <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
             <Private>false</Private>
         </Reference>
+        <Reference Include="SmartFormat">
+            <HintPath>$(Sts2DataDir)/SmartFormat.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup Condition="$(Publicize)">
@@ -69,7 +72,6 @@
     <ItemGroup>
         <Folder Include="TheElectronCode\Cards\Ancient\" />
         <Folder Include="TheElectronCode\Cards\Rare\" />
-        <Folder Include="TheElectronCode\Cards\Uncommon\" />
         <Folder Include="TheElectron\images\card_portraits\big\"/>
         <Folder Include="TheElectron\images\powers\big\"/>
         <Folder Include="TheElectron\images\relics\big\"/>
@@ -77,6 +79,12 @@
 
     <ItemGroup>
       <Content Include="LICENSE" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SmartFormat">
+        <HintPath>E:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\SmartFormat.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">
