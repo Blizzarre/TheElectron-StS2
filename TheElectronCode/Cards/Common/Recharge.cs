@@ -23,6 +23,6 @@ public class Recharge : ElectronCard
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad().BaseValue, this, play);
+        await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
     }
 }

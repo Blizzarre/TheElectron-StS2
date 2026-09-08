@@ -28,7 +28,7 @@ public class SlideKick : ElectronCard
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
         
-        for (var i = 0; i < DynamicVars.QuarkCount().IntValue; i++)
+        for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
         {
             await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
         }

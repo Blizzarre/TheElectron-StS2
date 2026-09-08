@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using TheElectron.TheElectronCode.Nodes;
 using TheElectron.TheElectronCode.Nodes.Quarks;
@@ -19,4 +20,15 @@ public class ElectronNode
 
 
     public static readonly SpireField<NCreature, NQuarkManager> NQuarkManager = new(() => null);
+
+    public static readonly AddedNode<NCard, NElectronCardIndicator> NElectronCardIndicator = new(card =>
+    {
+        var elementsIcon = PreloadManager.Cache.GetScene(ElectronResource.NElectronCardIndicatorPath)
+            .Instantiate<NElectronCardIndicator>()
+            .WithData(card);
+        var cardContainer = card.GetChild(0)!;
+        cardContainer.AddChild(elementsIcon);
+        cardContainer.MoveChild(elementsIcon, cardContainer.GetNode("%EnergyIcon").GetIndex());
+        return elementsIcon;
+    });
 }

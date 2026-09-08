@@ -5,13 +5,10 @@ namespace TheElectron.TheElectronCode.Extensions;
 
 public static class DynamicVarSetExtension
 {
-    public static DynamicVar Farad(this DynamicVarSet set)
+    extension(DynamicVarSet set)
     {
-        return set[FaradVar.defaultName];
-    }
-    
-    public static DynamicVar QuarkCount(this DynamicVarSet set)
-    {
-        return set[QuarkCountVar.defaultName];
+        public DynamicVar Farad => set[FaradVar.defaultName];
+
+        public DynamicVar QuarkCount => set[QuarkCountVar.defaultName];
     }
 }

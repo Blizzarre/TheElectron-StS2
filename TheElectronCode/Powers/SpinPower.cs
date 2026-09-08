@@ -16,7 +16,7 @@ public class SpinPower : TheElectronPower, IModifyQuarkValueAdditive, IAfterQuar
     
     public decimal ModifyQuarkValueAdditive(QuarkModel quark, decimal value)
     {
-        if (quark is UpQuark or DownQuark)
+        if (quark.Owner.Creature == Owner && quark is UpQuark or DownQuark)
         {
             return value + Amount;
         }

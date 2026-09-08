@@ -225,7 +225,7 @@ public partial class NQuarkManager : NClickableControl
 
     private void OnCombatStateChanged(CombatState _)
     {
-        // TODO update numbers
+        UpdateVisuals();
     }
 
     public void AddSlotAnim(int amount)

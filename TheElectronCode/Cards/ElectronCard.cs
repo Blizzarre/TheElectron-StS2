@@ -6,7 +6,6 @@ using TheElectron.TheElectronCode.Character;
 using TheElectron.TheElectronCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Localization;
 using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Models;
 
@@ -56,7 +55,7 @@ public abstract class ElectronCard(int cost, CardType type, CardRarity rarity, T
         {
             case ElectronHoverTip.Empty or ElectronHoverTip.Deplete:
                 WithTip(new TooltipSource(card => ElectronHoverTipFactory.Static(electronTip,
-                    loc => loc.Add("energyPrefix", EnergyIconHelper.GetPrefix(card)))));
+                    loc => loc.Add("energyPrefix", EnergyIconHelper.GetPrefix(card)), true)));
                 break;
             default:
                 WithTip(new TooltipSource(_ => ElectronHoverTipFactory.Static(electronTip)));

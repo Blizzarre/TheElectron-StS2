@@ -117,7 +117,6 @@ internal class CardModelOnPlayWrapperPatch
             if (drainAmount > 0)
                 await CreatureCmd.Damage(choiceContext, __instance.Owner.Creature,
                     new DamageVar(drainAmount, ValueProp.Unpowered | ValueProp.Unblockable), __instance, null);
-            ElectronField.DrainExcessEnergy[__instance] = 0;
 
             await ElectronHook.AfterFaradOrHpDrained(__instance.CombatState, choiceContext, player, totalAmount,
                 __instance);

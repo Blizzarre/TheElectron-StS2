@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6340255s8sxb"]
+
+[ext_resource type="Script" uid="uid://bsnaiip23dukl" path="res://TheElectronCode/Nodes/NElectronCardIndicator.cs" id="1_6bde0"]
+[ext_resource type="Texture2D" path="res://TheElectron/images/cardui/empty.tres" id="1_8po4r"]
+[ext_resource type="Texture2D" path="res://TheElectron/images/cardui/empty_bg.tres" id="2_6bde0"]
+[ext_resource type="Texture2D" uid="uid://c3rw4cuhm2vgo" path="res://TheElectron/images/cardui/deplete.tres" id="3_w3hp0"]
+[ext_resource type="Texture2D" uid="uid://farv51ou3doa" path="res://TheElectron/images/cardui/deplete_bg.tres" id="4_5pk1b"]
+[ext_resource type="Texture2D" uid="uid://c5rb28e00rxo" path="res://TheElectron/images/cardui/drain.tres" id="5_k6fv3"]
+[ext_resource type="Texture2D" uid="uid://clvq2k7m2g5d8" path="res://TheElectron/images/cardui/drain_bg.tres" id="6_xy1f1"]
+
+[node name="ElectronCardIndicator" type="HBoxContainer"]
+offset_left = -106.0
+offset_top = -248.0
+offset_right = 40.0
+offset_bottom = -200.0
+mouse_filter = 2
+theme_override_constants/separation = 1
+script = ExtResource("1_6bde0")
+
+[node name="Empty" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_8po4r")
+expand_mode = 2
+
+[node name="EmptyBg" type="TextureRect" parent="Empty"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_6bde0")
+expand_mode = 2
+
+[node name="Deplete" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_w3hp0")
+expand_mode = 2
+
+[node name="DepleteBg" type="TextureRect" parent="Deplete"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_5pk1b")
+expand_mode = 2
+
+[node name="Drain" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_k6fv3")
+expand_mode = 2
+
+[node name="DrainBg" type="TextureRect" parent="Drain"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_xy1f1")
+expand_mode = 2

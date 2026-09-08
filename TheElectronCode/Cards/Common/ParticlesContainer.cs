@@ -20,6 +20,7 @@ public class ParticlesContainer : ElectronCard
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<SpinPower>(choiceContext, Owner.Creature,
             DynamicVars.Power<SpinPower>().BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<StabilityPower>(choiceContext, Owner.Creature,

@@ -1,20 +1,27 @@
 ﻿using BaseLib.Extensions;
 using Godot;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Models;
 
 namespace TheElectron.TheElectronCode.HoverTips;
 
 public class ElectronHoverTipFactory
 {
-    public static IHoverTip Static(ElectronHoverTip tip, Action<LocString>? locAdd = null, params DynamicVar[] vars)
+    public static IHoverTip Static(ElectronHoverTip tip, Action<LocString>? locAdd = null, bool withIcon = false, params DynamicVar[] vars)
     {
-        var text = tip.GetType().GetPrefix() + StringHelper.Slugify(tip.ToString());
-        return Static(text, locAdd, vars);
+        var name = StringHelper.Slugify(tip.ToString());
+        var text = tip.GetType().GetPrefix() + name;
+
+        if (!withIcon) return Static(text, locAdd, vars);
+        
+        var iconPath = name.ToLowerInvariant().CardUiResourcePath().ToRes();
+        return Static(text, PreloadManager.Cache.GetTexture2D(iconPath), locAdd, vars);
     }
 
     public static IHoverTip Static(string entry, Action<LocString>? locAdd = null, params DynamicVar[] vars)

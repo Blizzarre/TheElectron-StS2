@@ -23,7 +23,7 @@ public class BlueMatter : ElectronEmptyCard
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        for (var i = 0; i < DynamicVars.QuarkCount().IntValue; i++)
+        for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
         {
             await QuarkCmd.Produce<DownQuark>(choiceContext, Owner, this, play);
         }

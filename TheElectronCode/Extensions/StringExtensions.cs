@@ -6,6 +6,11 @@ namespace TheElectron.TheElectronCode.Extensions;
 //Mostly utilities to get asset paths.
 public static partial class StringExtensions
 {
+    public static string ToRes(this string path)
+    {
+        return Path.Join("res://", path);
+    }
+    
     public static string ImagePath(this string path)
     {
         return Path.Join(TheElectronMod.ResPath, "images", path);
@@ -96,6 +101,11 @@ public static partial class StringExtensions
     public static string QuarkScenePath(this string path)
     {
         return Path.Join(TheElectronMod.ModId, "scenes", "quarks", "quark_visuals", path + ".tscn");
+    }
+    
+    public static string CardUiResourcePath(this string path)
+    {
+        return Path.Join(TheElectronMod.ModId, "images", "cardui", path + ".tres");
     }
 
     public static string StripColorBbCodes(this string text)

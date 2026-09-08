@@ -13,8 +13,8 @@ public class AlloyArmor : ElectronDepleteCard
     public AlloyArmor() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithBlock(12, 4);
-        WithTags(CardTag.Defend);
         WithKeyword(ElectronKeywords.Drain);
+        WithQuarkTip<DownQuark>();
         WithVar(new QuarkCountVar(1));
     }
 

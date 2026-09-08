@@ -41,11 +41,18 @@ public abstract class ElectronDepleteCard : ElectronCard
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await BeforeOnPlay(choiceContext, cardPlay);
+        
         if (IsEnergyDepleted) await OnPlayDepleteBefore(choiceContext, cardPlay);
 
         await OnPlayWrapper(choiceContext, cardPlay);
 
         if (IsEnergyDepleted) await OnPlayDepleteAfter(choiceContext, cardPlay);
+    }
+    
+    protected virtual Task BeforeOnPlay(PlayerChoiceContext choiceContext, CardPlay play)
+    {
+        return Task.CompletedTask;
     }
 
     protected virtual Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)

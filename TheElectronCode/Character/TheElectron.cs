@@ -4,6 +4,7 @@ using TheElectron.TheElectronCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 using TheElectron.TheElectronCode.Cards.Basic;
 using TheElectron.TheElectronCode.Relics;
 
@@ -13,7 +14,7 @@ public class TheElectron : PlaceholderCharacterModel
 {
     public const string CharacterId = "TheElectron";
 
-    public static readonly Color Color = new("ffffff");
+    public static readonly Color Color = new("13178f");
 
     public override string PlaceholderID => "defect";
 
@@ -31,7 +32,7 @@ public class TheElectron : PlaceholderCharacterModel
         ModelDb.Card<DefendElectron>(),
         ModelDb.Card<DefendElectron>(),
         ModelDb.Card<DefendElectron>(),
-        ModelDb.Card<Entangle>(),
+        ModelDb.Card<Entwine>(),
         ModelDb.Card<Upsurge>()
     ];
 
@@ -57,6 +58,16 @@ public class TheElectron : PlaceholderCharacterModel
             return icon;
         }
     }
+    
+    public override Color EnergyLabelOutlineColor => new("0a1554");
+    
+    public override VfxColor SpeechBubbleColor => VfxColor.Blue;
+
+    public override Color MapDrawingColor => new("111169");
+
+    public override Color RemoteTargetingLineColor => new("3f4ac4");
+
+    public override Color RemoteTargetingLineOutline => new("0b0f63");
 
     public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
     public override string CustomCharacterSelectIconPath => "char_select_char_name.png".CharacterUiPath();

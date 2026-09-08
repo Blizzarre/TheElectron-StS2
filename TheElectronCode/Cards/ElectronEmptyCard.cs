@@ -57,6 +57,8 @@ public abstract class ElectronEmptyCard : ElectronCard
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await BeforeOnPlay(choiceContext, cardPlay);
+        
         if (IsPlayedAsEmpty)
         {
             await OnPlayEmptyBefore(choiceContext, cardPlay);
@@ -69,6 +71,11 @@ public abstract class ElectronEmptyCard : ElectronCard
         {
             await OnPlayEmptyAfter(choiceContext, cardPlay);
         }
+    }
+    
+    protected virtual Task BeforeOnPlay(PlayerChoiceContext choiceContext, CardPlay play)
+    {
+        return Task.CompletedTask;
     }
 
     protected virtual Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)

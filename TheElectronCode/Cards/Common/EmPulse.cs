@@ -11,7 +11,7 @@ public class EmPulse : ElectronDepleteCard
 {
     public EmPulse() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithBlock(7, 1);
+        WithBlock(6, 1);
         WithPower<WeakPower>(1, 1);
     }
 

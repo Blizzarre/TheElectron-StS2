@@ -10,5 +10,17 @@
   "THEELECTRON-EMERGENCY_PROTOCOL_POWER.title": "Emergency Protocol",
   "THEELECTRON-SPIN_POWER.description": "Increase the effectiveness of [gold]Up[/gold] and [gold]Down[/gold] Quarks. Spin is removed after [gold]Fusion[/gold].",
   "THEELECTRON-SPIN_POWER.smartDescription": "Increase the effectiveness of [gold]Up[/gold] and [gold]Down[/gold] Quarks by [blue]{Amount:abs()}[/blue]. Spin is removed after [gold]Fusion[/gold].",
-  "THEELECTRON-SPIN_POWER.title": "Spin"
+  "THEELECTRON-SPIN_POWER.title": "Spin",
+  "THEELECTRON-MALLEABLE_CHASSIS_POWER.description": "Whenever you lose [gold]Farad[/gold] or HP, gain [gold]Block[/gold].",
+  "THEELECTRON-MALLEABLE_CHASSIS_POWER.smartDescription": "Whenever you lose [gold]Farad[/gold] or HP, gain [blue]{Amount}[/blue] [gold]Block[/gold].",
+  "THEELECTRON-MALLEABLE_CHASSIS_POWER.title": "Malleable Chassis",
+  "THEELECTRON-CYCLOTRON_POWER.description": "Whenever you [gold]Fuse[/gold], gain [gold]Spin[/gold] for each Quark [gold]Fused[/gold].",
+  "THEELECTRON-CYCLOTRON_POWER.smartDescription": "Whenever you [gold]Fuse[/gold], gain [blue]{Amount}[/blue] [gold]Spin[/gold] for each Quark [gold]Fused[/gold].",
+  "THEELECTRON-CYCLOTRON_POWER.title": "Cyclotron",
+  "THEELECTRON-STRING_THEORY_POWER.description": "Whenever you deal unblocked damage, apply [gold]Quantum Link[/gold].",
+  "THEELECTRON-STRING_THEORY_POWER.smartDescription": "Whenever you deal unblocked damage, apply [blue]{Amount:diff()}[/blue] [gold]Quantum Link[/gold].",
+  "THEELECTRON-STRING_THEORY_POWER.title": "String Theory",
+  "THEELECTRON-NEUTRON_COLLECTOR_POWER.description": "At the start of your turn, [gold]Produce[/gold] [gold]Up Quark[/gold] and [gold]Down Quark[/gold].",
+  "THEELECTRON-NEUTRON_COLLECTOR_POWER.smartDescription": "At the start of your turn, [gold]Produce[/gold] [blue]{Amount}[/blue] [gold]Up Quark{Amount:plural:|s}[/gold] and [blue]{Amount}[/blue] [gold]Down Quark{Amount:plural:|s}[/gold].",
+  "THEELECTRON-NEUTRON_COLLECTOR_POWER.title": "Neutron Collector"
 }

@@ -23,25 +23,15 @@ public partial class NFuseStat : HBoxContainer
 
     public void SetStatVisual(QuarkModel.FuseStat stat)
     {
-        string? powerName = null;
-        switch (stat)
+        var powerName = stat switch
         {
-            case QuarkModel.FuseStat.Damage:
-                powerName = "strength_power";
-                break;
-            case QuarkModel.FuseStat.Block:
-                powerName = "dexterity_power";
-                break;
-            case QuarkModel.FuseStat.Draw:
-                powerName = "draw_cards_next_turn_power";
-                break;
-            case QuarkModel.FuseStat.Energy:
-                powerName = "energy_next_turn_power";
-                break;
-            case QuarkModel.FuseStat.SelfDamage:
-                powerName = "inferno_power";
-                break;
-        }
+            QuarkModel.FuseStat.Damage => "strength_power",
+            QuarkModel.FuseStat.Block => "dexterity_power",
+            QuarkModel.FuseStat.Draw => "draw_cards_next_turn_power",
+            QuarkModel.FuseStat.Energy => "energy_next_turn_power",
+            QuarkModel.FuseStat.SelfDamage => "inferno_power",
+            _ => ""
+        };
 
         var path = $"res://images/atlases/power_atlas.sprites/{powerName}.tres";
         _statIcon?.Texture = ResourceLoader.Load<Texture2D>(path);

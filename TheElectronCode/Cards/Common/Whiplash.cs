@@ -23,7 +23,7 @@ public class Whiplash : ElectronEmptyCard
             .Execute(choiceContext);
     }
 
-    protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
+    protected override async Task OnPlayEmptyBefore(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
     }

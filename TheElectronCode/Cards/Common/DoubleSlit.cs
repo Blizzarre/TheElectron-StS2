@@ -10,7 +10,7 @@ public class DoubleSlit : ElectronCard
 {
     public DoubleSlit() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithCalculatedDamage(5, (card, _) => card.Owner.PlayerCombatState?.Electron()?.QuarkQueue.Quarks.Count ?? 0,
+        WithCalculatedDamage(4, (card, _) => card.Owner.PlayerCombatState?.Electron()?.QuarkQueue.Quarks.Count ?? 0,
             ValueProp.Move, 1, 1);
     }
 

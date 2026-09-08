@@ -15,7 +15,7 @@ public class VoltTackle : ElectronDepleteCard
     public VoltTackle() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithDamage(32, 8);
+        WithDamage(30, 8);
         WithVar(new QuarkCountVar(1));
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<StrangeQuark>();
@@ -33,7 +33,7 @@ public class VoltTackle : ElectronDepleteCard
 
     protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        for (var i = 0; i < DynamicVars.QuarkCount().IntValue; i++)
+        for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
         {
             await QuarkCmd.Produce<StrangeQuark>(choiceContext, Owner, this, play);
         }

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://farv51ou3doa"]
+
+[ext_resource type="Texture2D" uid="uid://2i04lucpqpya" path="res://TheElectron/images/cardui/electron_card_icons_bg.png" id="1_f5x52"]
+
+[resource]
+atlas = ExtResource("1_f5x52")
+region = Rect2(68, 0, 64, 64)

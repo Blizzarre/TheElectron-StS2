@@ -80,8 +80,9 @@ public static class QuarkCmd
             if (player.Character is not Character.TheElectron && quarkQueue.Capacity == 0)
                 await AddSlots(player, QuarkQueue.DefaultCapacity);
 
-            // Hook to modify quark stability.
-            if (!quark.IsStable && ElectronHook.ShouldQuarkBeStable(combatState, quark, out var model))
+            // Hook to modify quark stability (only if slots aren't full).
+            if (quarkQueue.Capacity < QuarkQueue.MaxCapacity && !quark.IsStable &&
+                ElectronHook.ShouldQuarkBeStable(combatState, quark, out var model))
             {
                 quark.IsStable = true;
                 if (model != null) await ElectronHook.AfterMakingQuarkStable(model);
@@ -123,10 +124,10 @@ public static class QuarkCmd
             var quarkQueue = player.PlayerCombatState?.GetQuarkQueue();
             if (quarkQueue == null || !quarkQueue.HasAny()) return;
 
+            var fusedQuarks = new List<QuarkModel>(quarkQueue.Quarks);
             await quarkQueue.FuseQuarks(choiceContext);
-
-            // TODO after fused hook
             
+            await ElectronHook.AfterQuarksFused(combatState, choiceContext, player, fusedQuarks);
         }
     }
 }
