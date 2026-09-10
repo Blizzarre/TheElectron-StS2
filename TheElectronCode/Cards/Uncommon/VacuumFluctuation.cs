@@ -5,11 +5,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 using TheElectron.TheElectronCode.Extensions;
 
-namespace TheElectron.TheElectronCode.Cards.Rare;
+namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
 public class VacuumFluctuation : ElectronCard
 {
-    public VacuumFluctuation() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public VacuumFluctuation() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithCalculatedBlock(0, 5, static (card, _) =>
         {

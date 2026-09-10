@@ -7,7 +7,7 @@ using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Common;
 
-public class ParticlesContainer : ElectronCard
+public class ParticlesContainer : ElectronEmptyCard
 {
     public ParticlesContainer() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
@@ -16,13 +16,19 @@ public class ParticlesContainer : ElectronCard
         WithTip(ElectronHoverTip.Stable);
     }
 
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
+    protected override async Task BeforeOnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+    }
+
+    protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
+    {
         await PowerCmd.Apply<SpinPower>(choiceContext, Owner.Creature,
             DynamicVars.Power<SpinPower>().BaseValue, Owner.Creature, this);
+    }
+
+    protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
+    {
         await PowerCmd.Apply<StabilityPower>(choiceContext, Owner.Creature,
             DynamicVars.Power<StabilityPower>().BaseValue, Owner.Creature, this);
     }

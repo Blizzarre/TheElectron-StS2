@@ -12,8 +12,8 @@ public class OnTheEdge : ElectronDepleteCard
     public OnTheEdge() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithBlock(32, 8);
-        WithVar("SelfDamage", 12);
+        WithBlock(34, 8);
+        WithVar("SelfDamage", 10);
     }
 
     protected override async Task OnPlayWrapper(

@@ -7,11 +7,11 @@ using TheElectron.TheElectronCode.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Models.Quarks;
 
-namespace TheElectron.TheElectronCode.Cards.Uncommon;
+namespace TheElectron.TheElectronCode.Cards.Rare;
 
 public class FlyHigh : ElectronCard
 {
-    public FlyHigh() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public FlyHigh() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         WithBlock(10, 4);
         WithQuarkTip<UpQuark>();

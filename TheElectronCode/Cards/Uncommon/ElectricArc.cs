@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
-public class ElectricArc : ElectronDepleteCard
+public class ElectricArc : ElectronEmptyCard
 {
     public ElectricArc() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
@@ -24,7 +24,7 @@ public class ElectricArc : ElectronDepleteCard
             .Execute(choiceContext);
     }
 
-    protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
+    protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PowerCmd.Apply<VulnerablePower>(choiceContext, CombatState!.HittableEnemies,
             DynamicVars.Power<VulnerablePower>().BaseValue, Owner.Creature, this);
