@@ -7,12 +7,11 @@ using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Common;
 
-
 public class MeasuredStrike : ElectronCard
 {
     public MeasuredStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(9, 3);
+        WithDamage(8, 3);
         WithPower<StabilityPower>(2);
         WithTip(ElectronHoverTip.Stable);
         WithTags(CardTag.Strike);
@@ -25,8 +24,9 @@ public class MeasuredStrike : ElectronCard
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
-        await PowerCmd.Apply<StabilityPower>(choiceContext, Owner.Creature, DynamicVars.Power<StabilityPower>().BaseValue,
+
+        await PowerCmd.Apply<StabilityPower>(choiceContext, Owner.Creature,
+            DynamicVars.Power<StabilityPower>().BaseValue,
             Owner.Creature, this);
     }
 }

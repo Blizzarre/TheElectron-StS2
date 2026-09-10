@@ -10,7 +10,7 @@ public class BindingWhip : ElectronCard
 {
     public BindingWhip() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(9, 2);
+        WithDamage(7, 2);
         WithPower<QuantumLinkPower>(2, 1);
     }
 
@@ -21,7 +21,7 @@ public class BindingWhip : ElectronCard
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
+
         await PowerCmd.Apply<QuantumLinkPower>(choiceContext, play.Target,
             DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
     }

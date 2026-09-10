@@ -8,7 +8,6 @@ using TheElectron.TheElectronCode.Models.Quarks;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
-
 public class MiracleMatter : ElectronDepleteCard
 {
     public MiracleMatter() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
@@ -16,14 +15,13 @@ public class MiracleMatter : ElectronDepleteCard
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<CharmQuark>();
         WithVar(new QuarkCountVar(1));
+        WithTips(c => c.IsUpgraded ? [ElectronHoverTipFactory.Static(ElectronHoverTip.Stable)] : []);
     }
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
-            await QuarkCmd.Produce<CharmQuark>(choiceContext, Owner, this, play);
-        }
+            await QuarkCmd.Produce<CharmQuark>(choiceContext, Owner, this, play, IsUpgradable);
     }
 
     protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)

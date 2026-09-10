@@ -12,12 +12,14 @@ public class StringTheoryPower : TheElectronPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props,
+    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
+        DamageResult result, ValueProp props,
         Creature? dealer, CardModel? cardSource)
     {
         if (dealer == Owner && result.UnblockedDamage > 0)
         {
-            await PowerCmd.Apply<QuantumLinkPower>(choiceContext, Owner, Amount, dealer, null);
+            Flash();
+            await PowerCmd.Apply<QuantumLinkPower>(choiceContext, target, Amount, dealer, null);
         }
     }
 }

@@ -8,5 +8,6 @@ public enum ElectronHoverTip
     Produce,
     Farad,
     Stable,
-    StableQuark
+    StableQuark,
+    Fuse
 }

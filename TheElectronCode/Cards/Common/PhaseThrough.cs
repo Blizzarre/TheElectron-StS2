@@ -11,7 +11,6 @@ using TheElectron.TheElectronCode.Models.Quarks;
 
 namespace TheElectron.TheElectronCode.Cards.Common;
 
-
 public class PhaseThrough : ElectronEmptyCard
 {
     public PhaseThrough() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
@@ -30,8 +29,6 @@ public class PhaseThrough : ElectronEmptyCard
     protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
-        }
     }
 }

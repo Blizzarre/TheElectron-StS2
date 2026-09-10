@@ -121,7 +121,7 @@ public class ElectronHook
 
     public static Task AfterMakingQuarkStable(AbstractModel modifier)
     {
-        return Dispatch<IAfterMakingQuarkStable>([modifier], model => model.AfterMakingQuarkStable());
+        return Dispatch<IShouldQuarkBeStable>([modifier], model => model.AfterMakingQuarkStable());
     }
 
     public static Task AfterQuarksFused(ICombatState combatState, PlayerChoiceContext choiceContext, Player player,
@@ -129,5 +129,15 @@ public class ElectronHook
     {
         return Dispatch<IAfterQuarksFused>(combatState, choiceContext,
             model => model.AfterQuarksFused(choiceContext, player, fusedQuarks));
+    }
+    
+    public static async Task AfterEnergyLost(ICombatState combatState, Player player, decimal energy)
+    {
+        await Dispatch<IAfterEnergyLost>(combatState, model => model.AfterEnergyLost(player, energy));
+    }
+    
+    public static async Task AfterEnergyGained(ICombatState combatState, Player player, decimal energy)
+    {
+        await Dispatch<IAfterEnergyGained>(combatState, model => model.AfterEnergyGained(player, energy));
     }
 }

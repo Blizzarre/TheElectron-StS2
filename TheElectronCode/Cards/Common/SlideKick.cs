@@ -14,7 +14,7 @@ public class SlideKick : ElectronCard
 {
     public SlideKick() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(8, 1);
+        WithDamage(9, 1);
         WithVar(new QuarkCountVar(1).WithUpgrade(1));
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<BottomQuark>();
@@ -27,10 +27,8 @@ public class SlideKick : ElectronCard
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
+
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
-        }
     }
 }

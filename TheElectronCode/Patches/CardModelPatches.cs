@@ -13,6 +13,7 @@ using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Field;
 using TheElectron.TheElectronCode.Hooks;
+using TheElectron.TheElectronCode.Powers;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Patches;
@@ -103,10 +104,10 @@ internal class CardModelOnPlayWrapperPatch
         if (excessEnergy > 0 && __instance.CombatState != null)
         {
             var player = __instance.Owner;
-            // TODO: Maybe hook this to determine hp conversion ratio?
+            
             var totalAmount = excessEnergy * 2m;
             var drainAmount = totalAmount;
-            var electronCombatState = __instance.Owner.PlayerCombatState?.Electron();
+            var electronCombatState = player.PlayerCombatState?.Electron();
             if (electronCombatState != null)
             {
                 var faradDrain = Math.Min(electronCombatState.Farad, drainAmount);
@@ -114,9 +115,19 @@ internal class CardModelOnPlayWrapperPatch
                 drainAmount -= faradDrain;
             }
 
-            if (drainAmount > 0)
-                await CreatureCmd.Damage(choiceContext, __instance.Owner.Creature,
+            var preventHpLoss = false;
+            // Sorry for hard coding, could replace this with hook later
+            if (drainAmount > 0 && player.Creature.HasPower<AlephNullPower>())
+            {
+                player.Creature.GetPower<AlephNullPower>()?.Flash();
+                preventHpLoss = true;
+            }
+            
+            if (drainAmount > 0 && !preventHpLoss)
+            {
+                await CreatureCmd.Damage(choiceContext, player.Creature,
                     new DamageVar(drainAmount, ValueProp.Unpowered | ValueProp.Unblockable), __instance, null);
+            }
 
             await ElectronHook.AfterFaradOrHpDrained(__instance.CombatState, choiceContext, player, totalAmount,
                 __instance);

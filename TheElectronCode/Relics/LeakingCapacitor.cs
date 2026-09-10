@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Models.Quarks;
@@ -26,6 +27,7 @@ public class LeakingCapacitor : TheElectronRelic
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         ElectronHoverTipFactory.Static(ElectronHoverTip.Produce),
+        ElectronHoverTipFactory.Static(ElectronHoverTip.Fuse),
         ElectronHoverTipFactory.FromQuark<UpQuark>(),
         ElectronHoverTipFactory.FromQuark<DownQuark>()
     ];
@@ -40,5 +42,10 @@ public class LeakingCapacitor : TheElectronRelic
             for (var i = 0; i < DynamicVars[DownQuarkKey].IntValue; i++)
                 await QuarkCmd.Produce<DownQuark>(new BlockingPlayerChoiceContext(), Owner);
         }
+    }
+    
+    public override RelicModel GetUpgradeReplacement()
+    {
+        return ModelDb.Relic<OctadicCapacitor>();
     }
 }

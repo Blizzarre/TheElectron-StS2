@@ -24,9 +24,12 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
         CardModel? cardSource = null,
         CardPlay? cardPlay = null)
     {
-        // Only damages the owner of this power on the player's turn
-        if (player.Creature != Applier || CombatState.CurrentSide != player.Creature.Side) return;
         if (amountLost <= 0) return;
+        // Only damages the owner of this power on the player's turn
+        // But ignore side checking if the applier has Superposition power
+        var ignoreSide = player.Creature.HasPower<SuperpositionPower>();
+        var onCorrectSide = player.Creature == Applier && CombatState.CurrentSide == player.Creature.Side;
+        if (!onCorrectSide && !ignoreSide) return;
 
         Flash();
         await CreatureCmd.Damage(choiceContext, Owner, amountLost * Amount,
@@ -42,9 +45,14 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
         Creature? dealer,
         CardModel? cardSource)
     {
-        // Only damages the owner of this power on the damage-receiving-player's turn
-        if (target.Side != CombatSide.Player || CombatState.CurrentSide != target.Side || target != Applier) return;
+        if (target != Applier) return;
         if (damageResult.UnblockedDamage <= 0) return;
+        
+        // Only damages the owner of this power on the damage-receiving-player's turn
+        // But ignore side checking if the applier has Superposition power
+        var ignoreSide = target.HasPower<SuperpositionPower>();
+        var onCorrectSide = target.Side == CombatSide.Player && CombatState.CurrentSide == target.Side;
+        if (!onCorrectSide && !ignoreSide) return;
 
         Flash();
         await CreatureCmd.Damage(choiceContext, Owner, damageResult.UnblockedDamage * Amount,

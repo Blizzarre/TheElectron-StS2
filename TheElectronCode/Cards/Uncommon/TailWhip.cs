@@ -9,8 +9,7 @@ public class TailWhip : ElectronDepleteCard
     public TailWhip() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithDamage(7, 1);
-        WithVar("BaseHits", 2);
-        WithVar("ExtraHits", 1, 1);
+        WithCalculatedVar("CalculatedHits", 2, 1, static (card, _) => ((TailWhip)card).WouldDeplete ? 1 : 0, 0, 1);
     }
 
     protected override async Task OnPlayWrapper(
@@ -18,11 +17,8 @@ public class TailWhip : ElectronDepleteCard
         CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
-        var hitCount = DynamicVars["BaseHits"].IntValue;
-        if (IsEnergyDepleted)
-        {
-            hitCount += DynamicVars["ExtraHits"].IntValue;
-        }
+        var hitCount = DynamicVars["CalculatedHitsBase"].IntValue;
+        if (IsEnergyDepleted) hitCount += DynamicVars["CalculatedHitsExtra"].IntValue;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
             .WithHitCount(hitCount)
             .Targeting(play.Target)

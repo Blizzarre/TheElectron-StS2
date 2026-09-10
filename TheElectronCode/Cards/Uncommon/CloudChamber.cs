@@ -32,13 +32,9 @@ public class CloudChamber : ElectronCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        
+
         if (HasEnoughUniqueQuarks())
-        {
             for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-            {
                 await QuarkCmd.Produce<CharmQuark>(choiceContext, Owner, this, play);
-            }
-        }
     }
 }

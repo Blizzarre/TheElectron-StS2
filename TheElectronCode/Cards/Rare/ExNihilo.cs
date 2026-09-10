@@ -1,13 +1,14 @@
 ﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using TheElectron.TheElectronCode.HoverTips;
 
 namespace TheElectron.TheElectronCode.Cards.Rare;
 
-public class ExNihilo : ElectronDepleteCard
+public class ExNihilo : ElectronCard
 {
     private const string DamageIncreaseKey = "DamageIncrease";
-    
+
     private decimal ExtraDamage
     {
         get;
@@ -22,9 +23,10 @@ public class ExNihilo : ElectronDepleteCard
     {
         WithDamage(6, 2);
         WithVar(DamageIncreaseKey, 3, 1);
+        WithTip(ElectronHoverTip.Empty);
     }
 
-    protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
@@ -33,14 +35,6 @@ public class ExNihilo : ElectronDepleteCard
             .Execute(choiceContext);
     }
 
-    protected override Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
-    {
-        var increment = DynamicVars[DamageIncreaseKey].BaseValue;
-        DynamicVars.Damage.BaseValue += increment;
-        ExtraDamage += increment;
-        return Task.CompletedTask;
-    }
-    
     protected override void AfterDowngraded()
     {
         base.AfterDowngraded();
@@ -57,6 +51,7 @@ public class ExNihilo : ElectronDepleteCard
             DynamicVars.Damage.BaseValue += increment;
             ExtraDamage += increment;
         }
+
         return Task.CompletedTask;
     }
 }

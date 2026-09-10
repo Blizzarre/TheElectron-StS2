@@ -9,7 +9,7 @@ public class StrangeQuark : QuarkModel
 
     public override bool ShowLabel => true;
 
-    public override decimal Value => 2;
+    public override decimal Value => ModifyQuarkValue(2);
 
     // public decimal ModifyQuarkValueMult(QuarkModel quark, decimal mult)
     // {

@@ -5,7 +5,7 @@ using TheElectron.TheElectronCode.Models;
 
 namespace TheElectron.TheElectronCode.Powers;
 
-public class StabilityPower : TheElectronPower, IShouldQuarkBeStable, IAfterMakingQuarkStable
+public class StabilityPower : TheElectronPower, IShouldQuarkBeStable
 {
     public override PowerType Type => PowerType.Buff;
 

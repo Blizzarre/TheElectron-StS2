@@ -8,7 +8,6 @@ using TheElectron.TheElectronCode.Cards.Ancient;
 using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
-using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Basic;
@@ -17,7 +16,7 @@ public class Entwine : ElectronDepleteCard, ITranscendenceCard
 {
     public Entwine() : base(1, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithPower<QuantumLinkPower>(3, 4);
+        WithPower<QuantumLinkPower>(3, 1);
         WithVar(new FaradVar(2));
     }
 
@@ -37,7 +36,7 @@ public class Entwine : ElectronDepleteCard, ITranscendenceCard
     {
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
     }
-    
+
     public CardModel GetTranscendenceTransformedCard()
     {
         return ModelDb.Card<Entangle>();

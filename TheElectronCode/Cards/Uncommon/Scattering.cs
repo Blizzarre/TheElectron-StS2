@@ -22,11 +22,9 @@ public class Scattering : ElectronCard
             .TargetingRandomOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext)).Results;
-        
+
         foreach (var result in results.SelectMany(r => r))
-        {
             await PowerCmd.Apply<QuantumLinkPower>(choiceContext, result.Receiver,
                 DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
-        }
     }
 }

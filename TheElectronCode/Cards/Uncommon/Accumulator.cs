@@ -7,7 +7,7 @@ namespace TheElectron.TheElectronCode.Cards.Uncommon;
 public class Accumulator : ElectronDepleteCard
 {
     private const string DamageIncreaseKey = "DamageIncrease";
-    
+
     private decimal ExtraDamage
     {
         get;
@@ -40,7 +40,7 @@ public class Accumulator : ElectronDepleteCard
         ExtraDamage += increment;
         return Task.CompletedTask;
     }
-    
+
     protected override void AfterDowngraded()
     {
         base.AfterDowngraded();

@@ -30,7 +30,7 @@ public class ShortCircuit : ElectronCard
     {
         var farad = Owner.PlayerCombatState?.GetFarad() ?? 0;
         var energyToGain = farad / DynamicVars[FaradCountKey].IntValue;
-        
+
         await ElectronPlayerCmd.LoseFarad(choiceContext, Owner, farad, this, play);
 
         await PlayerCmd.GainEnergy(energyToGain, Owner);

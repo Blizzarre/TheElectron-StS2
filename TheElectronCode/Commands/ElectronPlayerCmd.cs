@@ -44,8 +44,13 @@ public static class ElectronPlayerCmd
 
         var combatState = player.Creature.CombatState;
         var electronCombatState = player.PlayerCombatState?.Electron();
-        electronCombatState?.LoseFarad((int)amount);
-
-        await ElectronHook.AfterFaradLost(combatState, choiceContext, player, amount, cardSource, cardPlay);
+        if (electronCombatState != null)
+        {
+            var faradBefore = electronCombatState.Farad;
+            electronCombatState.LoseFarad((int)amount);
+            var amountLost = faradBefore - electronCombatState.Farad;
+            
+            await ElectronHook.AfterFaradLost(combatState, choiceContext, player, amountLost, cardSource, cardPlay);
+        }
     }
 }

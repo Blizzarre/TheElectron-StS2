@@ -13,7 +13,7 @@ public class FlyHigh : ElectronCard
 {
     public FlyHigh() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithBlock(11, 4);
+        WithBlock(10, 4);
         WithQuarkTip<UpQuark>();
         WithVar(new QuarkCountVar(1));
     }
@@ -26,10 +26,7 @@ public class FlyHigh : ElectronCard
         var queue = Owner.PlayerCombatState?.GetQuarkQueue();
         if (queue == null) return;
         var produceCount = queue.Capacity - queue.Quarks.Count;
-        
-        for (var i = 0; i < produceCount; i++)
-        {
-            await QuarkCmd.Produce<UpQuark>(choiceContext, Owner, this, play);
-        }
+
+        for (var i = 0; i < produceCount; i++) await QuarkCmd.Produce<UpQuark>(choiceContext, Owner, this, play);
     }
 }

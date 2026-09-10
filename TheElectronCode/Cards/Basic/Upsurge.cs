@@ -31,8 +31,6 @@ public class Upsurge : ElectronCard
             .Execute(choiceContext);
 
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<UpQuark>(choiceContext, Owner, this, play);
-        }
     }
 }

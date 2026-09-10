@@ -9,9 +9,10 @@ public class CathodeRay : ElectronDepleteCard
 {
     public CathodeRay() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithCalculatedDamage(9, 9,
+        WithCalculatedDamage(14, 5,
             static (card, _) =>
-                card is ElectronDepleteCard electronDepleteCard && (electronDepleteCard.IsEnergyDepleted || electronDepleteCard.WouldDeplete)
+                card is ElectronDepleteCard electronDepleteCard &&
+                (electronDepleteCard.IsEnergyDepleted || electronDepleteCard.WouldDeplete)
                     ? 1
                     : 0,
             ValueProp.Move, 2, 2);

@@ -97,6 +97,8 @@ public static class QuarkCmd
 
             if (await quarkQueue.TryEnqueue(quark))
             {
+                CombatManager.Instance.History.QuarkProduced(combatState, quark);
+                
                 // TODO Play sfx
                 var nCreature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
                 if (nCreature != null)
@@ -110,7 +112,7 @@ public static class QuarkCmd
                     await Cmd.CustomScaledWait(0.25f, 0.4f);
                     await Fuse(choiceContext, player, card, cardPlay);
                 }
-                // TODO after quark produced hook
+                // TODO after quark produced hook??
             }
         }
     }
@@ -126,6 +128,11 @@ public static class QuarkCmd
 
             var fusedQuarks = new List<QuarkModel>(quarkQueue.Quarks);
             await quarkQueue.FuseQuarks(choiceContext);
+            CombatManager.Instance.History.QuarksFused(combatState, fusedQuarks, player);
+            foreach (var quark in fusedQuarks)
+            {
+                quark.RemoveInternal();
+            }
             
             await ElectronHook.AfterQuarksFused(combatState, choiceContext, player, fusedQuarks);
         }

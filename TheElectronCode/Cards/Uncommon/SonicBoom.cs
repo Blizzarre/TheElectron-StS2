@@ -13,7 +13,7 @@ public class SonicBoom : ElectronCard
 {
     public SonicBoom() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(15, 5);
+        WithDamage(15, 6);
         WithVar(new QuarkCountVar(2));
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<DownQuark>();
@@ -24,10 +24,8 @@ public class SonicBoom : ElectronCard
         CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<DownQuark>(choiceContext, Owner, this, play);
-        }
-        
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
             .TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_blunt")

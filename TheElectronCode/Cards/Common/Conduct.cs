@@ -11,7 +11,7 @@ public class Conduct : ElectronCard
 {
     public Conduct() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithDamage(8, 3);
+        WithDamage(9, 3);
         WithVar(new FaradVar(1));
     }
 
@@ -22,7 +22,7 @@ public class Conduct : ElectronCard
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
+
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
     }
 }

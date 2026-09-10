@@ -2,5 +2,8 @@
   "SEA_GLASS.THEELECTRON-THE_ELECTRON.title": "Atomic Glass",
   "THEELECTRON-LEAKING_CAPACITOR.description": "At the start of each combat, [gold]Produce[/gold] [blue]{UpQuark}[/blue] [gold]Up Quark{UpQuark:plural:|s}[/gold] and [blue]{DownQuark}[/blue] [gold]Down Quark{DownQuark:plural:|s}[/gold].",
   "THEELECTRON-LEAKING_CAPACITOR.flavor": "An originally robust component. It has worn down after a millennia of usage.",
-  "THEELECTRON-LEAKING_CAPACITOR.title": "Leaking Capacitor"
+  "THEELECTRON-LEAKING_CAPACITOR.title": "Leaking Capacitor",
+  "THEELECTRON-OCTADIC_CAPACITOR.description": "At the start of each combat, [gold]Produce[/gold] [blue]{UpQuark}[/blue] [gold]Up Quark{UpQuark:plural:|s}[/gold] and [blue]{DownQuark}[/blue] [gold]Down Quark{DownQuark:plural:|s}[/gold].\nIncrease the effectiveness of [gold]Up Quarks[/gold] and [gold]Down Quarks[/gold] by [blue]{Effectiveness}[/blue].",
+  "THEELECTRON-OCTADIC_CAPACITOR.flavor": "An 8k-layered capacitor that has been restored to its original capabilities.",
+  "THEELECTRON-OCTADIC_CAPACITOR.title": "Octadic Capacitor"
 }

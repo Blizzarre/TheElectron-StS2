@@ -10,7 +10,6 @@ using TheElectron.TheElectronCode.Models.Quarks;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
-
 public class Condense : ElectronEmptyCard
 {
     public Condense() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
@@ -30,11 +29,9 @@ public class Condense : ElectronEmptyCard
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
 
-        
+
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<TopQuark>(choiceContext, Owner, this, play);
-        }
     }
 
     protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)

@@ -9,13 +9,14 @@ public class StringTheory : ElectronCard
 {
     public StringTheory() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
+        WithTip(typeof(QuantumLinkPower));
         WithVar("Amount", 1, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        
+
         await PowerCmd.Apply<StringTheoryPower>(choiceContext, Owner.Creature,
             DynamicVars["Amount"].BaseValue, Owner.Creature, this);
     }

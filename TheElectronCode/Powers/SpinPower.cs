@@ -13,22 +13,17 @@ public class SpinPower : TheElectronPower, IModifyQuarkValueAdditive, IAfterQuar
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
-    
+
     public decimal ModifyQuarkValueAdditive(QuarkModel quark, decimal value)
     {
-        if (quark.Owner.Creature == Owner && quark is UpQuark or DownQuark)
-        {
-            return value + Amount;
-        }
+        if (quark.Owner.Creature == Owner && quark is UpQuark or DownQuark) return value + Amount;
 
         return value;
     }
 
-    public async Task AfterQuarksFused(PlayerChoiceContext choiceContext, Player player, IEnumerable<QuarkModel> fusedQuarks)
+    public async Task AfterQuarksFused(PlayerChoiceContext choiceContext, Player player,
+        IEnumerable<QuarkModel> fusedQuarks)
     {
-        if (player.Creature == Owner)
-        {
-            await PowerCmd.Remove(this);
-        }
+        if (player.Creature == Owner) await PowerCmd.Remove(this);
     }
 }

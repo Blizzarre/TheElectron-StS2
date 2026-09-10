@@ -64,7 +64,10 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
         !HasSmartDescription ? Description : new LocString(LocTable, Id.Entry + ".smartDescription");
 
     public HoverTip DumbHoverTip => ElectronHoverTipFactory.CreateQuarkHoverTip(this, Description);
-
+    
+    protected virtual void AddExtraArgsToDescription(LocString description)
+    {
+    }
 
     protected virtual IEnumerable<IHoverTip> ExtraHoverTips => [];
 
@@ -80,6 +83,7 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
                 smartDescription.Add("energyPrefix", prefix);
                 smartDescription.Add(new EnergyVar((int)Value) { ColorPrefix = prefix });
                 smartDescription.Add("Value", Value);
+                AddExtraArgsToDescription(smartDescription);
                 list.Add(ElectronHoverTipFactory.CreateQuarkHoverTip(this, smartDescription));
                 if (IsStable)
                     list.Add(ElectronHoverTipFactory.Static(ElectronHoverTip.StableQuark,
@@ -151,6 +155,13 @@ public abstract class QuarkModel : AbstractModel, ICustomModel
         AssertMutable();
         var clonedQuark = (QuarkModel)ClonePreservingMutability();
         return clonedQuark;
+    }
+
+    protected override void AfterCloned()
+    {
+        base.AfterCloned();
+        HasStableSlot = false;
+        HasBeenRemovedFromState = false;
     }
 
     // Modify value of quarks (Spin/Strange/Charm)

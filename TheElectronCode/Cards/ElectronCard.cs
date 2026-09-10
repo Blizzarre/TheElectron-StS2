@@ -57,6 +57,10 @@ public abstract class ElectronCard(int cost, CardType type, CardRarity rarity, T
                 WithTip(new TooltipSource(card => ElectronHoverTipFactory.Static(electronTip,
                     loc => loc.Add("energyPrefix", EnergyIconHelper.GetPrefix(card)), true)));
                 break;
+            case ElectronHoverTip.Produce:
+                WithTip(new TooltipSource(_ => ElectronHoverTipFactory.Static(electronTip)));
+                WithTip(new TooltipSource(_ => ElectronHoverTipFactory.Static(ElectronHoverTip.Fuse)));
+                break;
             default:
                 WithTip(new TooltipSource(_ => ElectronHoverTipFactory.Static(electronTip)));
                 break;

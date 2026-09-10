@@ -158,16 +158,25 @@ public class QuarkQueue
                     .Where(e => e.IsHittable)
                     .ToList() ?? [];
 
-                var maxQuantumLinkStack = targets.Max(e => e.GetPowerAmount<QuantumLinkPower>());
-                var priorityTargets = targets.Where(e => e.GetPowerAmount<QuantumLinkPower>() == maxQuantumLinkStack);
-
-                // TODO consider implementing aoe attack here.
-
-                var target = Owner.RunState.Rng.CombatTargets.NextItem(priorityTargets);
-                if (target != null)
+                if (Owner.Creature.HasPower<FissionCellPower>())
                 {
-                    VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_blunt");
-                    await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Unpowered, Owner.Creature);
+                    foreach (var target in targets)
+                    {
+                        VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_blunt");
+                    }
+                    await CreatureCmd.Damage(choiceContext, targets, damage, ValueProp.Unpowered, Owner.Creature);
+                }
+                else
+                {
+                    var maxQuantumLinkStack = targets.Max(e => e.GetPowerAmount<QuantumLinkPower>());
+                    var priorityTargets = targets.Where(e => e.GetPowerAmount<QuantumLinkPower>() == maxQuantumLinkStack);
+
+                    var target = Owner.RunState.Rng.CombatTargets.NextItem(priorityTargets);
+                    if (target != null)
+                    {
+                        VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_blunt");
+                        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Unpowered, Owner.Creature);
+                    }
                 }
             }
 

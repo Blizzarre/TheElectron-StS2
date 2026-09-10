@@ -15,20 +15,24 @@ public class MalleableChassisPower : TheElectronPower, IAfterFaradLost
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props,
+    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
+        DamageResult result, ValueProp props,
         Creature? dealer, CardModel? cardSource)
     {
         if (target == Owner && result.UnblockedDamage > 0)
         {
+            Flash();
             await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         }
     }
 
-    public async Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost, CardModel? cardSource = null,
+    public async Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost,
+        CardModel? cardSource = null,
         CardPlay? cardPlay = null)
     {
         if (player == Owner.Player && amountLost > 0)
         {
+            Flash();
             await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         }
     }

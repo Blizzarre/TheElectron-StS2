@@ -1,13 +1,26 @@
-[gd_scene load_steps=19 format=3 uid="uid://ohsnw6qdi63j"]
+[gd_scene load_steps=22 format=3 uid="uid://ohsnw6qdi63j"]
 
 [ext_resource type="Script" uid="uid://e34uy7ov1ow5" path="res://TheElectronCode/Nodes/Quarks/NQuarkManager.cs" id="1_b2axr"]
 [ext_resource type="Texture2D" uid="uid://vxhwoiy56m24" path="res://TheElectron/images/quarks/quark_bg.png" id="1_ys36x"]
+[ext_resource type="Shader" uid="uid://hih5b0l384rq" path="res://TheElectron/shaders/radial_ring_displacement_shader.gdshader" id="2_tvkw1"]
+[ext_resource type="Texture2D" uid="uid://bb38xmsiy58by" path="res://TheElectron/images/vfx/noises.png" id="3_kr4vw"]
 [ext_resource type="Script" uid="uid://cgx5jucs6uxjh" path="res://TheElectronCode/Nodes/ElectronNParticlesContainer.cs" id="4_o3nyp"]
 [ext_resource type="Shader" uid="uid://56am412ia40x" path="res://TheElectron/shaders/vfx_radial_fade_particle_shader.gdshader" id="4_ys36x"]
 [ext_resource type="PackedScene" uid="uid://o4pfgs503law" path="res://TheElectron/scenes/quarks/fuse_stat.tscn" id="5_gnbik"]
 [ext_resource type="Texture2D" uid="uid://d1ar7yvpvlpwn" path="res://TheElectron/images/vfx/solid_square.png" id="5_o3nyp"]
 [ext_resource type="Shader" uid="uid://fhlsjvpnckjs" path="res://TheElectron/shaders/vfx_radial_aberration.gdshader" id="7_mtyxu"]
 [ext_resource type="Texture2D" uid="uid://c8pmyyv7bp5ht" path="res://TheElectron/images/vfx/common_glow.png" id="8_gnbik"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_35nqb"]
+shader = ExtResource("2_tvkw1")
+shader_parameter/shaking = true
+shader_parameter/amplitude = 60.0
+shader_parameter/noise_scale_x = 5.0
+shader_parameter/noise_speed_x = -0.013
+shader_parameter/noise_scale_y = 3.0
+shader_parameter/noise_speed_y = -0.089
+shader_parameter/inv_scaling = Vector2(1.1, 1.1)
+shader_parameter/noise = ExtResource("3_kr4vw")
 
 [sub_resource type="Curve" id="Curve_i4mce"]
 _limits = [-0.5, 1.0, 0.0, 1.0]
@@ -69,6 +82,8 @@ mouse_filter = 1
 
 [node name="QuarkBg" type="TextureRect" parent="AllContainer/AtomContainer"]
 unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.85)
+material = SubResource("ShaderMaterial_35nqb")
 layout_mode = 0
 offset_left = -80.0
 offset_top = -80.0
@@ -86,6 +101,7 @@ mouse_filter = 2
 
 [node name="CenterMarker" type="Marker2D" parent="AllContainer/AtomContainer"]
 unique_name_in_owner = true
+visible = false
 
 [node name="FuseStats" type="Control" parent="AllContainer"]
 unique_name_in_owner = true

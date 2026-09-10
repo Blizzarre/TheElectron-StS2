@@ -16,7 +16,7 @@ public class EnergyShield : ElectronCard
     public EnergyShield() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithBlock(10, 4);
+        WithBlock(10, 3);
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<TopQuark>();
         WithVar(new QuarkCountVar(1));
@@ -27,8 +27,6 @@ public class EnergyShield : ElectronCard
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.CardBlock(this, play);
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<TopQuark>(choiceContext, Owner, this, play);
-        }
     }
 }

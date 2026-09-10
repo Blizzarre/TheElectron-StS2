@@ -20,9 +20,8 @@ public class CentrifugalForce : ElectronCard
             .TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
+
         await PowerCmd.Apply<SpinPower>(choiceContext, Owner.Creature,
             DynamicVars.Power<SpinPower>().BaseValue, Owner.Creature, this);
     }
-    
 }

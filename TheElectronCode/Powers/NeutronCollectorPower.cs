@@ -15,10 +15,11 @@ public class NeutronCollectorPower : TheElectronPower
     {
         if (player == Owner.Player)
         {
+            Flash();
             for (var i = 0; i < Amount; i++)
             {
-                await QuarkCmd.Produce<UpQuark>(choiceContext, player, null, null);
-                await QuarkCmd.Produce<DownQuark>(choiceContext, player, null, null);
+                await QuarkCmd.Produce<UpQuark>(choiceContext, player);
+                await QuarkCmd.Produce<DownQuark>(choiceContext, player);
             }
         }
     }

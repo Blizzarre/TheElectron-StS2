@@ -34,8 +34,6 @@ public class VoltTackle : ElectronDepleteCard
     protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<StrangeQuark>(choiceContext, Owner, this, play);
-        }
     }
 }

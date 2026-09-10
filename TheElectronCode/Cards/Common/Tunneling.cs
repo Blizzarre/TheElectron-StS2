@@ -14,7 +14,6 @@ public class Tunneling : ElectronCard
         WithBlock(7, 3);
         WithCards(1);
         WithVar("PutBack", 1);
-        WithTip(ElectronHoverTip.Farad);
     }
 
     protected override async Task OnPlay(
@@ -22,10 +21,11 @@ public class Tunneling : ElectronCard
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        
+
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        
+
         var prefs = new CardSelectorPrefs(SelectionScreenPrompt, DynamicVars["PutBack"].IntValue);
-        await CardPileCmd.Add(await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this), PileType.Draw, CardPilePosition.Top);
+        await CardPileCmd.Add(await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this), PileType.Draw,
+            CardPilePosition.Top);
     }
 }

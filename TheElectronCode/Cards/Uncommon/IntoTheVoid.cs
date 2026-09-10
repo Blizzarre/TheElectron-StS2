@@ -8,7 +8,7 @@ public class IntoTheVoid : ElectronEmptyCard
 {
     private const string HitsIncreaseKey = "HitsIncrease";
     private const string HitsKey = "Hits";
-    
+
     private decimal ExtraHits
     {
         get;
@@ -19,7 +19,7 @@ public class IntoTheVoid : ElectronEmptyCard
         }
     }
 
-    public IntoTheVoid() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public IntoTheVoid() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithDamage(3, 1);
         WithVar(HitsKey, 4);
@@ -28,9 +28,8 @@ public class IntoTheVoid : ElectronEmptyCard
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        ArgumentNullException.ThrowIfNull(play.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
-            .Targeting(play.Target)
+            .TargetingRandomOpponents(CombatState!)
             .WithHitCount(DynamicVars[HitsKey].IntValue)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
@@ -43,7 +42,7 @@ public class IntoTheVoid : ElectronEmptyCard
         ExtraHits += increment;
         return Task.CompletedTask;
     }
-    
+
     protected override void AfterDowngraded()
     {
         base.AfterDowngraded();

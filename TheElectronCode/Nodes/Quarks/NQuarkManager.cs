@@ -19,6 +19,7 @@ using TheElectron.TheElectronCode.Character;
 using TheElectron.TheElectronCode.Entities;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Models;
+using TheElectron.TheElectronCode.Powers;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Nodes.Quarks;
@@ -57,7 +58,7 @@ public partial class NQuarkManager : NClickableControl
 
     private const float MaxRadius = 80f;
 
-    private const float ExternalRadiusOffset = 48f;
+    private const float ExternalRadiusOffset = 64f;
 
     private const float BaseRotationSpeed = Mathf.Pi / 8;
 
@@ -70,8 +71,7 @@ public partial class NQuarkManager : NClickableControl
     private Tween? _curStatsTween;
 
     private Tween? _curFusionTween;
-
-
+    
     public static readonly Vector2 CenterOffset = new(0f, -50f);
 
     private static string ScenePath => ElectronResource.NQuarkManagerPath;
@@ -441,6 +441,10 @@ public partial class NQuarkManager : NClickableControl
         {
             _focusTween.TweenProperty(this, "modulate", new Color(1f, 1f, 1f, 0.4f), 0.2f);
         }
+        else
+        {
+            _focusTween.Kill();
+        }
     }
 
     private void TweenLayout()
@@ -593,6 +597,7 @@ public partial class NQuarkManager : NClickableControl
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.damage");
             locString.Add("Damage", stats.GetValueOrDefault(QuarkModel.FuseStat.Damage));
+            locString.Add("IsAoe", Player.Creature.HasPower<FissionCellPower>());
             appendDesc.Add(locString.GetFormattedText());
         }
 

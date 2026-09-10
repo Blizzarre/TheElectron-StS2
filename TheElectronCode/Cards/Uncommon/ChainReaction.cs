@@ -27,8 +27,6 @@ public class ChainReaction : ElectronDepleteCard
     protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
         foreach (var card in PileType.Discard.GetPile(Owner).Cards.Where(c => c is ElectronEmptyCard).ToList())
-        {
             await CardPileCmd.Add(card, PileType.Hand);
-        }
     }
 }

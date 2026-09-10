@@ -21,7 +21,7 @@ public class Destabilize : ElectronCard
 
         await PowerCmd.Apply<QuantumLinkPower>(choiceContext, play.Target,
             DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
-        
+
         await PowerCmd.Apply<VulnerablePower>(choiceContext, play.Target,
             DynamicVars.Power<VulnerablePower>().BaseValue, Owner.Creature, this);
     }

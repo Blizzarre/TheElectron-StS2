@@ -71,7 +71,6 @@
 
     <ItemGroup>
         <Folder Include="TheElectron\images\card_portraits\big\"/>
-        <Folder Include="TheElectron\images\powers\big\"/>
         <Folder Include="TheElectron\images\relics\big\"/>
     </ItemGroup>
 

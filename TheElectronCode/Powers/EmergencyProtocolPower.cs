@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
+using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Powers;
@@ -15,6 +16,6 @@ public class EmergencyProtocolPower : TheElectronPower
     {
         if (card.Owner.Creature != Owner || card.EnergyCost.GetWithModifiers(CostModifiers.All) < 1) return false;
 
-        return keywords.Add(ElectronKeywords.Drain);
+        return card.CanDrain() && keywords.Add(ElectronKeywords.Drain);
     }
 }

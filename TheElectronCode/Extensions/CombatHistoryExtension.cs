@@ -22,4 +22,11 @@ public static class CombatHistoryExtension
             new QuarkProducedEntry(quark, combatState.RoundNumber, combatState.CurrentSide, combatHistory,
                 combatState.Players));
     }
+    
+    public static void QuarksFused(this CombatHistory combatHistory, ICombatState combatState, IEnumerable<QuarkModel> quarks, Player player)
+    {
+        combatHistory.Add(combatState,
+            new QuarksFusedEntry(quarks, player.Creature, combatState.RoundNumber, combatState.CurrentSide, combatHistory,
+                combatState.Players));
+    }
 }

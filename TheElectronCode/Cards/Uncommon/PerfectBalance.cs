@@ -11,7 +11,6 @@ using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
-
 public class PerfectBalance : ElectronCard
 {
     public PerfectBalance() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
@@ -27,16 +26,13 @@ public class PerfectBalance : ElectronCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
-            await QuarkCmd.Produce<UpQuark>(choiceContext, Owner, this, play, isStable: true);
-        }
-        
+            await QuarkCmd.Produce<UpQuark>(choiceContext, Owner, this, play, true);
+
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
-            await QuarkCmd.Produce<DownQuark>(choiceContext, Owner, this, play, isStable: true);
-        }
-        
-        await PowerCmd.Apply<StabilityPower>(choiceContext, Owner.Creature, DynamicVars.Power<StabilityPower>().BaseValue,
+            await QuarkCmd.Produce<DownQuark>(choiceContext, Owner, this, play, true);
+
+        await PowerCmd.Apply<StabilityPower>(choiceContext, Owner.Creature,
+            DynamicVars.Power<StabilityPower>().BaseValue,
             Owner.Creature, this);
     }
 }

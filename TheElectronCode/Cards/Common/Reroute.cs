@@ -16,7 +16,7 @@ public class Reroute : ElectronDepleteCard
     public Reroute() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithVars(new FaradVar(4).WithUpgrade(1), new FaradVar(DepleteFaradKey,1).WithUpgrade(1));
+        WithVars(new FaradVar(4).WithUpgrade(1), new FaradVar(DepleteFaradKey, 1).WithUpgrade(1));
         WithTip(ElectronHoverTip.Farad);
     }
 

@@ -11,7 +11,6 @@ using TheElectron.TheElectronCode.Models.Quarks;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
-
 public class GravityWell : ElectronEmptyCard
 {
     public GravityWell() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
@@ -26,18 +25,14 @@ public class GravityWell : ElectronEmptyCard
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        
+
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-        {
             await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
-        }
     }
-    
+
     protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars["ExtraQuark"].IntValue; i++)
-        {
             await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+﻿using BaseLib.Extensions;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.Commands;
@@ -14,8 +15,8 @@ public class StaticDischarge : ElectronCard
     public StaticDischarge() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithDamage(16, 4);
-        WithVar(new FaradVar(2));
+        WithDamage(16, 3);
+        WithVar(new FaradVar(3).WithUpgrade(1));
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
@@ -27,8 +28,6 @@ public class StaticDischarge : ElectronCard
             .Execute(choiceContext);
 
         if (ElectronField.DrainExcessEnergy[this] > 0)
-        {
             await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
-        }
     }
 }

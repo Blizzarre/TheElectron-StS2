@@ -3,16 +3,17 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.CardSelection;
+using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Cards.Common;
 
 public class Shock : ElectronCard
 {
-    public Shock() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public Shock() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithDamage(16, 4);
+        WithDamage(8, 2);
         WithCards(1, 1);
     }
 
@@ -23,14 +24,12 @@ public class Shock : ElectronCard
             .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
+
         var cards = await CardSelectCmd.FromHand(choiceContext, Owner,
-            new CardSelectorPrefs(ElectronCardSelectorPrefs.DrainSelectionPrompt, 0,DynamicVars.Cards.IntValue) {Cancelable = true},
-            card => !card.Keywords.Contains(ElectronKeywords.Drain), this
+            new CardSelectorPrefs(ElectronCardSelectorPrefs.DrainSelectionPrompt, 0, DynamicVars.Cards.IntValue)
+                { Cancelable = true },
+            card => card.CanDrain(), this
         );
-        foreach (var card in cards)
-        {
-            CardCmd.ApplyKeyword(card, ElectronKeywords.Drain);
-        }
+        foreach (var card in cards) CardCmd.ApplyKeyword(card, ElectronKeywords.Drain);
     }
 }

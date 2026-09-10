@@ -7,16 +7,26 @@ namespace TheElectron.TheElectronCode.Extensions;
 
 public static class CardModelExtensions
 {
-    // Should glow the Drain color
-    public static bool ShouldGlowPurple(this CardModel card)
+    extension(CardModel card)
     {
-        return card.Keywords.Contains(ElectronKeywords.Drain) && card.Owner.PlayerCombatState!.Energy <
-            card.EnergyCost.GetWithModifiers(CostModifiers.All);
+        // Should glow the Drain color
+        public bool ShouldGlowPurple()
+        {
+            return card.Keywords.Contains(ElectronKeywords.Drain) && card.Owner.PlayerCombatState!.Energy <
+                card.EnergyCost.GetWithModifiers(CostModifiers.All);
+        }
+
+        // Should glow the Empty color
+        public bool ShouldGlowBlack()
+        {
+            return card is ElectronEmptyCard { WouldBeEmpty: true, HasEnoughEnergy: false};
+        }
+
+        public bool CanDrain()
+        {
+            return !card.Keywords.Intersect([CardKeyword.Unplayable, ElectronKeywords.Drain]).Any();
+        }
     }
 
-    // Should glow the Empty color
-    public static bool ShouldGlowBlack(this CardModel card)
-    {
-        return card is ElectronEmptyCard { WouldBeEmpty: true, HasEnoughEnergy: false};
-    }
+
 }
