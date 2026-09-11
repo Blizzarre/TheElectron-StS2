@@ -1,4 +1,5 @@
 ﻿using BaseLib.Extensions;
+using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -24,7 +25,7 @@ public class RedMatter : ElectronEmptyCard
 
     protected override async Task BeforeOnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
     }
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)

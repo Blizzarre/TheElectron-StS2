@@ -21,9 +21,9 @@ public class Scattering : ElectronEmptyCard
             field = value;
         }
     }
-    
+
     private bool ShouldReturnNextTurn { get; set; }
-    
+
     public Scattering() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         WithPower<QuantumLinkPower>(6);
@@ -56,7 +56,7 @@ public class Scattering : ElectronEmptyCard
             if (Pile is not { Type: PileType.Hand }) await CardPileCmd.Add(this, PileType.Hand);
         }
     }
-    
+
     protected override void AfterDowngraded()
     {
         base.AfterDowngraded();

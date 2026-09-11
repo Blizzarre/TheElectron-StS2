@@ -13,7 +13,7 @@ public class PositronBeam : ElectronEmptyCard
 {
     public PositronBeam() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(9, 1);
+        WithDamage(8, 1);
         WithPower<QuantumLinkPower>(1, 1);
         WithVar(new FaradVar(2).WithUpgrade(1));
         WithVar("FaradLoss", 1);
@@ -25,7 +25,7 @@ public class PositronBeam : ElectronEmptyCard
             .TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
-        
+
         await PowerCmd.Apply<QuantumLinkPower>(choiceContext, CombatState!.HittableEnemies,
             DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
     }

@@ -1,6 +1,13 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dt6l0dw21jh7t"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://dt6l0dw21jh7t"]
 
 [ext_resource type="Shader" uid="uid://c1vlkugmxf5d3" path="res://TheElectron/shaders/quantum_link_hp_overlay.gdshader" id="1_7l0o3"]
+
+[sub_resource type="Gradient" id="Gradient_7l0o3"]
+offsets = PackedFloat32Array(0, 0.1341719, 0.1802935, 0.23689727, 0.3542977, 0.5366876, 0.5995807, 0.6498952, 0.7651992)
+colors = PackedColorArray(1, 0.5389545, 0.9454205, 1, 1, 0.66014194, 0.94038284, 1, 1, 0.66014194, 0.94038284, 1, 1, 0.5389545, 0.9454205, 1, 1, 0.31028372, 0.86346054, 1, 1, 0.5389545, 0.9454205, 1, 1, 0.66014194, 0.94038284, 1, 1, 0.66014194, 0.94038284, 1, 1, 0.10121131, 0.7584208, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ntv7k"]
+gradient = SubResource("Gradient_7l0o3")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ntv7k"]
 seed = 18235
@@ -14,9 +21,8 @@ seamless = true
 [resource]
 shader = ExtResource("1_7l0o3")
 shader_parameter/noise = SubResource("NoiseTexture2D_uquqp")
-shader_parameter/line_color_a = Color(0.9948519, 0.74685574, 1, 1)
-shader_parameter/line_color_b = Color(0.9311342, 0.2945425, 1, 1)
-shader_parameter/line_threshold = 0.433
+shader_parameter/gradient_tex = SubResource("GradientTexture1D_ntv7k")
 shader_parameter/inverse_speed = 10.0
-shader_parameter/line_length = 1000.0
-shader_parameter/angle = 30.000001425
+shader_parameter/line_length = 2500.0
+shader_parameter/scale = 8.0
+shader_parameter/angle = 35.0000016625

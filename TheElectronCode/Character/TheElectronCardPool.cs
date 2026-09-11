@@ -30,5 +30,7 @@ public class TheElectronCardPool : CustomCardPoolModel
     //Color of small card icons
     public override Color DeckEntryCardColor => new("1828e3");
 
+    public override Color EnergyOutlineColor => new("181b6d");
+
     public override bool IsColorless => false;
 }

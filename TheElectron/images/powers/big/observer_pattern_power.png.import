@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4l416iwweuft"
-path="res://.godot/imported/mod_image.png-ae0135579de0cc8708b7049366ab23e6.ctex"
+uid="uid://w41uj10np4ea"
+path="res://.godot/imported/observer_pattern_power.png-2a392053bcdc282a534436532ab4fa2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheElectron/mod_image.png"
-dest_files=["res://.godot/imported/mod_image.png-ae0135579de0cc8708b7049366ab23e6.ctex"]
+source_file="res://TheElectron/images/powers/big/observer_pattern_power.png"
+dest_files=["res://.godot/imported/observer_pattern_power.png-2a392053bcdc282a534436532ab4fa2e.ctex"]
 
 [params]
 

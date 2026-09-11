@@ -19,7 +19,7 @@ public abstract class ElectronEmptyCard : ElectronCard
     // Set during SpendResource
     public bool IsPlayedAsEmpty { get; set; }
     public bool HasPaidEnergyCost { get; set; }
-    
+
     // TODO Hook this?
     public bool AllEffectsOverride => Owner.Creature.HasPower<DividedByZeroPower>();
 
@@ -62,7 +62,7 @@ public abstract class ElectronEmptyCard : ElectronCard
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await BeforeOnPlay(choiceContext, cardPlay);
-        
+
         var checkOverride = AllEffectsOverride;
         if (IsPlayedAsEmpty || checkOverride) await OnPlayEmptyBefore(choiceContext, cardPlay);
         if (HasPaidEnergyCost || checkOverride) await OnPlayWrapper(choiceContext, cardPlay);

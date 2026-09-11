@@ -2,7 +2,7 @@
 
 namespace TheElectron.TheElectronCode.Utils;
 
-public class FontColors
+public static class FontColors
 {
     // Font color stored as tuple: item1 - font_color; item2 - font_shadow_color; item3 - font_outline_color
     public static readonly (Color, Color, Color) DefaultFontColor =

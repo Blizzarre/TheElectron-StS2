@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4l416iwweuft"
-path="res://.godot/imported/mod_image.png-ae0135579de0cc8708b7049366ab23e6.ctex"
+uid="uid://chlghiqshf5jh"
+path="res://.godot/imported/wave_dash.png-1e4f7f5d3e3105109381124e8b0943d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheElectron/mod_image.png"
-dest_files=["res://.godot/imported/mod_image.png-ae0135579de0cc8708b7049366ab23e6.ctex"]
+source_file="res://TheElectron/images/card_portraits/wave_dash.png"
+dest_files=["res://.godot/imported/wave_dash.png-1e4f7f5d3e3105109381124e8b0943d7.ctex"]
 
 [params]
 

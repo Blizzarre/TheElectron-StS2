@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -31,7 +32,7 @@ public class EnergyShield : ElectronEmptyCard
 
     protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
             await QuarkCmd.Produce<TopQuark>(choiceContext, Owner, this, play);
     }

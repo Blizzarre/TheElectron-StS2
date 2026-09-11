@@ -1,4 +1,5 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Animation;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.Commands;
@@ -22,7 +23,7 @@ public class WaveFunctionCollapse : ElectronCard
 
         if (queue != null && queue.HasAny())
         {
-            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
 
             var currQuarks = new List<QuarkModel>(queue.Quarks);
             await QuarkCmd.Fuse(choiceContext, Owner, this, play);

@@ -10,12 +10,12 @@ namespace TheElectron.TheElectronCode.Cards.Rare;
 public class WaveDash : ElectronCard
 {
     private const string FaradCostKey = "FaradCost";
-    
+
     public WaveDash() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
         WithDamage(12, 3);
         WithBlock(12, 3);
-        WithVar(FaradCostKey, 4);
+        WithVar(FaradCostKey, 3);
     }
 
     private bool HasEnoughFarad => (Owner.PlayerCombatState?.GetFarad() ?? 0) >= DynamicVars[FaradCostKey].IntValue;
@@ -29,12 +29,12 @@ public class WaveDash : ElectronCard
         if (HasEnoughFarad)
         {
             await ElectronPlayerCmd.LoseFarad(choiceContext, Owner, DynamicVars[FaradCostKey].BaseValue, this, play);
-            
+
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
                 .TargetingAllOpponents(CombatState!)
                 .WithHitFx("vfx/vfx_flying_slash")
                 .Execute(choiceContext);
-        
+
             await CommonActions.CardBlock(this, play);
         }
     }

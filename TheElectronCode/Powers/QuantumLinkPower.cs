@@ -33,8 +33,8 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
             AffectsHpLabel = true,
             Amount = Amount,
             Direction = HealthBarForecastDirection.FromRight,
-            Color = new Color(0.694f, 0.0f, 0.839f),
-            OverlaySelfModulate = new Color(0.867f, 0.071f, 0.957f),
+            Color = new Color(0.925f, 0.318f, 0.671f),
+            OverlaySelfModulate = Colors.White,
             Order = 100, 
             OverlayMaterial = PreloadManager.Cache.GetMaterial(ElectronResource.QuantumLinkHpForecastMaterialPath)
         };
