@@ -36,7 +36,7 @@ public abstract class ElectronDepleteCard : ElectronCard
     {
         base.AddExtraArgsToDescription(description);
 
-        description.Add("WouldDeplete", !IsInCombat || WouldDeplete);
+        description.Add("WouldDeplete", !IsInCombat || WouldDeplete || IsEnergyDepleted);
     }
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

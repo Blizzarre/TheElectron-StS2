@@ -10,7 +10,7 @@ public class CentrifugalForce : ElectronCard
 {
     public CentrifugalForce() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        WithDamage(7, 2);
+        WithDamage(7, 1);
         WithPower<SpinPower>(2, 1);
     }
 

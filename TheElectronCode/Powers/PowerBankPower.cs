@@ -16,9 +16,11 @@ public class PowerBankPower : TheElectronPower, IAfterEnergyLost
 
     private bool _hasGainedEnergy;
 
+    // TODO: Keep track of last energy Amount so it can be compared.
+    
     public override async Task AfterEnergySpent(CardModel card, int amount)
     {
-        if (Owner.Player == card.Owner && Owner.Player?.PlayerCombatState?.Energy == 0 && !_hasGainedEnergy)
+        if (Owner.Player == card.Owner && amount > 0 && Owner.Player?.PlayerCombatState?.Energy == 0 && !_hasGainedEnergy)
         {
             Flash();
             await PlayerCmd.GainEnergy(Amount, Owner.Player);

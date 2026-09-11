@@ -37,6 +37,8 @@ public class QuarkQueue
 
     private int TempCapacity { get; set; }
 
+    public bool WasLastSlotRemoved { get; private set; } = false;
+
     public QuarkQueue(Player owner)
     {
         Owner = owner;
@@ -49,9 +51,13 @@ public class QuarkQueue
         TempCapacity = 0;
     }
 
-    public void RemoveCapacity(int capacity)
+    /// <returns>Number of slots that should be visually removed</returns>
+    public int RemoveCapacity(int capacity)
     {
+        var before = Capacity;
         _capacity = Math.Max(0, _capacity - capacity);
+        if (_capacity == 0) WasLastSlotRemoved = true;
+        
         while (Quarks.Count > Capacity)
         {
             var lastQuark = _quarks.Last();
@@ -60,6 +66,7 @@ public class QuarkQueue
         }
 
         RestoreTempSlotOwnerships();
+        return before - Capacity;
     }
 
     // Set Stable Quarks' HasStableSlot bool to reflect the state of current temp slots available.
@@ -115,6 +122,11 @@ public class QuarkQueue
     }
 
     public bool HasAny()
+    {
+        return _quarks.Count != 0;
+    }
+    
+    public bool HasAnySlot()
     {
         return _quarks.Count != 0;
     }

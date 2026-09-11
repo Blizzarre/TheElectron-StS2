@@ -7,12 +7,12 @@ using TheElectron.TheElectronCode.Models;
 
 namespace TheElectron.TheElectronCode.Powers;
 
-public class CyclotronPower : TheElectronPower, IAfterQuarksFused
+public class CyclotronPower : TheElectronPower, IAfterQuarksFusedLate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public async Task AfterQuarksFused(PlayerChoiceContext choiceContext, Player player,
+    public async Task AfterQuarksFusedLate(PlayerChoiceContext choiceContext, Player player,
         IEnumerable<QuarkModel> fusedQuarks)
     {
         if (Owner.Player == player)

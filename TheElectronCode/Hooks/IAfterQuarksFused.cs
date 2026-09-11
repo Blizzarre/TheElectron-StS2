@@ -8,3 +8,8 @@ public interface IAfterQuarksFused
 {
     public Task AfterQuarksFused(PlayerChoiceContext choiceContext, Player player, IEnumerable<QuarkModel> fusedQuarks);
 }
+
+public interface IAfterQuarksFusedLate
+{
+    public Task AfterQuarksFusedLate(PlayerChoiceContext choiceContext, Player player, IEnumerable<QuarkModel> fusedQuarks);
+}

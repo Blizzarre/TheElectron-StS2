@@ -12,10 +12,10 @@ public class Vortex : ElectronCard
 {
     public Vortex() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(7, 1);
-        WithCalculatedVar("SpinGain", 0, 1,
+        WithDamage(5, 3);
+        WithCalculatedVar("SpinGain", 0, 2,
             static (card, _) => card.Owner.PlayerCombatState?.GetQuarkQueue()?.Quarks.Select(q => q.Id.Entry)
-                .Distinct().Count() ?? 0, 0, 1);
+                .Distinct().Count() ?? 0);
         WithTip(typeof(SpinPower));
     }
 

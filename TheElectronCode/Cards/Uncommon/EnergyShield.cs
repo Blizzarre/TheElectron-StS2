@@ -9,7 +9,6 @@ using TheElectron.TheElectronCode.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Models.Quarks;
-using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
@@ -17,8 +16,7 @@ public class EnergyShield : ElectronEmptyCard
 {
     public EnergyShield() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithKeyword(ElectronKeywords.Drain);
-        WithBlock(8, 3);
+        WithBlock(8, 2);
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<TopQuark>();
         WithVar(new QuarkCountVar(1));

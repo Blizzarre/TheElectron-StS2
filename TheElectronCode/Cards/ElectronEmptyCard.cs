@@ -49,8 +49,8 @@ public abstract class ElectronEmptyCard : ElectronCard
         if (IsInCombat)
         {
             var checkOverride = AllEffectsOverride;
-            description.Add("IsEmpty", WouldBeEmpty || checkOverride);
-            description.Add("HasEnoughEnergy", HasEnoughEnergy || checkOverride);
+            description.Add("IsEmpty", WouldBeEmpty || IsPlayedAsEmpty || checkOverride);
+            description.Add("HasEnoughEnergy", HasEnoughEnergy || HasPaidEnergyCost || checkOverride);
         }
         else
         {

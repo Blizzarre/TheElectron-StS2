@@ -92,6 +92,8 @@ public partial class NQuarkManager : NClickableControl
 
     private float _curRotationSpeed;
 
+    private float _curBgRotationSpeed;
+
     private float _curFuseRotationSpeed;
 
     private bool _isFusing;
@@ -149,6 +151,10 @@ public partial class NQuarkManager : NClickableControl
         _curRotationSpeed = Mathf.Lerp(_curRotationSpeed, targetSpeed, weight);
         _centerMarker.Rotation += (float)delta * _curRotationSpeed;
 
+        var bgTargetSpeed = _isFusing ? targetSpeed * 0.5f : 0.0f;
+        _curBgRotationSpeed = Mathf.Lerp(_curBgRotationSpeed, bgTargetSpeed, weight);
+        _quarkBg.Rotation += (float)delta * _curBgRotationSpeed;
+        
         if (_isFusing)
         {
             _curNoiseOffset += (float)delta;
@@ -188,9 +194,10 @@ public partial class NQuarkManager : NClickableControl
         {
             Visible = true;
             _hasInitialized = true;
-
+            
             var radius = Mathf.Lerp(MinRadius, MaxRadius, (float)capacity / QuarkQueue.MaxCapacity);
-            SetBgSize(radius + ExternalRadiusOffset);
+            var extRadius = radius + ExternalRadiusOffset;
+            SetQuarkBgScale(extRadius * 2f / _quarkBg.Size.X);
 
             var tween = CreateTween().Parallel();
             tween.TweenProperty(_allContainer, "scale", Vector2.One, 0.35).From(Vector2.Zero)
@@ -482,7 +489,8 @@ public partial class NQuarkManager : NClickableControl
                 .SetTrans(Tween.TransitionType.Sine);
         }
 
-        _curTween.TweenMethod(Callable.From<float>(SetBgSize), _quarkBg.Size.X / 2, extRadius, 0.35);
+        var targetBgScale = extRadius * 2f / _quarkBg.Size.X;
+        _curTween.TweenProperty(_quarkBg, "scale", new Vector2(targetBgScale, targetBgScale), 0.35);
         _curTween.TweenProperty(_allContainer, "position", new Vector2(0, MinRadius - radius), 0.35)
             .SetEase(Tween.EaseType.InOut)
             .SetTrans(Tween.TransitionType.Sine);
@@ -542,10 +550,9 @@ public partial class NQuarkManager : NClickableControl
         return ret;
     }
 
-    private void SetBgSize(float radius)
+    private void SetQuarkBgScale(float scale)
     {
-        _quarkBg.Size = new Vector2(radius * 2, radius * 2);
-        _quarkBg.Position = new Vector2(-radius, -radius);
+        _quarkBg.Scale = new Vector2(scale, scale);
     }
 
     public void UpdateVisuals()

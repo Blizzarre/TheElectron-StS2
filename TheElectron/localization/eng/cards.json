@@ -31,7 +31,7 @@
   "THEELECTRON-DARK_MATTER.title": "Dark Matter",
   "THEELECTRON-DEFEND_ELECTRON.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "THEELECTRON-DEFEND_ELECTRON.title": "Defend",
-  "THEELECTRON-DEMON_CORE.description": "{HasEnoughEnergy:eGrayOut:Gain {SpinPower:diff()} [gold]Spin[/gold].}\n[gold]Empty[/gold]: {IsEmpty:eGrayOut:[lb]Gain {StabilityPower:diff()} [gold]Stability[/gold].[rb]}",
+  "THEELECTRON-DEMON_CORE.description": "Gain {SpinPower:diff()} [gold]Spin[/gold].\nLose {SlotLoss:diff()} Quark Slot{SlotLoss:plural:|s}",
   "THEELECTRON-DEMON_CORE.title": "Demon Core",
   "THEELECTRON-DESTABILIZE.description": "Apply {QuantumLinkPower:diff()} [gold]Quantum Link[/gold].\nApply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
   "THEELECTRON-DESTABILIZE.title": "Destabilize",

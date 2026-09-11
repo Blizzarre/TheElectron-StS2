@@ -30,13 +30,43 @@ public static class QuarkCmd
         var queue = player.PlayerCombatState?.GetQuarkQueue();
         var visualAmountAdded = queue?.AddCapacity(amount, isTempSlot) ?? 0;
         var nCreature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
-        if (nCreature != null)
+        if (nCreature != null && visualAmountAdded > 0)
         {
             var quarkManager = ElectronNode.NQuarkManager[nCreature];
             quarkManager?.AddSlotAnim(visualAmountAdded);
         }
 
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Remove Quark slots from the player. <c>choiceContext</c> is required in case of Fusion leading to draw.
+    /// </summary>
+    /// <param name="choiceContext"></param>
+    /// <param name="player"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public static async Task RemoveSlots(PlayerChoiceContext choiceContext, Player player, int amount)
+    {
+        if (CombatManager.Instance.IsOverOrEnding) return;
+
+        var queue = player.PlayerCombatState?.GetQuarkQueue();
+        if (queue == null) return;
+        
+        var visualAmountRemoved = queue.RemoveCapacity(amount);
+        
+        var nCreature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
+        if (nCreature != null && visualAmountRemoved > 0)
+        {
+            var quarkManager = ElectronNode.NQuarkManager[nCreature];
+            quarkManager?.RemoveSlotAnim(visualAmountRemoved);
+        }
+        
+        if (queue.IsFull())
+        {
+            await Cmd.CustomScaledWait(0.25f, 0.4f);
+            await Fuse(choiceContext, player);
+        }
     }
 
     /// <summary>
@@ -76,8 +106,8 @@ public static class QuarkCmd
             quark.AssertMutable();
 
             quark.Owner = player;
-            // Add Slots if player have no slots
-            if (player.Character is not Character.TheElectron && quarkQueue.Capacity == 0)
+            // Add Slots if player have no slots (and the slot wasn't removed from remove effect)
+            if (quarkQueue is { WasLastSlotRemoved: false, Capacity: 0 })
                 await AddSlots(player, QuarkQueue.DefaultCapacity);
 
             // Hook to modify quark stability (only if slots aren't full).
@@ -93,6 +123,13 @@ public static class QuarkCmd
             {
                 quark.HasStableSlot = true;
                 await AddSlots(player, 1, true);
+            }
+            
+            // Should never happen, but we'll call Fuse here just in case
+            if (quarkQueue.IsFull())
+            {
+                await Cmd.CustomScaledWait(0.25f, 0.4f);
+                await Fuse(choiceContext, player, card, cardPlay);
             }
 
             if (await quarkQueue.TryEnqueue(quark))

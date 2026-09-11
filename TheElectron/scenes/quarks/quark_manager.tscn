@@ -13,7 +13,6 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_35nqb"]
 shader = ExtResource("2_tvkw1")
-shader_parameter/shaking = true
 shader_parameter/amplitude = 60.0
 shader_parameter/noise_scale_x = 5.0
 shader_parameter/noise_speed_x = -0.013
@@ -89,6 +88,7 @@ offset_left = -80.0
 offset_top = -80.0
 offset_right = 80.0
 offset_bottom = 80.0
+pivot_offset = Vector2(80, 80)
 mouse_filter = 2
 texture = ExtResource("1_ys36x")
 expand_mode = 1
