@@ -1,0 +1,6 @@
+{
+  "THEELECTRON-ELECTRON_METRICS_FTUE_MESSAGE.body": "Data collection is now [gold]{Enabled:On|Off}[/gold].\n\nThis setting can be toggled at any time in the Electron mod settings menu.",
+  "THEELECTRON-ELECTRON_METRICS_FTUE_MESSAGE.header": "{Enabled:Thank You!|Alright}",
+  "THEELECTRON-ELECTRON_METRICS_FTUE_PROMPT.body": "Thank you for downloading and choosing The Electron!\nThis mod uses anonymized data collection to help with balancing.\n\nThe current setting is:\nData collection is [gold]{Enabled:On|Off}[/gold]\n\n{Enabled:Would you like keep this On?|Would you consent to turning this On?}",
+  "THEELECTRON-ELECTRON_METRICS_FTUE_PROMPT.header": "The Electron Data Collection"
+}

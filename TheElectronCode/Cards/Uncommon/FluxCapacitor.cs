@@ -13,6 +13,7 @@ public class FluxCapacitor : ElectronCard
     public FluxCapacitor() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithTip(ElectronHoverTip.Farad);
+        WithVar("Mult", 3);
         WithVar(new FaradVar(0).WithUpgrade(2));
     }
 
@@ -20,7 +21,7 @@ public class FluxCapacitor : ElectronCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        var faradGain = ResolveEnergyXValue() * 2;
+        var faradGain = ResolveEnergyXValue() * DynamicVars["Mult"].BaseValue;
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue + faradGain, this, play);
     }
 }

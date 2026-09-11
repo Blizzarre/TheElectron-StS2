@@ -1,7 +1,9 @@
 using System.Reflection;
+using BaseLib.Config;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using TheElectron.TheElectronCode.Data;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode;
@@ -24,9 +26,20 @@ public partial class TheElectronMod : Node
         Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);
 
         ElectronSubscriber.Subscribe();
+        
+        ModManager.OnMetricsUpload += ElectronMetrics.OnMetricsUpload;
+
+        ModConfigRegistry.Register(ModId, new ElectronConfig());
 
         Harmony harmony = new(ModId);
 
         harmony.PatchAll(assembly);
+    }
+
+    public static string GetVersion()
+    {
+        var mod = ModManager.GetLoadedMods().FirstOrDefault(m => m.manifest?.id == "TheElectron");
+
+        return mod?.manifest?.version ?? "unknown";
     }
 }

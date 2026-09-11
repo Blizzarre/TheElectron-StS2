@@ -1,0 +1,112 @@
+name: Publish
+on:
+  push:
+    branches: [main, master, beta]
+    tags: ['v*']
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+env:
+  MEGADOT_VERSION: 4.5.1-m.11
+  MEGADOT_BIN_VERSION: 4.5.1
+  SPINE_GODOT_VERSION: 4.2-4.5.1-stable
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - name: Cache MegaDot
+        id: cache-megadot
+        uses: actions/cache@v4
+        with:
+          path: megadot
+          key: megadot-${{ env.MEGADOT_VERSION }}-linux-x86_64
+      - name: Install MegaDot
+        if: steps.cache-megadot.outputs.cache-hit != 'true'
+        run: |
+          curl -fL --retry 3 -o megadot.zip \
+            "https://megadot.megacrit.com/${MEGADOT_VERSION}/megadot-${MEGADOT_VERSION}-linux-x86_64-editor-csharp.zip"
+          unzip -q megadot.zip -d megadot
+          chmod +x "megadot/MegaDot_v${MEGADOT_BIN_VERSION}-stable_mono_linux.x86_64"
+      - name: Set Godot path
+        run: |
+          echo "GODOT_PATH=$(pwd)/megadot/MegaDot_v${MEGADOT_BIN_VERSION}-stable_mono_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Cache spine-godot extension
+        id: cache-spine
+        uses: actions/cache@v4
+        with:
+          path: spine-godot.zip
+          key: spine-godot-${{ env.SPINE_GODOT_VERSION }}
+      - name: Download spine-godot extension
+        if: steps.cache-spine.outputs.cache-hit != 'true'
+        run: |
+          curl -fL --retry 3 -o spine-godot.zip \
+            "https://spine-godot.s3.eu-central-1.amazonaws.com/4.2/${MEGADOT_BIN_VERSION}-stable/spine-godot-extension-${SPINE_GODOT_VERSION}.zip"
+      - name: Install spine-godot extension
+        run: |
+          unzip -oq spine-godot.zip -d "${{ github.workspace }}"
+      - name: Import Godot resources
+        run: |
+          "$GODOT_PATH" --headless --import || true
+          "$GODOT_PATH" --headless --import
+      - name: Inject metrics key
+        env:
+          METRICS_API_KEY: ${{ secrets.METRICS_API_KEY }}
+        run: |
+          cat > TheElectronCode/Data/BuildSecrets.cs <<EOF
+          namespace TheElectron.TheElectronCode.Data;
+          internal static class BuildSecrets { public const string? MetricsApiKey = "$METRICS_API_KEY"; }
+          EOF
+      - name: Publish
+        run: |
+          mkdir -p "${{ github.workspace }}/output/mods"
+          dotnet publish TheElectron.csproj -c Release \
+            /p:GodotPath="$GODOT_PATH" \
+            /p:ModsPath="${{ github.workspace }}/output/mods/"
+      - name: Verify build outputs
+        run: |
+          out="output/mods/TheElectron"
+          for f in "$out/TheElectron.dll" "$out/TheElectron.pck" "$out/TheElectron.json"; do
+            [[ -f "$f" ]] || { echo "Missing: $f"; exit 1; }
+          done
+      - name: Strip debug symbols
+        run: find output/mods -name '*.pdb' -delete
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TheElectron
+          path: output/mods
+
+  release:
+    needs: publish
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: TheElectron
+          path: dist
+      - name: Package
+        run: |
+          cd dist
+          zip -r "../TheElectron-${{ github.ref_name }}.zip" .
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            "TheElectron-${{ github.ref_name }}.zip" \
+            --repo "${{ github.repository }}" \
+            --title "${{ github.ref_name }}" \
+            --generate-notes

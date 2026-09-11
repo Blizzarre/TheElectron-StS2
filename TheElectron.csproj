@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
     <Import Project=".\Sts2PathDiscovery.props"/>
     <PropertyGroup>
-        <ModVersion>0.0.2</ModVersion>
+        <ModVersion>0.0.3</ModVersion>
         <Version>$(ModVersion)</Version>
         <FileVersion>$(ModVersion).0</FileVersion>
         <InformationalVersion>$(ModVersion)</InformationalVersion>
@@ -37,11 +37,21 @@
         </Reference>
     </ItemGroup>
 
-    <ItemGroup Condition="$(Publicize)">
-        <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All"/>
+    <ItemGroup Condition="True and Exists('$(Sts2DataDir)')"> <!--Allows access to originally private/protected members but may (unlikely to) cause errors.-->
         <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false"/>
     </ItemGroup>
 
+    <ItemGroup Condition="!Exists('$(Sts2DataDir)')">
+        <PackageReference Include="Book.StS2.RefLib" Version="0.111.0-beta" PrivateAssets="all"/>
+        <PackageReference Include="SmartFormat.NET" Version="3.6.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition="Exists('$(Sts2DataDir)')">
+        <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="All">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    
     <ItemGroup>
         <PackageReference Include="Alchyr.Sts2.BaseLib" Version="*" PrivateAssets="All"/>
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="*"/>
@@ -75,13 +85,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include=".github\workflows\publish.yaml" />
       <Content Include="LICENSE" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="SmartFormat">
-        <HintPath>E:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\SmartFormat.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

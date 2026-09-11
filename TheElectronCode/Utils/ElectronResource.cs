@@ -9,12 +9,16 @@ public class ElectronResource
     public const string NFaradCounterPath = "res://TheElectron/scenes/combat/energy_counters/farad_counter.tscn";
     public const string NElectronCardIndicatorPath = "res://TheElectron/scenes/card/electron_card_indicator.tscn";
 
+    public const string QuantumLinkHpForecastMaterialPath =
+        "res://TheElectron/shaders/materials/quantum_link_hp_forecast_material.tres";
+
     // These assets will be loaded with PreloadManager
     public static readonly IEnumerable<string> AssetPaths =
     [
         NQuarkManagerPath, NQuarkPath, NFaradCounterPath, NElectronCardIndicatorPath,
+        QuantumLinkHpForecastMaterialPath,
         "empty".CardUiResourcePath().ToRes(),
         "deplete".CardUiResourcePath().ToRes(),
-        "drain".CardUiResourcePath().ToRes()
+        "drain".CardUiResourcePath().ToRes(),
     ];
 }

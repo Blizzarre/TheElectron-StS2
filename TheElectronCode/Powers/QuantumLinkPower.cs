@@ -1,5 +1,9 @@
+using BaseLib.Hooks;
+using Godot;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -8,6 +12,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using TheElectron.TheElectronCode.Hooks;
+using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Powers;
 
@@ -18,8 +23,24 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
     public override PowerStackType StackType => PowerStackType.Counter;
 
     public override PowerInstanceType InstanceType => PowerInstanceType.InstancedPerApplier;
-
-
+    
+    public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(HealthBarForecastContext context)
+    {
+        // Only show quantum link for the applier
+        if (!LocalContext.IsMe(Applier) || context.Creature != Owner) return [];
+        var forecast = new HealthBarForecastSegment
+        {
+            AffectsHpLabel = true,
+            Amount = Amount,
+            Direction = HealthBarForecastDirection.FromRight,
+            Color = new Color(0.694f, 0.0f, 0.839f),
+            OverlaySelfModulate = new Color(0.867f, 0.071f, 0.957f),
+            Order = 100, 
+            OverlayMaterial = PreloadManager.Cache.GetMaterial(ElectronResource.QuantumLinkHpForecastMaterialPath)
+        };
+        return [forecast];
+    }
+    
     public async Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost,
         CardModel? cardSource = null,
         CardPlay? cardPlay = null)
@@ -32,7 +53,7 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
         if (!onCorrectSide && !ignoreSide) return;
 
         Flash();
-        await CreatureCmd.Damage(choiceContext, Owner, amountLost * Amount,
+        await CreatureCmd.Damage(choiceContext, Owner, Amount,
             ValueProp.Unblockable | ValueProp.Unpowered, null, null);
         await Cmd.CustomScaledWait(0.2f, 0.35f);
     }
@@ -55,7 +76,7 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
         if (!onCorrectSide && !ignoreSide) return;
 
         Flash();
-        await CreatureCmd.Damage(choiceContext, Owner, damageResult.UnblockedDamage * Amount,
+        await CreatureCmd.Damage(choiceContext, Owner, Amount,
             ValueProp.Unblockable | ValueProp.Unpowered, target, null, null);
         await Cmd.CustomScaledWait(0.2f, 0.35f);
     }

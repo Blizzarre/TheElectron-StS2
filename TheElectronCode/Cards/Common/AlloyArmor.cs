@@ -11,7 +11,7 @@ public class AlloyArmor : ElectronDepleteCard
     public AlloyArmor() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         WithKeyword(ElectronKeywords.Drain);
-        WithBlock(10, 3);
+        WithBlock(8, 3);
         WithEnergy(1);
     }
 

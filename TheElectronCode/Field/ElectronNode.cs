@@ -23,12 +23,12 @@ public class ElectronNode
 
     public static readonly AddedNode<NCard, NElectronCardIndicator> NElectronCardIndicator = new(card =>
     {
-        var elementsIcon = PreloadManager.Cache.GetScene(ElectronResource.NElectronCardIndicatorPath)
+        var indicator = PreloadManager.Cache.GetScene(ElectronResource.NElectronCardIndicatorPath)
             .Instantiate<NElectronCardIndicator>()
             .WithData(card);
         var cardContainer = card.GetChild(0)!;
-        cardContainer.AddChild(elementsIcon);
-        cardContainer.MoveChild(elementsIcon, cardContainer.GetNode("%EnergyIcon").GetIndex());
-        return elementsIcon;
+        cardContainer.AddChild(indicator);
+        cardContainer.MoveChild(indicator, cardContainer.GetNode("%EnergyIcon").GetIndex());
+        return indicator;
     });
 }

@@ -11,7 +11,7 @@ public class PowerBank : ElectronCard
 {
     public PowerBank() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        WithKeyword(ElectronKeywords.Drain, UpgradeType.Add);
+        WithCostUpgradeBy(-1);
         WithEnergyTip();
         WithVar(new EnergyVar("Amount", 1));
     }

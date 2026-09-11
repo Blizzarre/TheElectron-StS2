@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dt6l0dw21jh7t"]
+
+[ext_resource type="Shader" uid="uid://c1vlkugmxf5d3" path="res://TheElectron/shaders/quantum_link_hp_overlay.gdshader" id="1_7l0o3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ntv7k"]
+seed = 18235
+frequency = 0.0112
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uquqp"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_ntv7k")
+seamless = true
+
+[resource]
+shader = ExtResource("1_7l0o3")
+shader_parameter/noise = SubResource("NoiseTexture2D_uquqp")
+shader_parameter/line_color_a = Color(0.9948519, 0.74685574, 1, 1)
+shader_parameter/line_color_b = Color(0.9311342, 0.2945425, 1, 1)
+shader_parameter/line_threshold = 0.433
+shader_parameter/inverse_speed = 10.0
+shader_parameter/line_length = 1000.0
+shader_parameter/angle = 30.000001425

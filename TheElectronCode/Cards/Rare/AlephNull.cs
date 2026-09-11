@@ -14,6 +14,7 @@ public class AlephNull : ElectronCard
     {
         WithCards(2, 1);
         WithTip(ElectronKeywords.Drain);
+        WithVar("Amount", 2, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
@@ -22,6 +23,6 @@ public class AlephNull : ElectronCard
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
 
         await PowerCmd.Apply<AlephNullPower>(choiceContext, Owner.Creature,
-            1, Owner.Creature, this);
+            DynamicVars["Amount"].IntValue, Owner.Creature, this);
     }
 }

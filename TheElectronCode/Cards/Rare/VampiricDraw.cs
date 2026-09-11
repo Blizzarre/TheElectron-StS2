@@ -40,9 +40,9 @@ public class VampiricDraw : ElectronDepleteCard
     public VampiricDraw() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithTip(ElectronHoverTip.Fuse);
-        WithDamage(15, 2);
+        WithDamage(15, 5);
         WithVar(new FaradVar(CurrentFarad));
-        WithVar(IncreaseKey, 1, 1);
+        WithVar(IncreaseKey, 1);
         WithKeyword(CardKeyword.Exhaust);
     }
 

@@ -114,16 +114,16 @@ internal class CardModelOnPlayWrapperPatch
                 await ElectronPlayerCmd.LoseFarad(choiceContext, player, faradDrain, __instance);
                 drainAmount -= faradDrain;
             }
-
-            var preventHpLoss = false;
-            // Sorry for hard coding, could replace this with hook later
-            if (drainAmount > 0 && player.Creature.HasPower<AlephNullPower>())
+            
+            // TODO: Sorry for hard coding, replace this with hook later!!
+            var power = player.Creature.GetPower<AlephNullPower>();
+            if (drainAmount > 0 && power != null)
             {
-                player.Creature.GetPower<AlephNullPower>()?.Flash();
-                preventHpLoss = true;
+                await PowerCmd.Decrement(power);
+                drainAmount = 0;
             }
             
-            if (drainAmount > 0 && !preventHpLoss)
+            if (drainAmount > 0)
             {
                 await CreatureCmd.Damage(choiceContext, player.Creature,
                     new DamageVar(drainAmount, ValueProp.Unpowered | ValueProp.Unblockable), __instance, null);

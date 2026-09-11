@@ -13,7 +13,7 @@ public class PlugIn : ElectronCard
     public PlugIn() : base(0, CardType.Skill, CardRarity.Common, TargetType.AllEnemies)
     {
         WithPower<QuantumLinkPower>(2, 1);
-        WithVar("FaradLoss", 2);
+        WithVar("FaradLoss", 1);
         WithTip(ElectronHoverTip.Farad);
     }
 

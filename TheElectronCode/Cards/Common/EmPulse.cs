@@ -11,8 +11,8 @@ public class EmPulse : ElectronDepleteCard
 {
     public EmPulse() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithBlock(6, 1);
-        WithPower<WeakPower>(1, 1);
+        WithBlock(6, 3);
+        WithPower<WeakPower>(1);
     }
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)

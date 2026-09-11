@@ -10,11 +10,11 @@ using TheElectron.TheElectronCode.Models.Quarks;
 using TheElectron.TheElectronCode.Powers;
 using TheElectron.TheElectronCode.Utils;
 
-namespace TheElectron.TheElectronCode.Cards.Uncommon;
+namespace TheElectron.TheElectronCode.Cards.Rare;
 
 public class FissionCell : ElectronCard
 {
-    public FissionCell() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public FissionCell() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithKeyword(ElectronKeywords.Drain);
         WithTip(ElectronHoverTip.Produce);
