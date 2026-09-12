@@ -11,7 +11,7 @@ public class PerpetualMotion : ElectronCard
     public PerpetualMotion() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithTip(typeof(SpinPower));
-        WithVar("Amount", 3, 2);
+        WithVar("Amount", 3, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

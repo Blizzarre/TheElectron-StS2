@@ -11,8 +11,8 @@ public class Destabilize : ElectronCard
 {
     public Destabilize() : base(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithPower<QuantumLinkPower>(4, 1);
-        WithPower<VulnerablePower>(2, 1);
+        WithPower<QuantumLinkPower>(4, 2);
+        WithPower<WeakPower>(2);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
@@ -22,7 +22,7 @@ public class Destabilize : ElectronCard
         await PowerCmd.Apply<QuantumLinkPower>(choiceContext, play.Target,
             DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
 
-        await PowerCmd.Apply<VulnerablePower>(choiceContext, play.Target,
-            DynamicVars.Power<VulnerablePower>().BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<WeakPower>(choiceContext, play.Target,
+            DynamicVars.Power<WeakPower>().BaseValue, Owner.Creature, this);
     }
 }

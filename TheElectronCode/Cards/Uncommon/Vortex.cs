@@ -1,9 +1,7 @@
-﻿using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Animation;
+﻿using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Powers;
 
@@ -24,6 +22,6 @@ public class Vortex : ElectronCard
         await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
 
         await PowerCmd.Apply<SpinPower>(choiceContext, Owner.Creature,
-            ((CalculatedVar)DynamicVars["SpinGain"]).Calculate(null), Owner.Creature, this);
+            DynamicVars["SpinGain"].Calculate(), Owner.Creature, this);
     }
 }

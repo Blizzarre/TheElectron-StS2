@@ -8,10 +8,10 @@ namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
 public class StringTheory : ElectronCard
 {
-    public StringTheory() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public StringTheory() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         WithTip(typeof(QuantumLinkPower));
-        WithVar("Amount", 1, 1);
+        WithVar("Amount", 2, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

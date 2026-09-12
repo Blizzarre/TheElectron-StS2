@@ -1,13 +1,14 @@
-﻿using MegaCrit.Sts2.Core.Localization;
+﻿using BaseLib.Abstracts;
+using MegaCrit.Sts2.Core.Localization;
 using SmartFormat.Core.Extensions;
 using TheElectron.TheElectronCode.Extensions;
 
 namespace TheElectron.TheElectronCode.Formatters;
 
 // Credit to Mangochicken for the help with this
-public class GrayOutFormatter : IFormatter
+public class GrayOutFormatter : IAutoRegisterFormatSpecifier
 {
-    public string Name { get; set; } = "eGrayOut";
+    public string Name { get; set; } = "elGrayOut";
     public bool CanAutoDetect { get; set; }
     
     public bool TryEvaluateFormat(IFormattingInfo formattingInfo)

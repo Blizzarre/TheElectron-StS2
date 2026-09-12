@@ -9,7 +9,7 @@ namespace TheElectron.TheElectronCode.Cards.Rare;
 
 public class EmergencyProtocol : ElectronCard
 {
-    public EmergencyProtocol() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public EmergencyProtocol() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         WithTip(ElectronKeywords.Drain);
         WithCostUpgradeBy(-1);

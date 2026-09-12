@@ -39,13 +39,11 @@ public class EndlessAssault : ElectronCard, IAfterFaradLost
         return locationForCardPlay;
     }
 
-    public Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost, CardModel? cardSource = null,
+    public Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost,
+        CardModel? cardSource = null,
         CardPlay? cardPlay = null)
     {
-        if (player == Owner && cardSource == this && amountLost > 0)
-        {
-            WasFaradSpent = true;
-        }
+        if (player == Owner && cardSource == this && amountLost > 0) WasFaradSpent = true;
 
         return Task.CompletedTask;
     }
@@ -53,10 +51,7 @@ public class EndlessAssault : ElectronCard, IAfterFaradLost
 
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card == this)
-        {
-            WasFaradSpent = false;
-        }
+        if (cardPlay.Card == this) WasFaradSpent = false;
 
         return Task.CompletedTask;
     }

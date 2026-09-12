@@ -21,7 +21,7 @@ public class MiracleMatter : ElectronDepleteCard
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
         for (var i = 0; i < DynamicVars.QuarkCount.IntValue; i++)
-            await QuarkCmd.Produce<CharmQuark>(choiceContext, Owner, this, play, IsUpgradable);
+            await QuarkCmd.Produce<CharmQuark>(choiceContext, Owner, this, play, IsUpgraded);
     }
 
     protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)

@@ -2,8 +2,8 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using TheElectron.TheElectronCode.Combat;
+using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.HoverTips;
 
 namespace TheElectron.TheElectronCode.Cards.Rare;
@@ -25,11 +25,9 @@ public class SplitTheAtom : ElectronCard
     {
         ArgumentNullException.ThrowIfNull(play.Target);
 
-        var hitCount = (int)((CalculatedVar)DynamicVars["CalculatedHits"]).Calculate(play.Target);
-
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
             .Targeting(play.Target)
-            .WithHitCount(hitCount)
+            .WithHitCount((int)DynamicVars["CalculatedHits"].Calculate(play.Target))
             .WithHitFx("vfx/vfx_attack_blunt")
             .Execute(choiceContext);
     }

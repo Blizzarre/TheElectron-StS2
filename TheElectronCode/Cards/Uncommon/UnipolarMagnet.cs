@@ -11,8 +11,9 @@ public class UnipolarMagnet : ElectronDepleteCard
 
     public UnipolarMagnet() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithVar(CardsFromDiscardKey, 1, 1);
-        WithEnergy(1);
+        WithKeyword(CardKeyword.Exhaust);
+        WithVar(CardsFromDiscardKey, 2, 1);
+        WithEnergy(2);
     }
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
