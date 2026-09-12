@@ -9,9 +9,9 @@ namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
 public class ObserverPattern : ElectronCard
 {
-    public ObserverPattern() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public ObserverPattern() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        WithKeyword(CardKeyword.Innate, UpgradeType.Add);
+        WithCostUpgradeBy(-1);
         WithTip(typeof(QuantumLinkPower));
         WithTip(StaticHoverTip.Block);
     }

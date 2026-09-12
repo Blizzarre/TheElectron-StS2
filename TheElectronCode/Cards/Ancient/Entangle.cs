@@ -10,28 +10,22 @@ using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Ancient;
 
-public class Entangle : ElectronDepleteCard
+public class Entangle : ElectronCard
 {
     public Entangle() : base(1, CardType.Skill, CardRarity.Ancient, TargetType.AnyEnemy)
     {
         WithPower<QuantumLinkPower>(10, 4);
-        WithVar(new FaradVar(4).WithUpgrade(2));
+        WithVar(new FaradVar(3));
     }
 
-    protected override async Task BeforeOnPlay(PlayerChoiceContext choiceContext, CardPlay play)
-    {
-        await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
-    }
-
-    protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
+        
+        await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
         await PowerCmd.Apply<QuantumLinkPower>(choiceContext, play.Target,
             DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
-    }
-
-    protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
-    {
+        
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
     }
 }

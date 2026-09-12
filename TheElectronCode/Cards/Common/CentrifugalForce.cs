@@ -11,7 +11,7 @@ public class CentrifugalForce : ElectronCard
     public CentrifugalForce() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
         WithDamage(7, 1);
-        WithPower<SpinPower>(2, 1);
+        WithPower<SpinPower>(1, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

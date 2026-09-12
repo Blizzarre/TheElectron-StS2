@@ -202,20 +202,20 @@ public class QuarkQueue
             if (block > 0) await CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Unpowered, null);
             await MediumWait();
         }
+        
+        if (stats.TryGetValue(QuarkModel.FuseStat.Energy, out var energy))
+        {
+            if (quarkManager != null)
+                await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Energy);
+            if (energy > 0) await PlayerCmd.GainEnergy(energy, Owner);
+            await MediumWait();
+        }
 
         if (stats.TryGetValue(QuarkModel.FuseStat.Draw, out var draw))
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Draw);
             if (draw > 0) await CardPileCmd.Draw(choiceContext, draw, Owner);
-            await MediumWait();
-        }
-
-        if (stats.TryGetValue(QuarkModel.FuseStat.Energy, out var energy))
-        {
-            if (quarkManager != null)
-                await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Energy);
-            if (energy > 0) await PlayerCmd.GainEnergy(energy, Owner);
             await MediumWait();
         }
         

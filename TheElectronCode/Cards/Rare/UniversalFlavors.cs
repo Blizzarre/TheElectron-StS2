@@ -29,8 +29,8 @@ public class UniversalFlavors : ElectronCard
         {
             await QuarkCmd.Produce<UpQuark>(choiceContext, Owner, this, play);
             await QuarkCmd.Produce<DownQuark>(choiceContext, Owner, this, play);
-            await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
             await QuarkCmd.Produce<TopQuark>(choiceContext, Owner, this, play);
+            await QuarkCmd.Produce<BottomQuark>(choiceContext, Owner, this, play);
             await QuarkCmd.Produce<CharmQuark>(choiceContext, Owner, this, play);
             await QuarkCmd.Produce<StrangeQuark>(choiceContext, Owner, this, play);
         }

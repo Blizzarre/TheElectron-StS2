@@ -103,7 +103,7 @@ public partial class NQuarkManager : NClickableControl
     private static readonly float LerpRate = Mathf.Exp(2);
 
     private static readonly QuarkModel.FuseStat[] StatOrder =
-        [QuarkModel.FuseStat.Damage, QuarkModel.FuseStat.Block, QuarkModel.FuseStat.Draw, QuarkModel.FuseStat.Energy, QuarkModel.FuseStat.SelfDamage];
+        [QuarkModel.FuseStat.Damage, QuarkModel.FuseStat.Block, QuarkModel.FuseStat.Energy, QuarkModel.FuseStat.Draw, QuarkModel.FuseStat.SelfDamage];
 
 
     public override void _Ready()

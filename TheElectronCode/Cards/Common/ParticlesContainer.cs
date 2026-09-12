@@ -12,7 +12,7 @@ public class ParticlesContainer : ElectronEmptyCard
 {
     public ParticlesContainer() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithPower<SpinPower>(3, 1);
+        WithPower<SpinPower>(4, 1);
         WithPower<StabilityPower>(1, 1);
         WithTip(ElectronHoverTip.Stable);
     }

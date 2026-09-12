@@ -16,7 +16,8 @@ public class StringTheoryPower : TheElectronPower
         DamageResult result, ValueProp props,
         Creature? dealer, CardModel? cardSource)
     {
-        if (dealer == Owner && result.UnblockedDamage > 0)
+        // Extra check to not apply Quantum Link to the owner of this power
+        if (dealer == Owner && target != Owner && result.UnblockedDamage > 0)
         {
             Flash();
             await PowerCmd.Apply<QuantumLinkPower>(choiceContext, target, Amount, dealer, null);

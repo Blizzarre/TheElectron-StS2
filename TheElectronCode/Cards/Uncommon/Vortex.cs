@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,21 +11,17 @@ namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
 public class Vortex : ElectronCard
 {
-    public Vortex() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
+    public Vortex() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        WithDamage(5, 3);
         WithCalculatedVar("SpinGain", 0, 2,
             static (card, _) => card.Owner.PlayerCombatState?.GetQuarkQueue()?.Quarks.Select(q => q.Id.Entry)
-                .Distinct().Count() ?? 0);
+                .Distinct().Count() ?? 0, 2);
         WithTip(typeof(SpinPower));
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play)
-            .TargetingAllOpponents(CombatState!)
-            .WithHitFx("vfx/vfx_attack_blunt")
-            .Execute(choiceContext);
+        await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
 
         await PowerCmd.Apply<SpinPower>(choiceContext, Owner.Creature,
             ((CalculatedVar)DynamicVars["SpinGain"]).Calculate(null), Owner.Creature, this);

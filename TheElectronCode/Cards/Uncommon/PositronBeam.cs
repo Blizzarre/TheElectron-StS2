@@ -13,7 +13,7 @@ public class PositronBeam : ElectronEmptyCard
 {
     public PositronBeam() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(8, 2);
+        WithDamage(6, 2);
         WithPower<QuantumLinkPower>(2, 1);
         WithVar(new FaradVar(2).WithUpgrade(1));
         WithVar("FaradLoss", 1);

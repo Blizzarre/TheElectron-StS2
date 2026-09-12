@@ -42,10 +42,10 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
     }
     
     public async Task AfterFaradLost(PlayerChoiceContext choiceContext, Player player, decimal amountLost,
-        CardModel? cardSource = null,
-        CardPlay? cardPlay = null)
+        CardModel? cardSource = null, CardPlay? cardPlay = null)
     {
         if (amountLost <= 0) return;
+        if (Applier == Owner) return; // Safety check
         // Only damages the owner of this power on the player's turn
         // But ignore side checking if the applier has Superposition power
         var ignoreSide = player.Creature.HasPower<SuperpositionPower>();
@@ -58,16 +58,11 @@ public class QuantumLinkPower : TheElectronPower, IAfterFaradLost
         await Cmd.CustomScaledWait(0.2f, 0.35f);
     }
 
-    public override async Task AfterDamageReceived(
-        PlayerChoiceContext choiceContext,
-        Creature target,
-        DamageResult damageResult,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? cardSource)
+    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
+        DamageResult damageResult, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Applier) return;
         if (damageResult.UnblockedDamage <= 0) return;
+        if (target != Applier || Applier == Owner) return;
         
         // Only damages the owner of this power on the damage-receiving-player's turn
         // But ignore side checking if the applier has Superposition power

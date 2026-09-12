@@ -27,8 +27,9 @@ public class MemoryLeak : ElectronCard
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, CreatureAnimator.castTrigger, Owner.Character.CastAnimDelay);
 
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
+        
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
 
         await PowerCmd.Apply<MemoryLeakPower>(choiceContext, Owner.Creature,
             DynamicVars["Amount"].BaseValue, Owner.Creature, this);
