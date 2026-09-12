@@ -11,7 +11,7 @@ public class Destabilize : ElectronCard
 {
     public Destabilize() : base(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithPower<QuantumLinkPower>(3, 1);
+        WithPower<QuantumLinkPower>(4, 1);
         WithPower<VulnerablePower>(2, 1);
     }
 

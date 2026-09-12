@@ -17,7 +17,7 @@ public class Entwine : ElectronDepleteCard, ITranscendenceCard
 {
     public Entwine() : base(1, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy)
     {
-        WithPower<QuantumLinkPower>(3, 1);
+        WithPower<QuantumLinkPower>(4, 2);
         WithVar(new FaradVar(2));
     }
 

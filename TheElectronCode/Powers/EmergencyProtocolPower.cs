@@ -16,6 +16,6 @@ public class EmergencyProtocolPower : TheElectronPower
     {
         if (card.Owner.Creature != Owner || card.EnergyCost.GetWithModifiers(CostModifiers.All) < 1) return false;
 
-        return card.CanDrain() && keywords.Add(ElectronKeywords.Drain);
+        return !keywords.Contains(CardKeyword.Unplayable) && keywords.Add(ElectronKeywords.Drain);
     }
 }

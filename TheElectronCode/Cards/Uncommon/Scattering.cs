@@ -24,15 +24,18 @@ public class Scattering : ElectronEmptyCard
 
     private bool ShouldReturnNextTurn { get; set; }
 
-    public Scattering() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
+    public Scattering() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        WithPower<QuantumLinkPower>(6);
-        WithVar(IncreaseKey, 3, 2);
+        WithPower<QuantumLinkPower>(6, 2);
+        WithVar(IncreaseKey, 3, 1);
     }
+
+    public override TargetType TargetType => HasEnoughEnergy ? TargetType.AnyEnemy : TargetType.None;
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await PowerCmd.Apply<QuantumLinkPower>(choiceContext, CombatState!.HittableEnemies,
+        ArgumentNullException.ThrowIfNull(play.Target);
+        await PowerCmd.Apply<QuantumLinkPower>(choiceContext, play.Target,
             DynamicVars.Power<QuantumLinkPower>().BaseValue, Owner.Creature, this);
     }
 

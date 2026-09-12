@@ -11,7 +11,7 @@
   "THEELECTRON-PRODUCE.title": "Produce",
   "THEELECTRON-FUSION_STATS.title": "Fusion Result",
   "THEELECTRON-FUSION_STATS.description": "On [gold]Fusion[/gold], perform the following effects:\n[ul]{EffectsString}[/ul]",
-  "THEELECTRON-FUSION_STATS.damage": "Deal [blue]{Damage}[/blue] damage to {IsAoe:ALL enemies|the enemy with the highest [gold]Quantum Link[/gold] stack}.",
+  "THEELECTRON-FUSION_STATS.damage": "Deal [blue]{Damage}[/blue] damage to {IsAoe:ALL enemies|a random enemy, prioritizing one with the highest [gold]Quantum Link[/gold] stack}.",
   "THEELECTRON-FUSION_STATS.block": "Gain [blue]{Block}[/blue] [gold]Block[/gold].",
   "THEELECTRON-FUSION_STATS.draw": "Draw [blue]{Draw}[/blue] card{Draw:plural:|s}.",
   "THEELECTRON-FUSION_STATS.energy": "Gain [blue]{Energy:energyIcons()}[/blue].",

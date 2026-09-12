@@ -14,7 +14,7 @@ public class Quantize : ElectronDepleteCard
     public Quantize() : base(2, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
     {
         WithKeywords(CardKeyword.Ethereal, ElectronKeywords.Drain);
-        WithPower<QuantumLinkPower>(5, 1);
+        WithPower<QuantumLinkPower>(6, 1);
         WithPower<VulnerablePower>(2, 1);
         WithPower<WeakPower>(2, 1);
     }

@@ -27,6 +27,4 @@ public static class CardModelExtensions
             return !card.Keywords.Intersect([CardKeyword.Unplayable, ElectronKeywords.Drain]).Any();
         }
     }
-
-
 }

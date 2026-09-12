@@ -10,7 +10,7 @@ public class Superposition : ElectronCard
 {
     public Superposition() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithVar("Amount", 2, 1);
+        WithVar("Amount", 3, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

@@ -14,8 +14,8 @@ public class Entangle : ElectronDepleteCard
 {
     public Entangle() : base(1, CardType.Skill, CardRarity.Ancient, TargetType.AnyEnemy)
     {
-        WithPower<QuantumLinkPower>(9, 3);
-        WithVar(new FaradVar(3).WithUpgrade(1));
+        WithPower<QuantumLinkPower>(10, 4);
+        WithVar(new FaradVar(4).WithUpgrade(2));
     }
 
     protected override async Task BeforeOnPlay(PlayerChoiceContext choiceContext, CardPlay play)

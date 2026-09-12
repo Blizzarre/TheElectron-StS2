@@ -11,7 +11,7 @@ public class BindingWhip : ElectronCard
     public BindingWhip() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         WithDamage(7, 2);
-        WithPower<QuantumLinkPower>(2, 1);
+        WithPower<QuantumLinkPower>(3, 1);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
