@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pkvh4qwoynqh"
-path="res://.godot/imported/sonic_boom.png-54818834e35b66c8bd6cc6096a0c0f80.ctex"
+uid="uid://cbdo7s4ki5uud"
+path="res://.godot/imported/nuclear_bomb.png-221b9bbd17042fc9cc8c6850b58ae7bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheElectron/images/card_portraits/sonic_boom.png"
-dest_files=["res://.godot/imported/sonic_boom.png-54818834e35b66c8bd6cc6096a0c0f80.ctex"]
+source_file="res://TheElectron/images/card_portraits/nuclear_bomb.png"
+dest_files=["res://.godot/imported/nuclear_bomb.png-221b9bbd17042fc9cc8c6850b58ae7bc.ctex"]
 
 [params]
 

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.HoverTips;
+using TheElectron.TheElectronCode.Models.Quarks;
 using TheElectron.TheElectronCode.Powers;
 
 namespace TheElectron.TheElectronCode.Cards.Rare;
@@ -11,7 +12,8 @@ public class PerpetualMotion : ElectronCard
 {
     public PerpetualMotion() : base(0, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        WithTip(ElectronHoverTip.Farad);
+        WithQuarkTip<UpQuark>();
+        WithQuarkTip<DownQuark>();
         WithVar("ExtraAmount", 0, 1);
     }
 

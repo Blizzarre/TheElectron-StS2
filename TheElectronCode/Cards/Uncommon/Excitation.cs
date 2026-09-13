@@ -17,7 +17,7 @@ public class Excitation : ElectronEmptyCard
         WithTip(ElectronHoverTip.Produce);
         WithQuarkTip<TopQuark>();
         WithVar(new QuarkCountVar(2).WithUpgrade(1));
-        WithVar(new FaradVar(2).WithUpgrade(2));
+        WithVar(new FaradVar(3).WithUpgrade(2));
         WithKeyword(CardKeyword.Exhaust);
     }
 

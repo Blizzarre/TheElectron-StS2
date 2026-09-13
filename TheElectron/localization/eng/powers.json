@@ -67,5 +67,8 @@
   "THEELECTRON-SUPERPOSITION_POWER.title": "Superposition",
   "THEELECTRON-VALLEY_OF_STABILITY_POWER.description": "ALL Quarks you [gold]Produce[/gold] are [gold]Stable[/gold]. At the start of your turn, [gold]Fuse[/gold] your Quarks.",
   "THEELECTRON-VALLEY_OF_STABILITY_POWER.smartDescription": "ALL Quarks you [gold]Produce[/gold] are [gold]Stable[/gold]. At the start of your turn, [gold]Fuse[/gold] your Quarks.",
-  "THEELECTRON-VALLEY_OF_STABILITY_POWER.title": "Valley of Stability"
+  "THEELECTRON-VALLEY_OF_STABILITY_POWER.title": "Valley of Stability",
+  "THEELECTRON-NUCLEAR_BOMB_POWER.description": "The next time you [gold]Fuse[/gold], deal damage to ALL enemies.",
+  "THEELECTRON-NUCLEAR_BOMB_POWER.smartDescription": "The next time you [gold]Fuse[/gold], deal [blue]{Amount}[/blue] damage to ALL enemies.",
+  "THEELECTRON-NUCLEAR_BOMB_POWER.title": "Nuclear Bomb"
 }

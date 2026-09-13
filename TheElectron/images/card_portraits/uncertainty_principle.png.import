@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://53jv2lueotq1"
-path="res://.godot/imported/short_circuit.png-4cb0adeb5a650555b139ad3160a98196.ctex"
+uid="uid://disjcnq63j4v3"
+path="res://.godot/imported/uncertainty_principle.png-57afacc70b96feb563fff61f7b4a7c25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheElectron/images/card_portraits/short_circuit.png"
-dest_files=["res://.godot/imported/short_circuit.png-4cb0adeb5a650555b139ad3160a98196.ctex"]
+source_file="res://TheElectron/images/card_portraits/uncertainty_principle.png"
+dest_files=["res://.godot/imported/uncertainty_principle.png-57afacc70b96feb563fff61f7b4a7c25.ctex"]
 
 [params]
 
