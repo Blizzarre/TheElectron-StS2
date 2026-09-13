@@ -134,3 +134,14 @@ internal class CardModelOnPlayWrapperPatch
         }
     }
 }
+
+// Patch to clean up single turn Drain
+[HarmonyPatch(typeof(CardModel), nameof(CardModel.EndOfTurnCleanup))]
+internal class CardModelEndOfTurnCleanupPatch
+{
+    [HarmonyPrefix]
+    static void Prefix(CardModel __instance)
+    {
+        ElectronField.SingleTurnDrain[__instance] = false;
+    }
+}

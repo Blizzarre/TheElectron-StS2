@@ -2,6 +2,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.Utils;
 
@@ -21,6 +22,8 @@ public class Lightspeed : ElectronCard
 
         foreach (var card in PileType.Hand.GetPile(Owner).Cards
                      .Where(c => c.CanDrain()))
-            CardCmd.ApplyKeyword(card, ElectronKeywords.Drain);
+        {
+            ElectronCardCmd.ApplySingleTurnDrain(card);
+        }
     }
 }

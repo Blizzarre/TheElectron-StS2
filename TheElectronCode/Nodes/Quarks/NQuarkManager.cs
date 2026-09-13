@@ -515,12 +515,13 @@ public partial class NQuarkManager : NClickableControl
         var height = StatHeight * items + (items - 1) * 6;
         var initialPosition = new Vector2(0, -height / 2f);
 
+        var maxWidth = 40f;
         for (var i = 0; i < StatOrder.Length; i++)
         {
             var fuseStat = _fuseStatList[i];
-            if (stats.TryGetValue(StatOrder[i], out var value))
+            if (stats.TryGetValue(StatOrder[i], out var values))
             {
-                fuseStat.SetStatNumber(value);
+                fuseStat.SetStatNumbers(values);
                 _curStatsTween.TweenProperty(fuseStat, "position", initialPosition, 0.35)
                     .SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Sine);
                 _curStatsTween.TweenProperty(fuseStat, "modulate:a", 1, 0.35);
@@ -532,20 +533,26 @@ public partial class NQuarkManager : NClickableControl
                     .SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Sine);
                 _curStatsTween.TweenProperty(fuseStat, "modulate:a", 0, 0.35);
             }
-        }
 
-        _bounds.Size = new Vector2(80, height);
+            maxWidth = Mathf.Max(fuseStat.Size.X, maxWidth);
+        }
+        
+        // set bound with some margin
+        _bounds.Size = new Vector2(maxWidth + 6, height);
         _bounds.Position = new Vector2(extRadius + 6, -height / 2f);
         // Inputs are routed through _allContainer from _bounds
         _allContainer?.MouseFilter = items > 0 ? MouseFilterEnum.Pass : MouseFilterEnum.Ignore;
     }
 
-    private Dictionary<QuarkModel.FuseStat, decimal> GetStats()
+    private Dictionary<QuarkModel.FuseStat, List<decimal>> GetStats()
     {
-        var ret = new Dictionary<QuarkModel.FuseStat, decimal>();
+        var ret = new Dictionary<QuarkModel.FuseStat, List<decimal>>();
         foreach (var quark in _quarks.Select(nQuark => nQuark.Model).OfType<QuarkModel>()
                      .Where(quark => quark.Stat != QuarkModel.FuseStat.None))
-            ret[quark.Stat] = ret.GetValueOrDefault(quark.Stat, 0) + quark.Value;
+        {
+            if (!ret.ContainsKey(quark.Stat)) ret[quark.Stat] = [];
+            ret[quark.Stat].Add(quark.Value);
+        }
 
         return ret;
     }
@@ -603,7 +610,9 @@ public partial class NQuarkManager : NClickableControl
         if (stats.ContainsKey(QuarkModel.FuseStat.Damage))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.damage");
-            locString.Add("Damage", stats.GetValueOrDefault(QuarkModel.FuseStat.Damage));
+            var damages = stats.GetValueOrDefault(QuarkModel.FuseStat.Damage) ?? [];
+            locString.Add("Damage", damages.FirstOrDefault(0));
+            locString.Add("Hits", damages.Count);
             locString.Add("IsAoe", Player.Creature.HasPower<FissionCellPower>());
             appendDesc.Add(locString.GetFormattedText());
         }
@@ -611,21 +620,21 @@ public partial class NQuarkManager : NClickableControl
         if (stats.ContainsKey(QuarkModel.FuseStat.Block))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.block");
-            locString.Add("Block", stats.GetValueOrDefault(QuarkModel.FuseStat.Block));
+            locString.Add("Block", (stats.GetValueOrDefault(QuarkModel.FuseStat.Block) ?? []).Sum());
             appendDesc.Add(locString.GetFormattedText());
         }
 
         if (stats.ContainsKey(QuarkModel.FuseStat.Draw))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.draw");
-            locString.Add("Draw", stats.GetValueOrDefault(QuarkModel.FuseStat.Draw));
+            locString.Add("Draw", (stats.GetValueOrDefault(QuarkModel.FuseStat.Draw) ?? []).Sum());
             appendDesc.Add(locString.GetFormattedText());
         }
 
         if (stats.ContainsKey(QuarkModel.FuseStat.Energy))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.energy");
-            locString.Add(new EnergyVar((int)stats.GetValueOrDefault(QuarkModel.FuseStat.Energy))
+            locString.Add(new EnergyVar((int)(stats.GetValueOrDefault(QuarkModel.FuseStat.Energy) ?? []).Sum())
                 { ColorPrefix = prefix });
             appendDesc.Add(locString.GetFormattedText());
         }
@@ -633,7 +642,9 @@ public partial class NQuarkManager : NClickableControl
         if (stats.ContainsKey(QuarkModel.FuseStat.SelfDamage))
         {
             var locString = new LocString("static_hover_tips", "THEELECTRON-FUSION_STATS.selfDamage");
-            locString.Add("SelfDamage", stats.GetValueOrDefault(QuarkModel.FuseStat.SelfDamage));
+            var damages = stats.GetValueOrDefault(QuarkModel.FuseStat.SelfDamage) ?? [];
+            locString.Add("SelfDamage", damages.FirstOrDefault(0));
+            locString.Add("Hits", damages.Count);
             appendDesc.Add(locString.GetFormattedText());
         }
 

@@ -18,10 +18,7 @@ public class Recharge : ElectronCard
         WithTip(ElectronHoverTip.Farad);
     }
 
-    protected override async Task OnPlay(
-        PlayerChoiceContext choiceContext,
-        CardPlay play)
-    {
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play) {
         await CommonActions.CardBlock(this, play);
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
     }

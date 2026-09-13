@@ -10,6 +10,7 @@ public class Superposition : ElectronCard
 {
     public Superposition() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
+        WithTip(typeof(QuantumLinkPower));
         WithVar("Amount", 3, 1);
     }
 

@@ -20,6 +20,9 @@
   "THEELECTRON-FISSION_CELL_POWER.description": "Your [gold]Up Quarks[/gold] now hits ALL enemies when [gold]Fused[/gold].",
   "THEELECTRON-FISSION_CELL_POWER.smartDescription": "Your [gold]Up Quarks[/gold] now hits ALL enemies when [gold]Fused[/gold].",
   "THEELECTRON-FISSION_CELL_POWER.title": "Fission Cell",
+  "THEELECTRON-FLUX_CAPACITOR_POWER.description": "Increase the effectiveness of your [gold]Up[/gold] and [gold]Down Quarks[/gold].",
+  "THEELECTRON-FLUX_CAPACITOR_POWER.smartDescription": "Increase the effectiveness of your [gold]Up[/gold] and [gold]Down Quarks[/gold] by [blue]{Amount}[/blue].",
+  "THEELECTRON-FLUX_CAPACITOR_POWER.title": "Flux Capacitor",
   "THEELECTRON-HIGGS_BOSON_POWER.description": "Increase damage dealt by Attacks and [gold]Block[/gold] gained from cards by [blue]1[/blue] for each Quark you have.",
   "THEELECTRON-HIGGS_BOSON_POWER.smartDescription": "Increase damage dealt by Attacks and [gold]Block[/gold] gained from cards by [blue]{Amount}[/blue] for each Quark you have.\n(Increased by [blue]{TotalAmount}[/blue])",
   "THEELECTRON-HIGGS_BOSON_POWER.title": "Higgs Boson",
@@ -32,6 +35,9 @@
   "THEELECTRON-NEUTRON_COLLECTOR_POWER.description": "At the start of your turn, [gold]Produce[/gold] [gold]Up Quark[/gold] and [gold]Down Quark[/gold].",
   "THEELECTRON-NEUTRON_COLLECTOR_POWER.smartDescription": "At the start of your turn, [gold]Produce[/gold] [blue]{Amount}[/blue] [gold]Up Quark{Amount:plural:|s}[/gold] and [blue]{Amount}[/blue] [gold]Down Quark{Amount:plural:|s}[/gold].",
   "THEELECTRON-NEUTRON_COLLECTOR_POWER.title": "Neutron Collector",
+  "THEELECTRON-OBSERVER_PATTERN_POWER.description": "Whenever you apply [gold]Quantum Link[/gold], gain [gold]Block[/gold] equal to the amount applied.",
+  "THEELECTRON-OBSERVER_PATTERN_POWER.smartDescription": "Whenever you apply [gold]Quantum Link[/gold], gain [gold]Block[/gold] equal to the amount applied{Amount:cond:>1? times [blue]{}[/blue]|}.",
+  "THEELECTRON-OBSERVER_PATTERN_POWER.title": "Observer Pattern",
   "THEELECTRON-OVER_THE_EDGE_POWER.description": "At the end of next turn, take damage.",
   "THEELECTRON-OVER_THE_EDGE_POWER.smartDescription": "At the end of {Amount:cond:==1?this turn|==2?next turn|[blue]{}[/blue] turns}, take [blue]{Damage}[/blue].",
   "THEELECTRON-OVER_THE_EDGE_POWER.title": "Over the Edge",
@@ -61,8 +67,5 @@
   "THEELECTRON-SUPERPOSITION_POWER.title": "Superposition",
   "THEELECTRON-VALLEY_OF_STABILITY_POWER.description": "ALL Quarks you [gold]Produce[/gold] are [gold]Stable[/gold]. At the start of your turn, [gold]Fuse[/gold] your Quarks.",
   "THEELECTRON-VALLEY_OF_STABILITY_POWER.smartDescription": "ALL Quarks you [gold]Produce[/gold] are [gold]Stable[/gold]. At the start of your turn, [gold]Fuse[/gold] your Quarks.",
-  "THEELECTRON-VALLEY_OF_STABILITY_POWER.title": "Valley of Stability",
-  "THEELECTRON-OBSERVER_PATTERN_POWER.description": "Whenever you apply [gold]Quantum Link[/gold], gain [gold]Block[/gold] equal to the amount applied.",
-  "THEELECTRON-OBSERVER_PATTERN_POWER.smartDescription": "Whenever you apply [gold]Quantum Link[/gold], gain [gold]Block[/gold] equal to the amount applied{Amount:cond:>1? times [blue]{}[/blue]|}.",
-  "THEELECTRON-OBSERVER_PATTERN_POWER.title": "Observer Pattern"
+  "THEELECTRON-VALLEY_OF_STABILITY_POWER.title": "Valley of Stability"
 }

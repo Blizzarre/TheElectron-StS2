@@ -3,20 +3,19 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using TheElectron.TheElectronCode.Field;
 using TheElectron.TheElectronCode.Hooks;
 using TheElectron.TheElectronCode.HoverTips;
 using TheElectron.TheElectronCode.Utils;
 
-namespace TheElectron.TheElectronCode.Cards.Uncommon;
+namespace TheElectron.TheElectronCode.Cards.Rare;
 
 public class EndlessAssault : ElectronCard, IAfterFaradLost
 {
-    public EndlessAssault() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public EndlessAssault() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         WithKeyword(ElectronKeywords.Drain);
         WithTip(ElectronHoverTip.Farad);
-        WithDamage(10, 3);
+        WithDamage(12, 3);
     }
 
     protected override async Task OnPlay(

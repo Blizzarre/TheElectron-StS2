@@ -5,17 +5,17 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.Extensions;
 
-namespace TheElectron.TheElectronCode.Cards.Rare;
+namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
 public class WaveDash : ElectronCard
 {
     private const string FaradCostKey = "FaradCost";
 
-    public WaveDash() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
+    public WaveDash() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
-        WithDamage(12, 3);
-        WithBlock(12, 3);
-        WithVar(FaradCostKey, 3);
+        WithDamage(9, 2);
+        WithBlock(9, 2);
+        WithVar(FaradCostKey, 2);
     }
 
     private bool HasEnoughFarad => (Owner.PlayerCombatState?.GetFarad() ?? 0) >= DynamicVars[FaradCostKey].IntValue;

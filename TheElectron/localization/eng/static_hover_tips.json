@@ -11,15 +11,15 @@
   "THEELECTRON-PRODUCE.title": "Produce",
   "THEELECTRON-FUSION_STATS.title": "Fusion Result",
   "THEELECTRON-FUSION_STATS.description": "On [gold]Fusion[/gold], perform the following effects:\n[ul]{EffectsString}[/ul]",
-  "THEELECTRON-FUSION_STATS.damage": "Deal [blue]{Damage}[/blue] damage to {IsAoe:ALL enemies|a random enemy, prioritizing one with the highest [gold]Quantum Link[/gold]}.",
+  "THEELECTRON-FUSION_STATS.damage": "Deal [blue]{Damage}[/blue] damage to {IsAoe:ALL enemies{Hits:cond:>1? [blue]{}[/blue] times|}|a random enemy{Hits:cond:>1? [blue]{}[/blue] times|}, prioritizing most [gold]Quantum Linked[/gold] target}.",
   "THEELECTRON-FUSION_STATS.block": "Gain [blue]{Block}[/blue] [gold]Block[/gold].",
   "THEELECTRON-FUSION_STATS.draw": "Draw [blue]{Draw}[/blue] card{Draw:plural:|s}.",
   "THEELECTRON-FUSION_STATS.energy": "Gain [blue]{Energy:energyIcons()}[/blue].",
-  "THEELECTRON-FUSION_STATS.selfDamage": "Lose [blue]{SelfDamage}[/blue] [gold]Farad[/gold] or HP.",
+  "THEELECTRON-FUSION_STATS.selfDamage": "Lose [blue]{SelfDamage}[/blue] [gold]Farad[/gold] or HP{Hits:cond:>1? [blue]{}[/blue] times|}.",
   "THEELECTRON-STABLE.description": "Stable Quarks create their own Slot when [gold]Produced[/gold]. Slots created this way are removed after [gold]Fusion[/gold].",
   "THEELECTRON-STABLE.title": "Stable",
   "THEELECTRON-STABLE_QUARK.description": "This Quark is Stable {HasStableSlot:and has|but doesn't have} its own Slot.{HasStableSlot: After [gold]Fusion[/gold], this Slot will be removed.|}",
   "THEELECTRON-STABLE_QUARK.title": "Stable",
-  "THEELECTRON-FUSE.description": "Fusing Quarks activate their combined effects. ALL Quarks are removed after Fusion.",
+  "THEELECTRON-FUSE.description": "Fusing Quarks activates their combined effects. ALL Quarks are removed after Fusion.",
   "THEELECTRON-FUSE.title": "Fuse"
 }

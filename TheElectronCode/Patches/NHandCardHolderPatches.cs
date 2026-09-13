@@ -17,7 +17,7 @@ public static class NHandCardHolderUpdateCardPatch
         if (card == null || !card.CanPlay() || card.ShouldGlowGold || card.ShouldGlowRed)
             return;
 
-        if (card.ShouldGlowBlack()) __instance.CardNode?.CardHighlight.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.98f);
+        if (card.ShouldGlowBlack()) __instance.CardNode?.CardHighlight.Modulate = new Color(0.67f, 0.67f, 0.67f, 0.98f);
         if (card.ShouldGlowPurple())
             __instance.CardNode?.CardHighlight.Modulate = new Color(0.505f, 0.104f, 0.931f, 0.98f);
     }
@@ -33,7 +33,7 @@ public static class NHandCardHolderFlashPatch
         if (card == null || !card.CanPlay() || card.ShouldGlowGold || card.ShouldGlowRed)
             return;
 
-        if (card.ShouldGlowBlack()) __instance._flash.Modulate = new Color(0.5f, 0.5f, 0.5f, 0.98f);
+        if (card.ShouldGlowBlack()) __instance._flash.Modulate = new Color(0.67f, 0.67f, 0.67f, 0.98f);
         if (card.ShouldGlowPurple()) __instance._flash.Modulate = new Color(0.505f, 0.104f, 0.931f, 0.98f);
     }
 }

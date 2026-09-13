@@ -7,9 +7,20 @@ namespace TheElectron.TheElectronCode.Nodes;
 
 public partial class NFuseStat : HBoxContainer
 {
+    private static readonly Dictionary<QuarkModel.FuseStat, bool> CombinedDisplay = new()
+    {
+        { QuarkModel.FuseStat.Damage, false },
+        { QuarkModel.FuseStat.Block, true },
+        { QuarkModel.FuseStat.Energy, true },
+        { QuarkModel.FuseStat.Draw, true },
+        { QuarkModel.FuseStat.SelfDamage, false },
+    };
+    
     private TextureRect? _statIcon;
 
     private MegaLabel? _label;
+
+    private QuarkModel.FuseStat _fuseStat;
 
     public override void _Ready()
     {
@@ -23,6 +34,7 @@ public partial class NFuseStat : HBoxContainer
 
     public void SetStatVisual(QuarkModel.FuseStat stat)
     {
+        _fuseStat = stat;
         var powerName = stat switch
         {
             QuarkModel.FuseStat.Damage => "strength_power",
@@ -37,9 +49,20 @@ public partial class NFuseStat : HBoxContainer
         _statIcon?.Texture = ResourceLoader.Load<Texture2D>(path);
     }
 
-    public void SetStatNumber(decimal value)
+    public void SetStatNumbers(IEnumerable<decimal> values)
     {
-        _label?.SetTextAutoSize(value.ToString("0"));
+        if (CombinedDisplay[_fuseStat])
+        {
+            _label?.SetTextAutoSize(values.Sum().ToString("0"));
+        }
+        else
+        {
+            var valueList = values.ToList();
+            // All values should be the same, but you never know...
+            _label?.SetTextAutoSize(valueList.Count > 1
+                ? $"{valueList.First():0}×{valueList.Count} ({valueList.Sum():0})"
+                : $"{valueList.First():0}");
+        }
     }
 
     private static MegaLabel CreateLabel((Color, Color, Color) fontColor)

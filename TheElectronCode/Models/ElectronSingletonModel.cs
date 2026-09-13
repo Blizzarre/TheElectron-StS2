@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using TheElectron.TheElectronCode.Cards;
 using TheElectron.TheElectronCode.Field;
+using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Models;
 
@@ -55,5 +56,10 @@ public class ElectronSingletonModel() : CustomSingletonModel(HookType.Combat)
             depleteCard.IsEnergyDepleted = false;
 
         return Task.CompletedTask;
+    }
+    
+    public override bool TryModifyKeywordsInCombat(CardModel card, ISet<CardKeyword> keywords)
+    {
+        return ElectronField.SingleTurnDrain[card] && keywords.Add(ElectronKeywords.Drain);
     }
 }

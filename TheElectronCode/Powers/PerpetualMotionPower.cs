@@ -1,21 +1,19 @@
-﻿using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+﻿using MegaCrit.Sts2.Core.Entities.Powers;
+using TheElectron.TheElectronCode.Hooks;
+using TheElectron.TheElectronCode.Models;
+using TheElectron.TheElectronCode.Models.Quarks;
 
 namespace TheElectron.TheElectronCode.Powers;
 
-public class PerpetualMotionPower : TheElectronPower
+public class PerpetualMotionPower : TheElectronPower, IModifyQuarkValueAdditive
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-
-    public override async Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
+    
+    public decimal ModifyQuarkValueAdditive(QuarkModel quark, decimal value)
     {
-        if (player == Owner.Player)
-        {
-            Flash();
-            await PowerCmd.Apply<SpinPower>(choiceContext, Owner, Amount, Owner, null);
-        }
+        if (quark.Owner == Owner.Player && quark is UpQuark or DownQuark) return value + Amount;
+
+        return value;
     }
 }

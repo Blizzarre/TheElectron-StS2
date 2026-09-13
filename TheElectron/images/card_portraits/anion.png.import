@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsqrbinfsipbt"
-path="res://.godot/imported/disposable_battery.png-aeeb63b0beda56abc40a9bf81f3a9cf4.ctex"
+uid="uid://dne82rkxnr48f"
+path="res://.godot/imported/anion.png-f80cd048089662fc02996bef6aeb4877.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheElectron/images/card_portraits/disposable_battery.png"
-dest_files=["res://.godot/imported/disposable_battery.png-aeeb63b0beda56abc40a9bf81f3a9cf4.ctex"]
+source_file="res://TheElectron/images/card_portraits/anion.png"
+dest_files=["res://.godot/imported/anion.png-f80cd048089662fc02996bef6aeb4877.ctex"]
 
 [params]
 

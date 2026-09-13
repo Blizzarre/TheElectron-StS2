@@ -5,18 +5,17 @@ using TheElectron.TheElectronCode.Commands;
 using TheElectron.TheElectronCode.DynamicVars;
 using TheElectron.TheElectronCode.Extensions;
 using TheElectron.TheElectronCode.HoverTips;
-using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Cards.Common;
 
-public class Reroute : ElectronDepleteCard
+public class Anion : ElectronEmptyCard
 {
-    private const string DepleteFaradKey = "DepleteFarad";
-
-    public Reroute() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+    private const string EmptyFaradKey = "EmptyFarad";
+    
+    public Anion() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        WithKeyword(ElectronKeywords.Drain);
-        WithVars(new FaradVar(4).WithUpgrade(1), new FaradVar(DepleteFaradKey, 2).WithUpgrade(1));
+        WithVar(new FaradVar(3).WithUpgrade(1));
+        WithVar(new FaradVar(EmptyFaradKey, 1).WithUpgrade(1));
         WithTip(ElectronHoverTip.Farad);
     }
 
@@ -25,8 +24,8 @@ public class Reroute : ElectronDepleteCard
         await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars.Farad.BaseValue, this, play);
     }
 
-    protected override async Task OnPlayDepleteAfter(PlayerChoiceContext choiceContext, CardPlay play)
+    protected override async Task OnPlayEmptyAfter(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars[DepleteFaradKey].BaseValue, this, play);
+        await ElectronPlayerCmd.GainFarad(choiceContext, Owner, DynamicVars[EmptyFaradKey].BaseValue, this, play);
     }
 }

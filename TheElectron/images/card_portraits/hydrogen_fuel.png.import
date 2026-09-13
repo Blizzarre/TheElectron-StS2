@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgv47it23orh4"
-path="res://.godot/imported/flux_capacitor.png-67068f2d5b1832e8e8afddb4a71c8ede.ctex"
+uid="uid://b0gk4si00keyr"
+path="res://.godot/imported/hydrogen_fuel.png-4f67c67376e4dc3011ac5996537b59eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheElectron/images/card_portraits/flux_capacitor.png"
-dest_files=["res://.godot/imported/flux_capacitor.png-67068f2d5b1832e8e8afddb4a71c8ede.ctex"]
+source_file="res://TheElectron/images/card_portraits/hydrogen_fuel.png"
+dest_files=["res://.godot/imported/hydrogen_fuel.png-4f67c67376e4dc3011ac5996537b59eb.ctex"]
 
 [params]
 

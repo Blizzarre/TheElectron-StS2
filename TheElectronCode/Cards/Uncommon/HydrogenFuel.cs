@@ -4,9 +4,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace TheElectron.TheElectronCode.Cards.Uncommon;
 
-public class DisposableBattery : ElectronCard
+public class HydrogenFuel : ElectronCard
 {
-    public DisposableBattery() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public HydrogenFuel() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         WithCards(1);
         WithEnergy(1, 1);

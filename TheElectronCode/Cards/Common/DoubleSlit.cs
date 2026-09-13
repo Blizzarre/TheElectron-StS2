@@ -10,8 +10,8 @@ public class DoubleSlit : ElectronCard
 {
     public DoubleSlit() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        WithCalculatedDamage(4, (card, _) => card.Owner.PlayerCombatState?.Electron()?.QuarkQueue.Quarks.Count ?? 0,
-            ValueProp.Move, 1, 1);
+        WithCalculatedDamage(4, 1, (card, _) => card.Owner.PlayerCombatState?.Electron()?.QuarkQueue.Quarks.Count ?? 0,
+            ValueProp.Move, 2);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)

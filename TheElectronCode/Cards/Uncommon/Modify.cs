@@ -11,7 +11,7 @@ public class Modify : ElectronDepleteCard
 {
     public Modify() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        WithPower<StrengthPower>(2, 1);
+        WithPower<StrengthPower>(3, 1);
         WithPower<DexterityPower>(1, 1);
     }
 

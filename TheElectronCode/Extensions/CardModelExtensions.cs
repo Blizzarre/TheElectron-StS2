@@ -1,6 +1,7 @@
 ﻿using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using TheElectron.TheElectronCode.Cards;
+using TheElectron.TheElectronCode.Powers;
 using TheElectron.TheElectronCode.Utils;
 
 namespace TheElectron.TheElectronCode.Extensions;
@@ -24,7 +25,12 @@ public static class CardModelExtensions
 
         public bool CanDrain()
         {
-            return !card.Keywords.Intersect([CardKeyword.Unplayable, ElectronKeywords.Drain]).Any();
+            // HACK: No need to add Drain if cards are permanently Drain from the power.
+            if (card.Owner.Creature.HasPower<EmergencyProtocolPower>()) return false;
+            
+            return !card.Keywords.Contains(CardKeyword.Unplayable) &&
+                   // Local check so single turn Drain is ignored (and is still selectable for the application)
+                   !card.GetKeywordsWithSources(KeywordSources.Local).Contains(ElectronKeywords.Drain);
         }
     }
 }

@@ -158,82 +158,97 @@ public class QuarkQueue
         if (quarkManager != null)
             await quarkManager.BeginFuseQuarksAnim(stats.Keys.ToHashSet());
 
-        if (stats.TryGetValue(QuarkModel.FuseStat.Damage, out var damage))
+        if (stats.TryGetValue(QuarkModel.FuseStat.Damage, out var damages))
         {
             // Consume display anim
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Damage);
-
-            if (damage > 0)
+            
+            foreach (var damage in damages.Where(damage => damage > 0))
             {
                 var targets = Owner.Creature.CombatState?.GetOpponentsOf(Owner.Creature)
                     .Where(e => e.IsHittable)
                     .ToList() ?? [];
-
+                
+                // Should be fine to break here
+                if (targets.Count == 0) break;
+                
                 if (Owner.Creature.HasPower<FissionCellPower>())
                 {
                     foreach (var target in targets)
                     {
                         VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_blunt");
                     }
+
                     await CreatureCmd.Damage(choiceContext, targets, damage, ValueProp.Unpowered, Owner.Creature);
                 }
                 else
                 {
                     var maxQuantumLinkStack = targets.Max(e => e.GetPowerAmount<QuantumLinkPower>());
-                    var priorityTargets = targets.Where(e => e.GetPowerAmount<QuantumLinkPower>() == maxQuantumLinkStack);
+                    var priorityTargets =
+                        targets.Where(e => e.GetPowerAmount<QuantumLinkPower>() == maxQuantumLinkStack);
 
                     var target = Owner.RunState.Rng.CombatTargets.NextItem(priorityTargets);
-                    if (target != null)
-                    {
-                        VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_blunt");
-                        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Unpowered, Owner.Creature);
-                    }
+                    if (target == null) continue;
+                        
+                    VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_blunt");
+                    await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Unpowered,
+                        Owner.Creature);
                 }
             }
 
             await MediumWait();
         }
 
-        if (stats.TryGetValue(QuarkModel.FuseStat.Block, out var block))
+        if (stats.TryGetValue(QuarkModel.FuseStat.Block, out var blocks))
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Block);
+            var block = blocks.Sum();
             if (block > 0) await CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Unpowered, null);
             await MediumWait();
         }
         
-        if (stats.TryGetValue(QuarkModel.FuseStat.Energy, out var energy))
+        if (stats.TryGetValue(QuarkModel.FuseStat.Energy, out var energies))
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Energy);
+            var energy = energies.Sum();
             if (energy > 0) await PlayerCmd.GainEnergy(energy, Owner);
             await MediumWait();
         }
 
-        if (stats.TryGetValue(QuarkModel.FuseStat.Draw, out var draw))
+        if (stats.TryGetValue(QuarkModel.FuseStat.Draw, out var draws))
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.Draw);
+            var draw = draws.Sum();
             if (draw > 0) await CardPileCmd.Draw(choiceContext, draw, Owner);
             await MediumWait();
         }
         
-        if (stats.TryGetValue(QuarkModel.FuseStat.SelfDamage, out var selfDamage))
+        if (stats.TryGetValue(QuarkModel.FuseStat.SelfDamage, out var selfDamages))
         {
             if (quarkManager != null)
                 await quarkManager.StepFuseQuarksAnim(QuarkModel.FuseStat.SelfDamage);
+            
             var electronCombatState = Owner.PlayerCombatState?.Electron();
-            if (electronCombatState != null)
-            {
-                var faradDrain = Math.Min(electronCombatState.Farad, selfDamage);
-                await ElectronPlayerCmd.LoseFarad(choiceContext, Owner, faradDrain);
-                selfDamage -= faradDrain;
-            }
 
-            if (selfDamage > 0)
-                await CreatureCmd.Damage(choiceContext, Owner.Creature,
-                    new DamageVar(selfDamage, ValueProp.Unpowered | ValueProp.Unblockable), Owner.Creature);
+            foreach (var selfDamage in selfDamages)
+            {
+                var curDamage = selfDamage;
+                if (electronCombatState != null)
+                {
+                    var faradDrain = Math.Min(electronCombatState.Farad, curDamage);
+                    await ElectronPlayerCmd.LoseFarad(choiceContext, Owner, faradDrain);
+                    curDamage -= faradDrain;
+                }
+
+                if (curDamage > 0)
+                    await CreatureCmd.Damage(choiceContext, Owner.Creature,
+                        new DamageVar(curDamage, ValueProp.Unpowered | ValueProp.Unblockable), Owner.Creature);
+            }
+            
             await MediumWait();
         }
 
@@ -270,11 +285,14 @@ public class QuarkQueue
         return Capacity >= MaxCapacity;
     }
 
-    private Dictionary<QuarkModel.FuseStat, decimal> GetStats()
+    private Dictionary<QuarkModel.FuseStat, List<decimal>> GetStats()
     {
-        var ret = new Dictionary<QuarkModel.FuseStat, decimal>();
+        var ret = new Dictionary<QuarkModel.FuseStat, List<decimal>>();
         foreach (var quark in _quarks.Where(quark => quark.Stat != QuarkModel.FuseStat.None))
-            ret[quark.Stat] = ret.GetValueOrDefault(quark.Stat, 0) + quark.Value;
+        {
+            if (!ret.ContainsKey(quark.Stat)) ret[quark.Stat] = [];
+            ret[quark.Stat].Add(quark.Value);
+        }
 
         return ret;
     }

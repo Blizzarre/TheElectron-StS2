@@ -18,7 +18,7 @@ public class Condense : ElectronEmptyCard
         WithQuarkTip<TopQuark>();
         WithVar(new QuarkCountVar(1));
         WithDamage(10, 4);
-        WithEnergy(1);
+        WithEnergy(1, 1);
     }
 
     protected override async Task OnPlayWrapper(PlayerChoiceContext choiceContext, CardPlay play)

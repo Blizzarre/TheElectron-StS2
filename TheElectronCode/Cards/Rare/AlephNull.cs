@@ -11,7 +11,7 @@ public class AlephNull : ElectronCard
 {
     public AlephNull() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        WithCards(2, 1);
+        WithCards(2);
         WithTip(ElectronKeywords.Drain);
         WithVar("Amount", 1, 1);
     }
